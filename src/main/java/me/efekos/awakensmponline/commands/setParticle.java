@@ -1,17 +1,15 @@
 package me.efekos.awakensmponline.commands;
 
 import me.efekos.awakensmponline.AwakenSMPOnline;
-import me.efekos.awakensmponline.files.DeadPlayersJSON;
+import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.awakensmponline.menus.ParticleMainMenu;
 import me.efekos.awakensmponline.utils.Logger;
-import me.efekos.awakensmponline.utils.Particles;
 import me.kodysimpson.simpapi.command.SubCommand;
 import me.kodysimpson.simpapi.exceptions.MenuManagerException;
 import me.kodysimpson.simpapi.exceptions.MenuManagerNotSetupException;
 import me.kodysimpson.simpapi.menu.MenuManager;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import me.efekos.awakensmponline.menus.ParticleColorSelector;
 
 import java.util.List;
 
@@ -60,7 +58,7 @@ public class setParticle extends SubCommand {
     public void perform(CommandSender sender, String[] args) {
         if(sender instanceof Player){
             Player p = (Player) sender;
-            DeadPlayersJSON.fetchData(p);
+            PlayerDataManager.fetch(p);
             try {
                 MenuManager.openMenu(ParticleMainMenu.class, p);
             } catch (MenuManagerException | MenuManagerNotSetupException e){

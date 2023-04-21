@@ -2,7 +2,7 @@ package me.efekos.awakensmponline.events;
 
 import me.efekos.awakensmponline.AwakenSMPOnline;
 import me.efekos.awakensmponline.classes.PlayerData;
-import me.efekos.awakensmponline.files.DeadPlayersJSON;
+import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.kodysimpson.simpapi.colors.ColorTranslator;
 import me.kodysimpson.simpapi.heads.SkullCreator;
 import org.bukkit.Bukkit;
@@ -34,10 +34,10 @@ public class PlayerDeath implements Listener {
             e.getDrops().add(head);
             p.setGameMode(GameMode.SPECTATOR);
 
-            PlayerData pData = DeadPlayersJSON.getDataFromUniqueId(p.getUniqueId());
+            PlayerData pData = PlayerDataManager.getDataFromUniqueId(p.getUniqueId());
             Objects.requireNonNull(pData).setIsDead(true);
             Objects.requireNonNull(pData).setDeadLocation(p.getLocation());
-            DeadPlayersJSON.updateData(p.getUniqueId(),pData);
+            PlayerDataManager.update(p.getUniqueId(),pData);
 
             if(cf.getBoolean("announce.slain") && Objects.equals(p.getWorld().getGameRuleValue(GameRule.SHOW_DEATH_MESSAGES), false)){
                 Bukkit.broadcastMessage(ColorTranslator.translateColorCodes(Objects.requireNonNull(cf.getString("messages.slain-announcement"))

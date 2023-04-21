@@ -2,7 +2,7 @@ package me.efekos.awakensmponline.events;
 
 import me.efekos.awakensmponline.AwakenSMPOnline;
 import me.efekos.awakensmponline.classes.PlayerData;
-import me.efekos.awakensmponline.files.DeadPlayersJSON;
+import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.awakensmponline.files.OfflineHeadsJSON;
 import me.efekos.awakensmponline.utils.Particles;
 import me.kodysimpson.simpapi.colors.ColorTranslator;
@@ -25,25 +25,25 @@ public class BlockPlace implements Listener {
         Configuration cf = plugin.getConfig();
         ItemMeta blockMeta = e.getItemInHand().getItemMeta();
         if (e.getItemInHand().getType() == Material.PLAYER_HEAD){
-            if(DeadPlayersJSON.getDataFromName(Objects.requireNonNull(blockMeta).getDisplayName()) != null) {
-                if(!Objects.requireNonNull(DeadPlayersJSON.getDataFromName(Objects.requireNonNull(blockMeta).getDisplayName())).isDead()){
+            if(PlayerDataManager.getDataFromName(Objects.requireNonNull(blockMeta).getDisplayName()) != null) {
+                if(!Objects.requireNonNull(PlayerDataManager.getDataFromName(Objects.requireNonNull(blockMeta).getDisplayName())).isDead()){
                     Player p = e.getPlayer();
-                    DeadPlayersJSON.fetchData(p);
+                    PlayerDataManager.fetch(p);
                     e.getBlockPlaced().breakNaturally();
                     p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_LAND,100,1);
                     p.sendMessage(ColorTranslator.translateColorCodes(Objects.requireNonNull(cf.getString("messages.not-dead"))));
                     return;
                 }
-                PlayerData deadPlayerData = DeadPlayersJSON.getDataFromName(blockMeta.getDisplayName());
+                PlayerData deadPlayerData = PlayerDataManager.getDataFromName(blockMeta.getDisplayName());
                 if(Objects.requireNonNull(deadPlayerData).isDead()){
                     OfflinePlayer deadP = plugin.getServer().getOfflinePlayer(deadPlayerData.getPlayerUniqueId());
                     if(deadP.isOnline()){
                         Player deadPlayer = deadP.getPlayer();
                         Player p = e.getPlayer();
-                        DeadPlayersJSON.fetchData(Objects.requireNonNull(deadPlayer));
+                        PlayerDataManager.fetch(Objects.requireNonNull(deadPlayer));
 
                         deadPlayerData.setIsDead(false);
-                        DeadPlayersJSON.updateData(deadPlayerData.getPlayerUniqueId(),deadPlayerData);
+                        PlayerDataManager.update(deadPlayerData.getPlayerUniqueId(),deadPlayerData);
 
                         Location locToTeleport = e.getBlockPlaced().getLocation();
                         locToTeleport.setX(locToTeleport.getX() + 0.5);
@@ -85,7 +85,7 @@ public class BlockPlace implements Listener {
 
                             deadPlayerData.setIsDead(false);
                             deadPlayerData.setIsOfflineReviving(true);
-                            DeadPlayersJSON.updateData(deadPlayerData.getPlayerUniqueId(), deadPlayerData);
+                            PlayerDataManager.update(deadPlayerData.getPlayerUniqueId(), deadPlayerData);
                         } else {
                             Player p = e.getPlayer();
                             e.getBlockPlaced().breakNaturally();

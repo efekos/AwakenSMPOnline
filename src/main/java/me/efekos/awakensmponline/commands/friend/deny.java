@@ -1,11 +1,10 @@
 package me.efekos.awakensmponline.commands.friend;
 
 import me.efekos.awakensmponline.AwakenSMPOnline;
-import me.efekos.awakensmponline.classes.Friend;
 import me.efekos.awakensmponline.classes.PlayerData;
 import me.efekos.awakensmponline.classes.Request;
 import me.efekos.awakensmponline.classes.RequestType;
-import me.efekos.awakensmponline.files.DeadPlayersJSON;
+import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.awakensmponline.files.RequestsJSON;
 import me.kodysimpson.simpapi.colors.ColorTranslator;
 import me.kodysimpson.simpapi.command.SubCommand;
@@ -74,7 +73,7 @@ public class deny extends SubCommand {
     public void perform(CommandSender sender, String[] args) {
         FileConfiguration cf = AwakenSMPOnline.getPlugin().getConfig();
         Player p = (Player) sender;
-        PlayerData pData = DeadPlayersJSON.getDataFromUniqueId(p.getUniqueId());
+        PlayerData pData = PlayerDataManager.getDataFromUniqueId(p.getUniqueId());
         if (args.length == 1){
             p.sendMessage(a("messages.commands.friend.generic.no-id"));
             return;
@@ -105,8 +104,8 @@ public class deny extends SubCommand {
      */
     @Override
     public List<String> getSubcommandArguments(Player player, String[] args) {
-        DeadPlayersJSON.fetchData(player);
-        PlayerData data = DeadPlayersJSON.getDataFromUniqueId(player.getUniqueId());
+        PlayerDataManager.fetch(player);
+        PlayerData data = PlayerDataManager.getDataFromUniqueId(player.getUniqueId());
         List<String> list = new ArrayList<>();
         if(args.length == 2){
             for (Request request : RequestsJSON.getAllData()) { // bütün istekler

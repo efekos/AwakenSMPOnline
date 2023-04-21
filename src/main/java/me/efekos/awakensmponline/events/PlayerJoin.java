@@ -3,15 +3,13 @@ package me.efekos.awakensmponline.events;
 import me.efekos.awakensmponline.AwakenSMPOnline;
 import me.efekos.awakensmponline.classes.OfflineHead;
 import me.efekos.awakensmponline.classes.PlayerData;
-import me.efekos.awakensmponline.files.DeadPlayersJSON;
+import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.awakensmponline.files.OfflineHeadsJSON;
 import me.efekos.awakensmponline.utils.Particles;
 import me.efekos.awakensmponline.utils.UpdateChecker;
 import me.kodysimpson.simpapi.colors.ColorTranslator;
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.Particle;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -38,10 +36,10 @@ public class PlayerJoin implements Listener {
             });
         }
 
-        DeadPlayersJSON.fetchData(p);
+        PlayerDataManager.fetch(p);
 
         if(cf.getBoolean("offline-revives")) {
-            PlayerData PlayerData = DeadPlayersJSON.getDataFromUniqueId(p.getUniqueId());
+            PlayerData PlayerData = PlayerDataManager.getDataFromUniqueId(p.getUniqueId());
 
             if(PlayerData.isInstantOfflineReviving()){
                 p.teleport(p.getWorld().getSpawnLocation());
@@ -50,7 +48,7 @@ public class PlayerJoin implements Listener {
                     Particles.Spawn(p);
                 }
 
-                DeadPlayersJSON.updateData(PlayerData.getPlayerUniqueId(),PlayerData);
+                PlayerDataManager.update(PlayerData.getPlayerUniqueId(),PlayerData);
             }
 
             if (Objects.requireNonNull(PlayerData).isOfflineReviving()) {
@@ -62,7 +60,7 @@ public class PlayerJoin implements Listener {
                 }
                 p.sendMessage(ColorTranslator.translateColorCodes(Objects.requireNonNull(cf.getString("messages.revive-notification"))));
                 PlayerData.setIsOfflineReviving(false);
-                DeadPlayersJSON.updateData(p.getUniqueId(), PlayerData);
+                PlayerDataManager.update(p.getUniqueId(), PlayerData);
 
                 for (Entity entity : p.getWorld().getEntities()) {
                     if (entity.getUniqueId().equals(HeadData.getHologramId())) entity.remove();

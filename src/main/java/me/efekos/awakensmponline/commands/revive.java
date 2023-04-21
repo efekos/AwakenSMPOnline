@@ -2,7 +2,7 @@ package me.efekos.awakensmponline.commands;
 
 import me.efekos.awakensmponline.AwakenSMPOnline;
 import me.efekos.awakensmponline.classes.PlayerData;
-import me.efekos.awakensmponline.files.DeadPlayersJSON;
+import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.awakensmponline.files.OfflineHeadsJSON;
 import me.efekos.awakensmponline.utils.Particles;
 import me.kodysimpson.simpapi.colors.ColorTranslator;
@@ -68,7 +68,7 @@ public class revive extends SubCommand {
         Configuration cf = AwakenSMPOnline.getPlugin().getConfig();
         if (sender instanceof Player) {
             Player p = (Player) sender;
-            DeadPlayersJSON.fetchData(p);
+            PlayerDataManager.fetch(p);
 
             if(!p.hasPermission("awakensmp.cmd.revive")){
                 p.sendMessage(ColorTranslator.translateColorCodes(Objects.requireNonNull(cf.getString("messages.no-perm"))));
@@ -82,18 +82,18 @@ public class revive extends SubCommand {
             }
 
 
-            if (DeadPlayersJSON.getDataFromName(args[1]) == null) {
+            if (PlayerDataManager.getDataFromName(args[1]) == null) {
 
                 if (args[1].equals("all")) {
                     AtomicReference<Boolean> isSome = new AtomicReference<>(false);
-                    DeadPlayersJSON.getAllData().forEach(playerData -> {
+                    PlayerDataManager.getAllData().forEach(playerData -> {
                         if(playerData.isDead()) isSome.set(true);
                     });
                     if(isSome.get()){
                         if(!cf.getBoolean("offline-revives")) {
                             AtomicReference<Integer> offlineCount = new AtomicReference<>(0);
                             AtomicReference<Integer> deadCount = new AtomicReference<>(0);
-                            DeadPlayersJSON.getAllData().stream().filter(PlayerData::isDead).forEach(playerData -> {
+                            PlayerDataManager.getAllData().stream().filter(PlayerData::isDead).forEach(playerData -> {
                                 OfflinePlayer deadP = p.getServer().getOfflinePlayer(playerData.getPlayerUniqueId());
                                 if (!deadP.isOnline()) offlineCount.set(offlineCount.get() + 1);
                                 deadCount.set(deadCount.get() + 1);
@@ -109,7 +109,7 @@ public class revive extends SubCommand {
                             }
                         }
 
-                        DeadPlayersJSON.getAllData().forEach(playerData -> {
+                        PlayerDataManager.getAllData().forEach(playerData -> {
                             if (playerData.isDead()) {
                                 OfflinePlayer deadP = p.getServer().getOfflinePlayer(playerData.getPlayerUniqueId());
                                 if (deadP.isOnline()) {
@@ -121,7 +121,7 @@ public class revive extends SubCommand {
                                     }
 
                                     playerData.setIsDead(false);
-                                    DeadPlayersJSON.updateData(playerData.getPlayerUniqueId(), playerData);
+                                    PlayerDataManager.update(playerData.getPlayerUniqueId(), playerData);
 
                                     if (cf.getBoolean("announce.revived")) {
                                         Bukkit.broadcastMessage(ColorTranslator.translateColorCodes(Objects.requireNonNull(cf.getString("messages.revived-announcement"))
@@ -132,7 +132,7 @@ public class revive extends SubCommand {
                                     if (cf.getBoolean("offline-revives")) {
                                         playerData.setInstantOfflineReviving(true);
                                         playerData.setIsDead(false);
-                                        DeadPlayersJSON.updateData(playerData.getPlayerUniqueId(), playerData);
+                                        PlayerDataManager.update(playerData.getPlayerUniqueId(), playerData);
                                     }
                                 }
                             }
@@ -147,7 +147,7 @@ public class revive extends SubCommand {
                 return;
             }
 
-            PlayerData deadPlayerData = DeadPlayersJSON.getDataFromName(args[1]);
+            PlayerData deadPlayerData = PlayerDataManager.getDataFromName(args[1]);
 
             assert deadPlayerData != null;
             if (!deadPlayerData.isDead()) {
@@ -158,10 +158,10 @@ public class revive extends SubCommand {
             OfflinePlayer deadP = p.getServer().getOfflinePlayer(deadPlayerData.getPlayerUniqueId());
             if (deadP.isOnline()) {
                 deadPlayerData.setIsDead(false);
-                DeadPlayersJSON.updateData(deadPlayerData.getPlayerUniqueId(), deadPlayerData);
+                PlayerDataManager.update(deadPlayerData.getPlayerUniqueId(), deadPlayerData);
                 Player deadPlayer = deadP.getPlayer();
                 Objects.requireNonNull(deadPlayer).setGameMode(GameMode.SURVIVAL);
-                deadPlayer.teleport(Objects.requireNonNull(DeadPlayersJSON.getDataFromUniqueId(deadPlayer.getUniqueId())).getDeadLocation());
+                deadPlayer.teleport(Objects.requireNonNull(PlayerDataManager.getDataFromUniqueId(deadPlayer.getUniqueId())).getDeadLocation());
                 if (cf.getBoolean("revive-particles")) {
                    Particles.Spawn(deadPlayer);
                 }
@@ -194,7 +194,7 @@ public class revive extends SubCommand {
 
                     deadPlayerData.setIsDead(false);
                     deadPlayerData.setIsOfflineReviving(true);
-                    DeadPlayersJSON.updateData(deadPlayerData.getPlayerUniqueId(), deadPlayerData);
+                    PlayerDataManager.update(deadPlayerData.getPlayerUniqueId(), deadPlayerData);
                 } else { //if offline revives is enabled
                     p.sendMessage(ColorTranslator.translateColorCodes(Objects.requireNonNull(cf.getString("messages.not-online"))));
                 }
@@ -212,10 +212,10 @@ public class revive extends SubCommand {
     @Override
     public List<String> getSubcommandArguments(Player player, String[] args) {
         List<String> list = new ArrayList<>();
-        for (PlayerData playerData : DeadPlayersJSON.getAllData()) {
+        for (PlayerData playerData : PlayerDataManager.getAllData()) {
             if (playerData.isDead()) list.add(playerData.getPlayerName());
         }
-        if(DeadPlayersJSON.getAllData() != null) list.add("all");
+        if(PlayerDataManager.getAllData() != null) list.add("all");
         return list;
     }
 }

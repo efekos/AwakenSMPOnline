@@ -4,7 +4,7 @@ import me.efekos.awakensmponline.AwakenSMPOnline;
 import me.efekos.awakensmponline.classes.PlayerData;
 import me.efekos.awakensmponline.classes.Request;
 import me.efekos.awakensmponline.classes.RequestType;
-import me.efekos.awakensmponline.files.DeadPlayersJSON;
+import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.awakensmponline.files.RequestsJSON;
 import me.kodysimpson.simpapi.colors.ColorTranslator;
 import me.kodysimpson.simpapi.command.SubCommand;
@@ -98,8 +98,8 @@ public class cancel extends SubCommand {
      */
     @Override
     public List<String> getSubcommandArguments(Player player, String[] args) {
-        DeadPlayersJSON.fetchData(player);
-        PlayerData data = DeadPlayersJSON.getDataFromUniqueId(player.getUniqueId());
+        PlayerDataManager.fetch(player);
+        PlayerData data = PlayerDataManager.getDataFromUniqueId(player.getUniqueId());
         List<String> list = new ArrayList<>();
         if(args.length == 2){
             for (Request request : RequestsJSON.getAllData()) { // bütün istekler

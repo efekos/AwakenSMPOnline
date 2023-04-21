@@ -4,7 +4,7 @@ import me.efekos.awakensmponline.AwakenSMPOnline;
 import me.efekos.awakensmponline.classes.PlayerData;
 import me.efekos.awakensmponline.classes.Request;
 import me.efekos.awakensmponline.classes.RequestType;
-import me.efekos.awakensmponline.files.DeadPlayersJSON;
+import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.awakensmponline.files.RequestsJSON;
 import me.efekos.awakensmponline.utils.Friends;
 import me.kodysimpson.simpapi.command.SubCommand;
@@ -59,7 +59,7 @@ public class requests extends SubCommand {
     @Override
     public void perform(CommandSender sender, String[] args) {
         Player p = (Player) sender;
-        PlayerData pData = DeadPlayersJSON.getDataFromUniqueId(p.getUniqueId());
+        PlayerData pData = PlayerDataManager.getDataFromUniqueId(p.getUniqueId());
 
         p.sendMessage("----Friend reqs----");
         for (Request request : RequestsJSON.getAllData()){

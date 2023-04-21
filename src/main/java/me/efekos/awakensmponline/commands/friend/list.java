@@ -3,14 +3,10 @@ package me.efekos.awakensmponline.commands.friend;
 import me.efekos.awakensmponline.AwakenSMPOnline;
 import me.efekos.awakensmponline.classes.Friend;
 import me.efekos.awakensmponline.classes.PlayerData;
-import me.efekos.awakensmponline.classes.Request;
-import me.efekos.awakensmponline.classes.RequestType;
-import me.efekos.awakensmponline.files.DeadPlayersJSON;
-import me.efekos.awakensmponline.files.RequestsJSON;
+import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.awakensmponline.utils.Friends;
 import me.kodysimpson.simpapi.command.SubCommand;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -60,7 +56,7 @@ public class list extends SubCommand {
     @Override
     public void perform(CommandSender sender, String[] args) {
         Player p = (Player) sender;
-        PlayerData pData = DeadPlayersJSON.getDataFromUniqueId(p.getUniqueId());
+        PlayerData pData = PlayerDataManager.getDataFromUniqueId(p.getUniqueId());
 
         p.sendMessage("----Friends----");
         for (Friend friend : pData.getFriends()){

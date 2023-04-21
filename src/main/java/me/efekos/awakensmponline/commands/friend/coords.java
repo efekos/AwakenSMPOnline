@@ -3,7 +3,7 @@ package me.efekos.awakensmponline.commands.friend;
 import me.efekos.awakensmponline.AwakenSMPOnline;
 import me.efekos.awakensmponline.classes.Friend;
 import me.efekos.awakensmponline.classes.PlayerData;
-import me.efekos.awakensmponline.files.DeadPlayersJSON;
+import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.awakensmponline.utils.Friends;
 import me.kodysimpson.simpapi.colors.ColorTranslator;
 import me.kodysimpson.simpapi.command.SubCommand;
@@ -73,12 +73,12 @@ public class coords extends SubCommand {
     @Override
     public void perform(CommandSender sender, String[] args) {
         Player p = (Player) sender;
-        PlayerData pData = DeadPlayersJSON.getDataFromUniqueId(p.getUniqueId());
+        PlayerData pData = PlayerDataManager.fetch(p.getUniqueId());
         if(args.length == 1) {
             p.sendMessage(a("messages.commands.friend.generic.no-name"));
             return;
         }
-        PlayerData friendPdata = DeadPlayersJSON.getDataFromName(args[1]);
+        PlayerData friendPdata = PlayerDataManager.fetch(args[1]);
         if(friendPdata == null) {
             p.sendMessage(a("messages.commands.friend.generic.no-real-name"));
             return;
@@ -96,7 +96,7 @@ public class coords extends SubCommand {
         if(friendP.isOnline()) {
             Player friendPO = (Player) friendP;
             friendData.setCoords(friendPO.getLocation());
-            DeadPlayersJSON.updateData(pData.getPlayerUniqueId(),pData);
+            PlayerDataManager.update(pData.getPlayerUniqueId(),pData);
         }
 
         if(friendP.isOnline()){
@@ -125,7 +125,7 @@ public class coords extends SubCommand {
     public List<String> getSubcommandArguments(Player player, String[] args) {
         List<String> list = new ArrayList<>();
         if(args.length == 2) {
-            PlayerData pData = DeadPlayersJSON.getDataFromUniqueId(player.getUniqueId());
+            PlayerData pData = PlayerDataManager.getDataFromUniqueId(player.getUniqueId());
             for (Friend friend : pData.getFriends()) {
                 list.add(friend.getName());
             }

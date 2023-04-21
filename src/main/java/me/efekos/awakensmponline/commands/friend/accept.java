@@ -5,7 +5,7 @@ import me.efekos.awakensmponline.classes.Friend;
 import me.efekos.awakensmponline.classes.PlayerData;
 import me.efekos.awakensmponline.classes.Request;
 import me.efekos.awakensmponline.classes.RequestType;
-import me.efekos.awakensmponline.files.DeadPlayersJSON;
+import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.awakensmponline.files.RequestsJSON;
 import me.kodysimpson.simpapi.colors.ColorTranslator;
 import me.kodysimpson.simpapi.command.SubCommand;
@@ -69,7 +69,7 @@ public class accept extends SubCommand {
     public void perform(CommandSender sender, String[] args) {
         FileConfiguration cf = AwakenSMPOnline.getPlugin().getConfig();
         Player p = (Player) sender;
-        PlayerData pData = DeadPlayersJSON.getDataFromUniqueId(p.getUniqueId());
+        PlayerData pData = PlayerDataManager.getDataFromUniqueId(p.getUniqueId());
         if (args.length == 1){p.sendMessage(a("messages.commands.friend.generic.no-id"));return;}
         Request request = RequestsJSON.getDataFromId(args[1]);
         if(request == null) {p.sendMessage(a("messages.commands.friend.generic.no-real-id"));return;}
@@ -77,7 +77,7 @@ public class accept extends SubCommand {
 
 
         Player friendP = p.getServer().getPlayer(request.getFrom());
-        PlayerData friendPdata = DeadPlayersJSON.getDataFromUniqueId(friendP.getUniqueId());
+        PlayerData friendPdata = PlayerDataManager.getDataFromUniqueId(friendP.getUniqueId());
         Friend friend = new Friend();
         friend.setAllowCoords(true);
         friend.setAllowWorld(true);
@@ -102,8 +102,8 @@ public class accept extends SubCommand {
 
         pData.addFriend(friend);
         friendPdata.addFriend(friendtoFrom);
-        DeadPlayersJSON.updateData(pData.getPlayerUniqueId(), pData);
-        DeadPlayersJSON.updateData(friendPdata.getPlayerUniqueId(),friendPdata);
+        PlayerDataManager.update(pData.getPlayerUniqueId(), pData);
+        PlayerDataManager.update(friendPdata.getPlayerUniqueId(),friendPdata);
         RequestsJSON.deleteData(request.getId());
         p.sendMessage(a("messages.commands.friend.accept.success").replace("%friend%",friend.getName()));
         friendP.sendMessage(a("messages.commands.friend.accept.accepted").replace("%friend%",p.getName()));
@@ -116,8 +116,8 @@ public class accept extends SubCommand {
      */
     @Override
     public List<String> getSubcommandArguments(Player player, String[] args) {
-        DeadPlayersJSON.fetchData(player);
-        PlayerData data = DeadPlayersJSON.getDataFromUniqueId(player.getUniqueId());
+        PlayerDataManager.fetch(player);
+        PlayerData data = PlayerDataManager.getDataFromUniqueId(player.getUniqueId());
         List<String> list = new ArrayList<>();
         if(args.length == 2){
             for (Request request : RequestsJSON.getAllData()) { // bütün istekler

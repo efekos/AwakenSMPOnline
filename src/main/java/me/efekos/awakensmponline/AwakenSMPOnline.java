@@ -2,7 +2,7 @@ package me.efekos.awakensmponline;
 
 import me.efekos.awakensmponline.commands.*;
 import me.efekos.awakensmponline.events.*;
-import me.efekos.awakensmponline.files.DeadPlayersJSON;
+import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.awakensmponline.files.OfflineHeadsJSON;
 import me.efekos.awakensmponline.files.RequestsJSON;
 import me.efekos.awakensmponline.utils.HeadRecipe;
@@ -107,7 +107,7 @@ public final class AwakenSMPOnline extends JavaPlugin {
 
         Logger.log("Loaded recipes.");
 
-        DeadPlayersJSON.loadData();
+        PlayerDataManager.load();
         OfflineHeadsJSON.loadData();
         RequestsJSON.loadData();
 

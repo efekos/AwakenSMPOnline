@@ -1,7 +1,7 @@
 package me.efekos.awakensmponline.events;
 
 import me.efekos.awakensmponline.AwakenSMPOnline;
-import me.efekos.awakensmponline.files.DeadPlayersJSON;
+import me.efekos.awakensmponline.files.PlayerDataManager;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,8 +14,8 @@ public class Move implements Listener {
     void onMove(PlayerMoveEvent e){
         AwakenSMPOnline plugin = AwakenSMPOnline.getPlugin();
         Configuration cf = plugin.getConfig();
-        DeadPlayersJSON.fetchData(e.getPlayer());
-        if(Objects.requireNonNull(DeadPlayersJSON.getDataFromUniqueId(e.getPlayer().getUniqueId())).isDead() && cf.getBoolean("freeze-dead")){
+        PlayerDataManager.fetch(e.getPlayer());
+        if(Objects.requireNonNull(PlayerDataManager.getDataFromUniqueId(e.getPlayer().getUniqueId())).isDead() && cf.getBoolean("freeze-dead")){
             e.setCancelled(true);
         }
     }

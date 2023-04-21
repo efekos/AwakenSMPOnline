@@ -107,4 +107,8 @@ public class PlayerData {
     public void setIsOfflineReviving(Boolean offlineReviving) {
         isOfflineReviving = offlineReviving;
     }
+
+    public boolean equals(PlayerData obj) {
+        return getPlayerUniqueId().equals(obj.getPlayerUniqueId());
+    }
 }

@@ -3,7 +3,7 @@ package me.efekos.awakensmponline.menus;
 import me.efekos.awakensmponline.AwakenSMPOnline;
 import me.efekos.awakensmponline.classes.ParticleColor;
 import me.efekos.awakensmponline.classes.PlayerData;
-import me.efekos.awakensmponline.files.DeadPlayersJSON;
+import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.kodysimpson.simpapi.colors.ColorTranslator;
 import me.kodysimpson.simpapi.exceptions.MenuManagerException;
 import me.kodysimpson.simpapi.exceptions.MenuManagerNotSetupException;
@@ -95,10 +95,10 @@ public class ParticleColorSelector extends Menu{
 
     private void setColor(InventoryClickEvent e,ParticleColor color){
         Player p = (Player) e.getWhoClicked();
-        PlayerData data = DeadPlayersJSON.getDataFromUniqueId(p.getUniqueId());
+        PlayerData data = PlayerDataManager.getDataFromUniqueId(p.getUniqueId());
         assert data != null;
         data.getParticleOptions().setColor(color);
-        DeadPlayersJSON.updateData(data.getPlayerUniqueId(),data);
+        PlayerDataManager.update(data.getPlayerUniqueId(),data);
     }
 
     @Override

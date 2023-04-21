@@ -5,13 +5,11 @@ import me.efekos.awakensmponline.classes.Friend;
 import me.efekos.awakensmponline.classes.PlayerData;
 import me.efekos.awakensmponline.classes.Request;
 import me.efekos.awakensmponline.classes.RequestType;
-import me.efekos.awakensmponline.files.DeadPlayersJSON;
+import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.awakensmponline.files.RequestsJSON;
 import me.efekos.awakensmponline.utils.Friends;
-import me.efekos.awakensmponline.utils.Requests;
 import me.kodysimpson.simpapi.colors.ColorTranslator;
 import me.kodysimpson.simpapi.command.SubCommand;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -79,8 +77,8 @@ public class add extends SubCommand {
         Player p = (Player) sender;
         if (args.length == 1){p.sendMessage(a("messages.commands.friend.generic.no-id"));return;}
 
-        PlayerData toPData = DeadPlayersJSON.getDataFromName(args[1]);
-        PlayerData pData = DeadPlayersJSON.getDataFromUniqueId(p.getUniqueId());
+        PlayerData toPData = PlayerDataManager.getDataFromName(args[1]);
+        PlayerData pData = PlayerDataManager.getDataFromUniqueId(p.getUniqueId());
         Player toP = p.getServer().getPlayer(Objects.requireNonNull(toPData).getPlayerUniqueId());
 
         if (toP == null) {p.sendMessage(a("messages.commands.friend.add.plr-notreal"));return;}
@@ -115,7 +113,7 @@ public class add extends SubCommand {
     public List<String> getSubcommandArguments(Player player, String[] args) {
         List<String> list = new ArrayList<>();
         if (args.length == 2) {
-            for (PlayerData playerData : DeadPlayersJSON.getAllData()) {
+            for (PlayerData playerData : PlayerDataManager.getAllData()) {
                 list.add(playerData.getPlayerName());
             }
         }

@@ -2,16 +2,11 @@ package me.efekos.awakensmponline.utils;
 
 import me.efekos.awakensmponline.classes.ParticleColor;
 import me.efekos.awakensmponline.classes.PlayerData;
-import me.efekos.awakensmponline.files.DeadPlayersJSON;
+import me.efekos.awakensmponline.files.PlayerDataManager;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.Particle;
-import org.bukkit.SoundGroup;
-import org.bukkit.block.Block;
-import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class Particles {
 
@@ -92,7 +87,7 @@ public class Particles {
     }
 
     public static void Spawn(Player p){
-        PlayerData data = DeadPlayersJSON.getDataFromUniqueId(p.getUniqueId());
+        PlayerData data = PlayerDataManager.getDataFromUniqueId(p.getUniqueId());
         assert data != null;
 
         switch (data.getParticleOptions().getType()){

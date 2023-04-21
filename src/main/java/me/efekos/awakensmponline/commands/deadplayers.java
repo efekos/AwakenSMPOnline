@@ -2,7 +2,7 @@ package me.efekos.awakensmponline.commands;
 
 import me.efekos.awakensmponline.AwakenSMPOnline;
 import me.efekos.awakensmponline.classes.PlayerData;
-import me.efekos.awakensmponline.files.DeadPlayersJSON;
+import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.kodysimpson.simpapi.colors.ColorTranslator;
 import me.kodysimpson.simpapi.command.SubCommand;
 import org.bukkit.command.CommandSender;
@@ -65,7 +65,7 @@ public class deadplayers extends SubCommand {
             }
         }
 
-        List<PlayerData> deadPlayersList = DeadPlayersJSON.getAllData();
+        List<PlayerData> deadPlayersList = PlayerDataManager.getAllData();
         sender.sendMessage(ColorTranslator.translateColorCodes(Objects.requireNonNull(cf.getString("messages.commands.deadplayers.header"))));
         List<String> names = new ArrayList<>();
 

@@ -3,15 +3,12 @@ package me.efekos.awakensmponline.menus;
 import me.efekos.awakensmponline.AwakenSMPOnline;
 import me.efekos.awakensmponline.classes.ParticleColor;
 import me.efekos.awakensmponline.classes.PlayerData;
-import me.efekos.awakensmponline.files.DeadPlayersJSON;
-import me.kodysimpson.simpapi.colors.ColorTranslator;
+import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.kodysimpson.simpapi.exceptions.MenuManagerException;
 import me.kodysimpson.simpapi.exceptions.MenuManagerNotSetupException;
 import me.kodysimpson.simpapi.menu.Menu;
-import me.kodysimpson.simpapi.menu.MenuManager;
 import me.kodysimpson.simpapi.menu.PlayerMenuUtility;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -19,8 +16,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Objects;
 
 public class ArmorMenu extends Menu{
     public ArmorMenu(PlayerMenuUtility playerMenuUtility) {
@@ -96,10 +91,10 @@ public class ArmorMenu extends Menu{
 
     private void setColor(InventoryClickEvent e,ParticleColor color){
         Player p = (Player) e.getWhoClicked();
-        PlayerData data = DeadPlayersJSON.getDataFromUniqueId(p.getUniqueId());
+        PlayerData data = PlayerDataManager.getDataFromUniqueId(p.getUniqueId());
         assert data != null;
         data.getParticleOptions().setColor(color);
-        DeadPlayersJSON.updateData(data.getPlayerUniqueId(),data);
+        PlayerDataManager.update(data.getPlayerUniqueId(),data);
     }
 
     @Override

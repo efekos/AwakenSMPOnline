@@ -3,8 +3,7 @@ package me.efekos.awakensmponline.commands.friend;
 import me.efekos.awakensmponline.AwakenSMPOnline;
 import me.efekos.awakensmponline.classes.Friend;
 import me.efekos.awakensmponline.classes.PlayerData;
-import me.efekos.awakensmponline.files.DeadPlayersJSON;
-import me.efekos.awakensmponline.menus.ArmorMenu;
+import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.awakensmponline.utils.Friends;
 import me.kodysimpson.simpapi.colors.ColorTranslator;
 import me.kodysimpson.simpapi.command.SubCommand;
@@ -12,12 +11,10 @@ import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.EquipmentSlot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,12 +75,12 @@ public class info extends SubCommand {
     @Override
     public void perform(CommandSender sender, String[] args) {
         Player p = (Player) sender;
-        PlayerData pData = DeadPlayersJSON.getDataFromUniqueId(p.getUniqueId());
+        PlayerData pData = PlayerDataManager.getDataFromUniqueId(p.getUniqueId());
         if(args.length == 1) {
             p.sendMessage(a("messages.commands.friend.generic.no-name"));
             return;
         }
-        PlayerData friendPdata = DeadPlayersJSON.getDataFromName(args[1]);
+        PlayerData friendPdata = PlayerDataManager.getDataFromName(args[1]);
         if(friendPdata == null) {
             p.sendMessage(a("messages.commands.friend.generic.no-real-name"));
             return;
@@ -98,7 +95,7 @@ public class info extends SubCommand {
         if(friendP.isOnline()) {
             Player friendPO = (Player) friendP;
             friendData.setCoords(friendPO.getLocation());
-            DeadPlayersJSON.updateData(pData.getPlayerUniqueId(),pData);
+            PlayerDataManager.update(pData.getPlayerUniqueId(),pData);
 
             TextComponent component = new TextComponent("" + friendPO.getLevel());
             component.setColor(ChatColor.GREEN);
@@ -133,7 +130,7 @@ public class info extends SubCommand {
     public List<String> getSubcommandArguments(Player player, String[] args) {
         List<String> list = new ArrayList<>();
         if(args.length == 2) {
-            PlayerData pData = DeadPlayersJSON.getDataFromUniqueId(player.getUniqueId());
+            PlayerData pData = PlayerDataManager.getDataFromUniqueId(player.getUniqueId());
             for (Friend friend : pData.getFriends()) {
                 list.add(friend.getName());
             }

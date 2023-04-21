@@ -1,13 +1,8 @@
 package me.efekos.awakensmponline.commands.friend;
 
 import me.efekos.awakensmponline.AwakenSMPOnline;
-import me.efekos.awakensmponline.classes.Friend;
 import me.efekos.awakensmponline.classes.PlayerData;
-import me.efekos.awakensmponline.classes.Request;
-import me.efekos.awakensmponline.classes.RequestType;
-import me.efekos.awakensmponline.files.DeadPlayersJSON;
-import me.efekos.awakensmponline.files.RequestsJSON;
-import me.efekos.awakensmponline.utils.Friends;
+import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.kodysimpson.simpapi.colors.ColorTranslator;
 import me.kodysimpson.simpapi.command.SubCommand;
 import org.bukkit.command.CommandSender;
@@ -80,8 +75,8 @@ public class modify extends SubCommand {
             return;
         }
 
-        PlayerData toPData = DeadPlayersJSON.getDataFromName(args[1]);
-        PlayerData pData = DeadPlayersJSON.getDataFromUniqueId(p.getUniqueId());
+        PlayerData toPData = PlayerDataManager.getDataFromName(args[1]);
+        PlayerData pData = PlayerDataManager.getDataFromUniqueId(p.getUniqueId());
         Player toP = p.getServer().getPlayer(Objects.requireNonNull(toPData).getPlayerUniqueId());
 
         if(toPData.findFriend(p.getUniqueId()) == null){
@@ -102,7 +97,7 @@ public class modify extends SubCommand {
     public List<String> getSubcommandArguments(Player player, String[] args) {
         List<String> list = new ArrayList<>();
         if (args.length == 2) {
-            for (PlayerData playerData : DeadPlayersJSON.getAllData()) {
+            for (PlayerData playerData : PlayerDataManager.getAllData()) {
                 list.add(playerData.getPlayerName());
             }
         }
