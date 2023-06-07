@@ -1,125 +1,76 @@
 package me.efekos.awakensmponline.commands.friend;
 
-import me.efekos.awakensmponline.AwakenSMPOnline;
-import me.efekos.awakensmponline.classes.Friend;
-import me.efekos.awakensmponline.classes.PlayerData;
+import me.efekos.awakensmponline.commands.Friend;
+import me.efekos.awakensmponline.commands.args.FriendArgument;
+import me.efekos.awakensmponline.config.LangConfig;
+import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.files.PlayerDataManager;
-import me.efekos.awakensmponline.menus.ArmorMenu;
-import me.kodysimpson.simpapi.colors.ColorTranslator;
-import me.kodysimpson.simpapi.command.SubCommand;
-import me.kodysimpson.simpapi.menu.PlayerMenuUtility;
+import me.efekos.awakensmponline.menu.FriendArmorMenu;
+import me.efekos.simpler.annotations.Command;
+import me.efekos.simpler.commands.CoreCommand;
+import me.efekos.simpler.commands.SubCommand;
+import me.efekos.simpler.commands.syntax.Syntax;
+import me.efekos.simpler.commands.translation.TranslateManager;
+import me.efekos.simpler.menu.MenuData;
+import me.efekos.simpler.menu.MenuManager;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.List;
 
-public class armor extends SubCommand {
-    public armor() {
-        super();
+@Command(name = "armor",description = "See what your friends equipped",permission = "awakensmp.command.friend.armor")
+public class Armor extends SubCommand {
+    public Armor(@NotNull String name) {
+        super(name);
     }
 
-    /**
-     * @return The name of the subcommand
-     */
+    public Armor(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+        super(name, description, usageMessage, aliases);
+    }
+
     @Override
-    public String getName() {
-        return "armor";
+    public Class<? extends CoreCommand> getParent() {
+        return Friend.class;
     }
 
-    /**
-     * @return The aliases that can be used for this command. Can be null
-     */
     @Override
-    public List<String> getAliases() {
-        return null;
+    public @NotNull Syntax getSyntax() {
+        return new Syntax()
+                .withArgument(new FriendArgument());
     }
 
-    /**
-     * @return A description of what the subcommand does to be displayed
-     */
     @Override
-    public String getDescription() {
-        return AwakenSMPOnline.getPlugin().getConfig().getString("messages.commands.main.desc-fr-arm");
-    }
-
-    /**
-     * @return An example of how to use the subcommand
-     */
-    @Override
-    public String getSyntax() {
-        FileConfiguration cf = AwakenSMPOnline.getPlugin().getConfig();
-        String p = "messages.command-args.";
-        return "/friend armor " + cf.getString(p + "player");
-    }
-
-    /**
-     * Translates a config message in one action
-     * @param key the key to get message from config
-     * @return the color translated key
-     */
-    private String a(String key){
-        FileConfiguration cf = AwakenSMPOnline.getPlugin().getConfig();
-        return ColorTranslator.translateColorCodes(cf.getString(key));
-    }
-
-    /**
-     * @param sender The thing that ran the command
-     * @param args   The args passed into the command when run
-     */
-    @Override
-    public void perform(CommandSender sender, String[] args) {
-        Player p = (Player) sender;
-        PlayerData pData = PlayerDataManager.getDataFromUniqueId(p.getUniqueId());
-        if(args.length == 1) {
-            p.sendMessage(a("messages.commands.friend.generic.no-name"));
+    public void onPlayerUse(Player player, String[] args) {
+        PlayerData data = PlayerDataManager.fetch(player.getUniqueId());
+        if(!data.friendsWith(args[0])){
+            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.not-friend").replace("%player%",args[0])));
             return;
         }
-        PlayerData friendPdata = PlayerDataManager.getDataFromName(args[1]);
-        if(friendPdata == null) {
-            p.sendMessage(a("messages.commands.friend.generic.no-real-name"));
+        me.efekos.awakensmponline.data.Friend friendData = data.getFriend(args[0]);
+        if(!friendData.getModifications().isArmorAllowed()){
+            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.not-allowed").replace("%player%",friendData.getLastName())));
             return;
         }
-        Friend friendData = pData.findFriend(friendPdata.getPlayerUniqueId());
-        if(friendData == null){
-            p.sendMessage(a("messages.commands.friend.armor.no-fri"));
+        OfflinePlayer offlineFriend = Bukkit.getOfflinePlayer(friendData.getPlayerId());
+        if(!offlineFriend.isOnline()){
+            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.not-online").replace("%player%", offlineFriend.getName())));
             return;
         }
-        OfflinePlayer friendP = p.getServer().getOfflinePlayer(friendData.getUuid());
-        if(friendP.isOnline()){
-            Player friendPO = (Player) friendP;
+        // we are allowed to and can look his armor
+        Player friend = offlineFriend.getPlayer();
 
+        MenuData menuData = MenuManager.getMenuData(player);
+        menuData.set("invToOpen",friend.getInventory());
+        MenuManager.updateMenuData(player,menuData);
 
-            PlayerMenuUtility utility = new PlayerMenuUtility(p);
-            utility.setData("invToOpen",friendPO.getInventory());
-            try {
-                ArmorMenu.class.getConstructor(PlayerMenuUtility.class).newInstance(utility).open();
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                e.printStackTrace();
-            }
-        } else {
-            p.sendMessage(a("messages.commands.armor.no-onli"));
-        }
-
+        MenuManager.Open(player, FriendArmorMenu.class);
     }
 
-    /**
-     * @param player The player who ran the command
-     * @param args   The args passed into the command when run
-     * @return A list of arguments to be suggested for autocomplete
-     */
     @Override
-    public List<String> getSubcommandArguments(Player player, String[] args) {
-        List<String> list = new ArrayList<>();
-        if(args.length == 2) {
-            PlayerData pData = PlayerDataManager.getDataFromUniqueId(player.getUniqueId());
-            for (Friend friend : pData.getFriends()) {
-                list.add(friend.getName());
-            }
-        }
-        return list;
+    public void onConsoleUse(ConsoleCommandSender sender, String[] args) {
+
     }
 }

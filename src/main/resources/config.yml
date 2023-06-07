@@ -1,211 +1,56 @@
-#config with all comments is in the spigot page:
-#https://www.spigotmc.org/resources/awakensmp-online.102573/
-freeze-dead: true
+# Effects that will be applied to dead players
+when-dead:
+
+  # If enabled, dead players won't be able to move.
+  freeze: true
+
+  # If enabled, dead players will have Blindness effect.
+  blind: true
+
+# If enabled, players will pop out particles when getting revived, they can also customize their particles with /particles
 revive-particles: true
+
+# If enabled, dead players will be able to get revived, even while they are offline.
+# You can't revive someone offline yet. so don't mess with this.
 offline-revives: false
 
-announce:
-  revived: false
-  crafted: false
-  slain: false
+# Features.
+features:
 
-messages:
-  revived-announcement: '%reviver% &rrevived %revived%'
-  crafted-announcement: '%player% &rcrafted a revive head'
-  slain-announcement: '%killer% &rkilled %victim%'
-  up-to-date: 'Plugin is up to date'
-  update-available-console: 'Plugin has an update. Please download it from here: https://www.spigotmc.org/resources/awakensmp-online.102573/'
-  update-available-player: '&a[AwakenSMPOnline] &6Plugin has an update. Please download it from here: https://www.spigotmc.org/resources/awakensmp-online.102573/'
-  no-perm: '&cYou don''t have permission to do that!'
-  offline-hologram: '&e%player% will respawn here'
-  revive-notification: 'Someone revived you here when you''re offline!'
-  not-dead: '&cThis player is not dead'
-  invalid-name: '&cCouldn''t found a player named that'
-  not-online: '&cThis player is dead but not online'
-  not-player: '&cOnly players can use this command.'
+  # Enables /friend command.
+  friend: true
 
-  commands:
-    reloadconfig: '&aReloaded Config!'
-    deadplayers:
-      header: '&4-----&cDead Players&4-----'
-      format: '- %player%'
-      none: 'No one was dead yet.'
+  # Enabled /team command.
+  team: true
 
-    main:
-      header: '&2----------&aHelp Menu&2----------'
-      command-format: '&e%syntax% &6- &f%description%'
-      desc-dp: 'See how many players are dead'
-      desc-rc: 'Reloads the config'
-      desc-rvv: 'Revive a player without a head'
-      desc-opt: 'Change some options in-game'
-      desc-prt: 'Customize your own revive particle'
-      desc-fr-add: 'Add a friend'
-      desc-fr-accpet: 'Accept a friend request'
-      desc-fr-arm: 'See your friend''s armor'
-      desc-fr-can: 'Cancel a friend request'
-      desc-fr-coo: 'See your friend''s coordinates'
-      desc-fr-den: 'Deny a friend request'
-      desc-fr-inf: 'Get information about your friends'
-      desc-fr-lst: 'See a list of your friends'
-      desc-fr-req: 'See a list of your friend requests'
-      desc-fr-mod: 'Change your friend options'
-      desc-fr-com: 'Get a compass that leads to your friends'
-      footer: '&2-----------------------------'
+# Announcement options
+announcements:
 
-    revive:
-      no-arg: '&cMust give a player name to revive him. Usage: /awakensmp revive <player>'
-      wrong-arg: '&cMust give a VALID player name to revive him. Usage: /awakensmp revive <player>'
-      not-dead: '&cMust give a DEAD player name to revive him. Usage: /awakensmp revive <player>'
-      success: '&aRevived player!'
-      all:
-        no-dead: '&cNo one is dead'
-        offline-players: '&6%count% Player(s) are offline so they can''t be revived now because offline revives is closed on server'
-        all-offline: '&cAll players that dead is offline'
-        success: '&aRevived players!'
+  # If enabled, everyone will get announcements when someone gets revived.
+  revives: false
 
-    settings:
-      header: '&4----------&cSettings&4----------'
-      freeze-dead: '&fFreeze Dead Players'
-      revive-particles: '&fParticles &7(when revived)'
-      offline-revives:  '&fOffline Player Reviving'
-      announce-slain: '&fAnnounce When Player Killed'
-      announce-craft: '&fAnnounce When Revive Head Crafted'
-      announce-revive: '&fAnnounce When Player Revived'
-      use-default: '&fUse Default Recipe:'
-      head-name: '&fRevive Head Name'
-      head-desc: '&fRevive Head Description'
-      footer: '&4---------------------------'
-      boolean-true: '&a&l[ENABLED]'
-      boolean-false: '&c&l[DISABLED]'
-      boolean-enable: '&eClick to enable it'
-      boolean-disable: '&eClick to disable it'
-      string: '&e&l[EDIT]'
-      string-option-suffix: '&f:&d'
-      string-desc: '&eClick to edit it'
-      string-desc-cmd: '<message here, &sp to use space>'
+  # If enabled, everyone will get announcements when someone crafts a revive head.
+  crafts: false
 
-    particle-menu:
-      main-title: 'Particle Options'
-      type-title: 'Select a Particle Type'
-      color-title: 'Select a Particle Color'
-      btn-close: '&cClose'
-      btn-back: '&eBack'
-      main-color: '&f&lChange Color'
-      main-style: '&f&lChange Style'
-      color-white: '&#eaeded&lWhite'
-      color-orange: '&#f17716&lOrange'
-      color-magenta: '&#be46b5&lMagenta'
-      color-light-blue: '&#3cb0da&lLight Blue'
-      color-yellow: '&#f9c629&lYellow'
-      color-lime: '&#71ba1a&lLime'
-      color-pink: '&#ee90ad&lPink'
-      color-gray: '&#3f4548&lGray'
-      color-light-gray: '&#8e8f87&lLight Gray'
-      color-cyan: '&#158a91&lCyan'
-      color-purple: '&#7b2bad&lPurple'
-      color-blue: '&#353a9e&lBlue'
-      color-brown: '&#734829&lBrown'
-      color-green: '&#556e1c&lGreen'
-      color-red: '&#a12823&lRed'
-      color-black: '&#2e2e37&lBlack'
-      type-explosion: '&f&lExplosion'
-      type-pop: '&f&lPop'
-      type-puff: '&f&lPuff'
-      type-dust: '&f&lDust'
-      type-beam: '&f&lBeam'
-      type-potion: '&f&lPotion'
-      type-totem: '&f&lTotem'
-      type-block: '&f&lBlock'
+  # If enabled, everyone will get announcements when someone gets killed and drops his head, even while showDeathMessages are off.
+  kills: false
 
-    friend:
-
-      generic:
-        no-name: '&cNeed a name'
-        no-real-name: '&cThere is no player named that'
-        no-id: '&cNeed an id'
-        no-real-id: '&cThere is no friend request with this id'
-        no-fri-id: '&cThis id belongs to a teammate request'
-
-      buttons:
-        accept: '&a[Accept]'
-        deny: '&c[Deny]'
-        cancel: '&6[Cancel]'
-        coords: '&b[Coords]'
-        see-armor: '&b[See]'
-        info: '&b[Info]'
-        none-text: '&cnone'
-
-      accept:
-        success: '&a%friend% added as your friend!'
-        accepted: '&a%friend% accepted your friend request!'
-
-      add:
-        plr-notreal: '&cThere is no player with this name'
-        plr-notonli: '&cThis player is not online'
-        itself: '&cYou can''t send friend requests to yourself'
-        already-friends: '&cYou are already friends with this player'
-        already-req-from: '&cThis player already sent you a friend request. Try accepting it'
-        already-req-to: '&cYou already sent a friend request to this player'
-        success: '&aFriend request sent!'
-        sent: '&e%player% sent you a friend request!'
-
-      armor:
-        no-fri: '&cYou are not friends with this player'
-        not-onli: '&cThis friend is not online'
-
-      cancel:
-        success: '&aCanceled friend request!'
-
-      coords:
-        no-fri: '&cYou are not friends with this player'
-        hided: '&cThis player hided his coords to you'
-        hihedw: '&cThis player hihed his world to you'
-        header: '&6----------&e%player%''s Coords&6----------'
-        header-last: '&6----------&e%player%''s Last Coords&6----------'
-        x: '&eX: %x%'
-        y: '&eY: %y%'
-        z: '&eZ: %z%'
-        world: '&eWorld: %world%'
-        footer: '&6----------------------------------------'
-
-      deny:
-       success: '&aDenied %player%''s request'
-       den: '&e%player% denied your friend request'
-
-      info:
-        no-fri: '&cYou are not friends with this player'
-        header: '&2----------&a%player%''s Info&2----------'
-        xp: 'XP: %xp%'
-
-
-      modify:
-        no-fri: '&cYou are not friend with this player'
-        ifself: '&cYou can''t modify your settings my dear big brained friend.'
-
-  command-args:
-    player: '<player>'
-    sett-option: '[option]'
-    sett-value: '[value]'
-    id: '<id>'
-
-
-
-
-
+# Customize Revive Head's recipe
 recipe:
+
+  # If enabled, everything will be ignored and default recipe will be used.
   use-default: true
+
+  # Recipe's shape. Every letter is a symbol of a material. Customize these symbols and their materials in 'materials' to use them in this shape.
   shape:
     - 'DND'
     - 'TWT'
     - 'DND'
+
+  # All materials that should be used inside 'shape'. See https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html for all materials.
   materials:
     D: 'DIAMOND_BLOCK'
     T: 'TOTEM_OF_UNDYING'
     W: 'NETHER_STAR'
     N: 'NETHERITE_INGOT'
     a: 'AIR'
-  head:
-    name: '&eRevive Head'
-    desc: '&eRename it to revive a player!'
-
-version: "1.5.1"

@@ -1,81 +1,59 @@
 package me.efekos.awakensmponline.commands.friend;
 
-import me.efekos.awakensmponline.AwakenSMPOnline;
-import me.efekos.awakensmponline.classes.Friend;
-import me.efekos.awakensmponline.classes.PlayerData;
+import me.efekos.awakensmponline.commands.Friend;
+import me.efekos.awakensmponline.config.LangConfig;
+import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.files.PlayerDataManager;
-import me.efekos.awakensmponline.utils.Friends;
-import me.kodysimpson.simpapi.command.SubCommand;
+import me.efekos.awakensmponline.utils.ButtonManager;
+import me.efekos.simpler.annotations.Command;
+import me.efekos.simpler.commands.CoreCommand;
+import me.efekos.simpler.commands.SubCommand;
+import me.efekos.simpler.commands.syntax.Syntax;
+import me.efekos.simpler.commands.translation.TranslateManager;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
-public class list extends SubCommand {
-    public list() {
-        super();
+@Command(name = "list",description = "See a list of your friends!",permission = "awakensmp.command.friend.list")
+public class List extends SubCommand {
+    @Override
+    public Class<? extends CoreCommand> getParent() {
+        return Friend.class;
     }
 
-    /**
-     * @return The name of the subcommand
-     */
     @Override
-    public String getName() {
-        return "list";
+    public @NotNull Syntax getSyntax() {
+        return new Syntax();
     }
 
-    /**
-     * @return The aliases that can be used for this command. Can be null
-     */
     @Override
-    public List<String> getAliases() {
-        return null;
+    public void onPlayerUse(Player player, String[] args) {
+        player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.list.header")));
+
+        PlayerData data = PlayerDataManager.fetch(player.getUniqueId());
+        data.getFriends().forEach(friend -> {
+            PlayerData friendData = PlayerDataManager.fetch(friend.getPlayerId());
+
+            player.spigot().sendMessage(new TextComponent(TranslateManager.translateColors(LangConfig.get("commands.friend.list.format")
+                    .replace("%name%",friendData.getName())
+            )),new TextComponent(" "), ButtonManager.generateModifyButton(friendData.getName()),new TextComponent(" "),ButtonManager.generateInventoryButton(friendData.getName()),new TextComponent(" "),ButtonManager.generateArmorButton(friendData.getName()),new TextComponent(" "),ButtonManager.generateRemoveButton(friendData.getName()));
+
+        });
+
+        player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.list.footer")));
     }
 
-    /**
-     * @return A description of what the subcommand does to be displayed
-     */
     @Override
-    public String getDescription() {
-        return AwakenSMPOnline.getPlugin().getConfig().getString("messages.commands.main.desc-fr-lst");
+    public void onConsoleUse(ConsoleCommandSender sender, String[] args) {
+
     }
 
-    /**
-     * @return An example of how to use the subcommand
-     */
-    @Override
-    public String getSyntax() {
-        return "/friend list";
+    public List(@NotNull String name) {
+        super(name);
     }
 
-    /**
-     * @param sender The thing that ran the command
-     * @param args   The args passed into the command when run
-     */
-    @Override
-    public void perform(CommandSender sender, String[] args) {
-        Player p = (Player) sender;
-        PlayerData pData = PlayerDataManager.getDataFromUniqueId(p.getUniqueId());
-
-        p.sendMessage("----Friends----");
-        for (Friend friend : pData.getFriends()){
-            p.spigot().sendMessage(
-                    new TextComponent(friend.getName() + " "),
-                    Friends.makeCoordsButton(friend.getName()),
-                    Friends.makeInfoButton(friend.getName())
-                    );
-        }
-        p.sendMessage("------------------");
-    }
-
-    /**
-     * @param player The player who ran the command
-     * @param args   The args passed into the command when run
-     * @return A list of arguments to be suggested for autocomplete
-     */
-    @Override
-    public List<String> getSubcommandArguments(Player player, String[] args) {
-        return null;
+    public List(@NotNull String name, @NotNull String description, @NotNull String usageMessage, java.util.@NotNull List<String> aliases) {
+        super(name, description, usageMessage, aliases);
     }
 }

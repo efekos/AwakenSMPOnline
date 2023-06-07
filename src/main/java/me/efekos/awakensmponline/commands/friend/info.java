@@ -1,140 +1,104 @@
 package me.efekos.awakensmponline.commands.friend;
 
-import me.efekos.awakensmponline.AwakenSMPOnline;
-import me.efekos.awakensmponline.classes.Friend;
-import me.efekos.awakensmponline.classes.PlayerData;
+import me.efekos.awakensmponline.commands.Friend;
+import me.efekos.awakensmponline.commands.args.FriendArgument;
+import me.efekos.awakensmponline.config.LangConfig;
+import me.efekos.awakensmponline.data.FriendModifications;
+import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.files.PlayerDataManager;
-import me.efekos.awakensmponline.utils.Friends;
-import me.kodysimpson.simpapi.colors.ColorTranslator;
-import me.kodysimpson.simpapi.command.SubCommand;
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
+import me.efekos.simpler.annotations.Command;
+import me.efekos.simpler.commands.CoreCommand;
+import me.efekos.simpler.commands.SubCommand;
+import me.efekos.simpler.commands.syntax.Syntax;
+import me.efekos.simpler.commands.translation.TranslateManager;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class info extends SubCommand {
-    public info() {
-        super();
+@Command(name = "info",description = "Information about your friends",permission = "awakensmp.command.friend.info")
+public class Info extends SubCommand {
+    public Info(@NotNull String name) {
+        super(name);
     }
 
-    /**
-     * @return The name of the subcommand
-     */
+    public Info(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+        super(name, description, usageMessage, aliases);
+    }
+
     @Override
-    public String getName() {
-        return "info";
+    public Class<? extends CoreCommand> getParent() {
+        return Friend.class;
     }
 
-    /**
-     * @return The aliases that can be used for this command. Can be null
-     */
     @Override
-    public List<String> getAliases() {
-        return null;
+    public @NotNull Syntax getSyntax() {
+        return new Syntax()
+                .withArgument(new FriendArgument());
     }
 
-    /**
-     * @return A description of what the subcommand does to be displayed
-     */
     @Override
-    public String getDescription() {
-        return AwakenSMPOnline.getPlugin().getConfig().getString("messages.commands.main.desc-fr-inf");
-    }
-
-    /**
-     * @return An example of how to use the subcommand
-     */
-    @Override
-    public String getSyntax() {
-        FileConfiguration cf = AwakenSMPOnline.getPlugin().getConfig();
-        String p = "messages.command-args.";
-        return "/friend info " + cf.getString(p + "player");
-    }
-
-    /**
-     * Translates a config message in one action
-     * @param key the key to get message from config
-     * @return the color translated key
-     */
-    private String a(String key){
-        FileConfiguration cf = AwakenSMPOnline.getPlugin().getConfig();
-        return ColorTranslator.translateColorCodes(cf.getString(key));
-    }
-
-    /**
-     * @param sender The thing that ran the command
-     * @param args   The args passed into the command when run
-     */
-    @Override
-    public void perform(CommandSender sender, String[] args) {
-        Player p = (Player) sender;
-        PlayerData pData = PlayerDataManager.getDataFromUniqueId(p.getUniqueId());
-        if(args.length == 1) {
-            p.sendMessage(a("messages.commands.friend.generic.no-name"));
+    public void onPlayerUse(Player player, String[] args) {
+        PlayerData data = PlayerDataManager.fetch(player.getUniqueId());
+        me.efekos.awakensmponline.data.Friend friendData = data.getFriend(args[0]);
+        if(friendData==null){
+            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.not-friend").replace("%player%",args[0])));
             return;
         }
-        PlayerData friendPdata = PlayerDataManager.getDataFromName(args[1]);
-        if(friendPdata == null) {
-            p.sendMessage(a("messages.commands.friend.generic.no-real-name"));
-            return;
+        OfflinePlayer offlineFriend = Bukkit.getOfflinePlayer(friendData.getPlayerId());
+        if(!offlineFriend.isOnline()){
+            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.not-online").replace("%player%",offlineFriend.getName())));
         }
-        Friend friendData = pData.findFriend(friendPdata.getPlayerUniqueId());
-        if(friendData == null){
-            p.sendMessage(a("messages.commands.friend.info.no-fri"));
-            return;
-        }
-        OfflinePlayer friendP = p.getServer().getOfflinePlayer(friendData.getUuid());
-        p.sendMessage("----------" + friendData.getName() + "'s Info----------");
-        if(friendP.isOnline()) {
-            Player friendPO = (Player) friendP;
-            friendData.setCoords(friendPO.getLocation());
-            PlayerDataManager.update(pData.getPlayerUniqueId(),pData);
+        Player friend = offlineFriend.getPlayer();
+        FriendModifications modifications = friendData.getModifications();
 
-            TextComponent component = new TextComponent("" + friendPO.getLevel());
-            component.setColor(ChatColor.GREEN);
-            component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                    new ComponentBuilder(Math.round(friendPO.getExp()) + "/" + friendPO.getExpToLevel()).color(ChatColor.GREEN).create()
+        player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.info.header").replace("%player%",friend.getName())));
+
+        if(modifications.isHealthAllowed()){
+            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.info.health").replace("%health%",friend.getHealth()+"").replace("%max%",friend.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()+"")));
+        }
+
+        if(modifications.isFoodAllowed()){
+            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.info.food")
+                    .replace("%food%",friend.getFoodLevel()+"")
             ));
+        }
 
-            p.spigot().sendMessage(new TextComponent(a("messages.commands.friend.")),component);
-            p.sendMessage("Health: " + Math.round(friendPO.getHealth() / 2) + "/10");
-            p.sendMessage("Hunger: " + Math.round(friendPO.getFoodLevel() / 2) + "/10");
-            p.spigot().sendMessage(new TextComponent("Armor: "),Friends.makeSeeArmorButton(friendData.getName()));
+        if(modifications.isExpAllowed()){
+            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.info.exp")
+                    .replace("%exp%",friend.getExp()+"")
+                    .replace("%level%",friend.getLevel()+"")
+                    .replace("%percentage%",((friend.getExp()/friend.getTotalExperience())*100)+"")
+                    .replace("%max%",friend.getTotalExperience()+"")
+            ));
         }
-        if(friendData.getAllowCoords()){
-            p.sendMessage("coords: " + Math.round(friendData.getCoords().getX())+","+Math.round(friendData.getCoords().getY())+","+Math.floor(friendData.getCoords().getZ()));
-        } else {
-            p.spigot().sendMessage(new TextComponent("coords: "), Friends.makeNoneText("this player hided his coords to u"));
+
+        if(modifications.isLocationAllowed()){
+            Location loc = friend.getLocation();
+            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.info.location")
+                    .replace("%x%",loc.getBlockX()+"")
+                    .replace("%y%",loc.getBlockY()+"")
+                    .replace("%z%",loc.getBlockZ()+"")
+            ));
         }
-        if(friendData.getAllowWorld()){
-            p.sendMessage("World: " + friendData.getCoords().getWorld().getName());
-        } else {
-            p.spigot().sendMessage(new TextComponent("World: "), Friends.makeNoneText("this player hided his world to u"));
+
+        if(modifications.isWorldAllowed()){
+            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.info.world")
+                    .replace("%world%",friend.getWorld().getName())
+            ));
         }
+
+        player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.info.footer")));
 
     }
 
-    /**
-     * @param player The player who ran the command
-     * @param args   The args passed into the command when run
-     * @return A list of arguments to be suggested for autocomplete
-     */
     @Override
-    public List<String> getSubcommandArguments(Player player, String[] args) {
-        List<String> list = new ArrayList<>();
-        if(args.length == 2) {
-            PlayerData pData = PlayerDataManager.getDataFromUniqueId(player.getUniqueId());
-            for (Friend friend : pData.getFriends()) {
-                list.add(friend.getName());
-            }
-        }
-        return list;
+    public void onConsoleUse(ConsoleCommandSender sender, String[] args) {
+
     }
 }

@@ -1,115 +1,74 @@
 package me.efekos.awakensmponline.commands.friend;
 
-import me.efekos.awakensmponline.AwakenSMPOnline;
-import me.efekos.awakensmponline.classes.PlayerData;
-import me.efekos.awakensmponline.classes.Request;
-import me.efekos.awakensmponline.classes.RequestType;
-import me.efekos.awakensmponline.files.PlayerDataManager;
-import me.efekos.awakensmponline.files.RequestsJSON;
-import me.kodysimpson.simpapi.colors.ColorTranslator;
-import me.kodysimpson.simpapi.command.SubCommand;
-import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
+import me.efekos.awakensmponline.commands.Friend;
+import me.efekos.awakensmponline.commands.args.SentRequestUUIDArgument;
+import me.efekos.awakensmponline.config.LangConfig;
+import me.efekos.awakensmponline.data.Request;
+import me.efekos.awakensmponline.data.RequestType;
+import me.efekos.awakensmponline.files.RequestDataManager;
+import me.efekos.simpler.annotations.Command;
+import me.efekos.simpler.commands.CoreCommand;
+import me.efekos.simpler.commands.SubCommand;
+import me.efekos.simpler.commands.syntax.Syntax;
+import me.efekos.simpler.commands.translation.TranslateManager;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.UUID;
 
-public class cancel extends SubCommand {
-    public cancel() {
-        super();
-    }
-
-    /**
-     * @return The name of the subcommand
-     */
+@Command(name = "cancel",description = "Cancel a friend requet.",permission = "awakensmp.command.friend.cancel")
+public class Cancel extends SubCommand {
     @Override
-    public String getName() {
-        return "cancel";
+    public Class<? extends CoreCommand> getParent() {
+        return Friend.class;
     }
 
-    /**
-     * @return The aliases that can be used for this command. Can be null
-     */
+    public Cancel(@NotNull String name) {
+        super(name);
+    }
+
+    public Cancel(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+        super(name, description, usageMessage, aliases);
+    }
+
     @Override
-    public List<String> getAliases() {
-        return null;
+    public @NotNull Syntax getSyntax() {
+        return new Syntax()
+                .withArgument(new SentRequestUUIDArgument());
     }
 
-    /**
-     * @return A description of what the subcommand does to be displayed
-     */
     @Override
-    public String getDescription() {
-        return AwakenSMPOnline.getPlugin().getConfig().getString("messages.commands.main.desc-fr-can");
-    }
-
-    /**
-     * @return An example of how to use the subcommand
-     */
-    @Override
-    public String getSyntax() {
-        FileConfiguration cf = AwakenSMPOnline.getPlugin().getConfig();
-        String p = "messages.command-args.";
-        return "/friend cancel " + cf.getString(p + "id");
-    }
-
-    /**
-     * Translates a config message in one action
-     * @param key the key to get message from config
-     * @return the color translated key
-     */
-    private String a(String key){
-        FileConfiguration cf = AwakenSMPOnline.getPlugin().getConfig();
-        return ColorTranslator.translateColorCodes(cf.getString(key));
-    }
-
-    /**
-     * @param sender The thing that ran the command
-     * @param args   The args passed into the command when run
-     */
-    @Override
-    public void perform(CommandSender sender, String[] args) {
-        FileConfiguration cf = AwakenSMPOnline.getPlugin().getConfig();
-        Player p = (Player) sender;
-        if (args.length == 1){
-            p.sendMessage(a("messages.commands.friend.generic.no-id"));
+    public void onPlayerUse(Player player, String[] args) {
+        try {
+            UUID.fromString(args[0]);
+        } catch (IllegalArgumentException e){
+            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.cancel.not-uuid").replace("%uuid%",args[0])));
             return;
         }
-        Request request = RequestsJSON.getDataFromId(args[1]);
-        if(request == null) {
-            p.sendMessage(a("messages.commands.friend.generic.no-real-id"));
+        Request req = RequestDataManager.get(UUID.fromString(args[0]));
+        if(req==null){
+            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.cancel.not-req").replace("%uuid%",args[0])));
             return;
         }
-        if(request.getType() == RequestType.TEAMMATE){
-            p.sendMessage(a("messages.commands.friend.generic.no-fri-id"));
+        if(!req.getSender().equals(player.getUniqueId())){
+            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.cancel.not-urs")));
             return;
         }
-        RequestsJSON.deleteData(request.getId());
-        p.sendMessage(a("messages.commands.friend.cancel.success"));
+        if(!req.getType().equals(RequestType.FRIEND)){
+            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.cancel.not-friend")));
+            return;
+        }
+        // there is a friend request sent to us.
+        req.setDone(true);
+        RequestDataManager.delete(req.getId());
 
+        player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.cancel.done")));
     }
 
-    /**
-     * @param player The player who ran the command
-     * @param args   The args passed into the command when run
-     * @return A list of arguments to be suggested for autocomplete
-     */
     @Override
-    public List<String> getSubcommandArguments(Player player, String[] args) {
-        PlayerDataManager.fetch(player);
-        PlayerData data = PlayerDataManager.getDataFromUniqueId(player.getUniqueId());
-        List<String> list = new ArrayList<>();
-        if(args.length == 2){
-            for (Request request : RequestsJSON.getAllData()) { // bütün istekler
-                if (request.getType() == RequestType.FRIEND) { // arkadaşlık istekleri
-                    if (request.getTo() == Objects.requireNonNull(data).getPlayerUniqueId()) { // player'a gönderilen istekler
-                        list.add(request.getId());
-                    }
-                }
-            }
-        }
-        return list;
+    public void onConsoleUse(ConsoleCommandSender sender, String[] args) {
+
     }
 }

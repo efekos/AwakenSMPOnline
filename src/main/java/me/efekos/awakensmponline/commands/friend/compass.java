@@ -1,106 +1,74 @@
 package me.efekos.awakensmponline.commands.friend;
 
-import me.efekos.awakensmponline.AwakenSMPOnline;
-import me.efekos.awakensmponline.classes.PlayerData;
+import me.efekos.awakensmponline.commands.Friend;
+import me.efekos.awakensmponline.commands.args.FriendArgument;
+import me.efekos.awakensmponline.config.LangConfig;
+import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.files.PlayerDataManager;
-import me.kodysimpson.simpapi.colors.ColorTranslator;
-import me.kodysimpson.simpapi.command.SubCommand;
-import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
+import me.efekos.awakensmponline.items.TrackingCompass;
+import me.efekos.simpler.annotations.Command;
+import me.efekos.simpler.commands.CoreCommand;
+import me.efekos.simpler.commands.SubCommand;
+import me.efekos.simpler.commands.syntax.Syntax;
+import me.efekos.simpler.commands.translation.TranslateManager;
+import me.efekos.simpler.items.ItemManager;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
-public class compass extends SubCommand {
-    public compass() {
-        super();
+@Command(name = "compass",description = "Get a compass leads to your friends",permission = "awakensmp.command.friend.compass")
+public class Compass extends SubCommand {
+    public Compass(@NotNull String name) {
+        super(name);
     }
 
-    /**
-     * @return The name of the subcommand
-     */
+    public Compass(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+        super(name, description, usageMessage, aliases);
+    }
+
     @Override
-    public String getName() {
-        return "compass";
+    public Class<? extends CoreCommand> getParent() {
+        return Friend.class;
     }
 
-    /**
-     * @return The aliases that can be used for this command. Can be null
-     */
     @Override
-    public List<String> getAliases() {
-        return null;
+    public @NotNull Syntax getSyntax() {
+        return new Syntax().withArgument(new FriendArgument());
     }
 
-    /**
-     * @return A description of what the subcommand does to be displayed
-     */
     @Override
-    public String getDescription() {
-        return AwakenSMPOnline.getPlugin().getConfig().getString("messages.commands.main.desc-fr-com");
-    }
-
-    /**
-     * @return An example of how to use the subcommand
-     */
-    @Override
-    public String getSyntax() {
-        FileConfiguration cf = AwakenSMPOnline.getPlugin().getConfig();
-        String p = "messages.command-args.";
-        return "/friend compass " + cf.getString(p + "player");
-    }
-
-    /**
-     * Translates a config message in one action
-     * @param key the key to get message from config
-     * @return the color translated key
-     */
-    private String a(String key){
-        FileConfiguration cf = AwakenSMPOnline.getPlugin().getConfig();
-        return ColorTranslator.translateColorCodes(cf.getString(key));
-    }
-
-    /**
-     * @param sender The thing that ran the command
-     * @param args   The args passed into the command when run
-     */
-    @Override
-    public void perform(CommandSender sender, String[] args) {
-        FileConfiguration cf = AwakenSMPOnline.getPlugin().getConfig();
-        Player p = (Player) sender;
-        if (args.length == 1){
-            p.sendMessage(a("messages.commands.friend.generic.no-name"));
+    public void onPlayerUse(Player player, String[] args) {
+        PlayerData data = PlayerDataManager.fetch(player.getUniqueId());
+        if(!data.friendsWith(args[0])){
+            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.not-friend").replace("%player%",args[0])));
             return;
         }
-
-        PlayerData toPData = PlayerDataManager.getDataFromName(args[1]);
-        PlayerData pData = PlayerDataManager.getDataFromUniqueId(p.getUniqueId());
-        Player toP = p.getServer().getPlayer(Objects.requireNonNull(toPData).getPlayerUniqueId());
-
-        if(toPData.findFriend(p.getUniqueId()) == null){
-            p.sendMessage(a("messages.commands.friend.modify.no-fri"));
+        me.efekos.awakensmponline.data.Friend friendData = data.getFriend(args[0]);
+        if(!friendData.getModifications().isCompassAllowed()){
+            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.not-allowed").replace("%player%", friendData.getLastName())));
             return;
         }
-        if(!toP.isOnline()){
-            p.sendMessage(a("messages.commands.friend.modify.itself"));
+        OfflinePlayer offlineFriend = Bukkit.getOfflinePlayer(friendData.getPlayerId());
+        if(!offlineFriend.isOnline()){
+            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.not-online").replace("%player%", offlineFriend.getName())));
+            return;
         }
+        Player friend = offlineFriend.getPlayer();
+
+        Date date = new Date();
+        date.setTime(date.getTime()+(1000*60*60));
+
+        ItemManager.giveItem(player,new TrackingCompass(friend,player,date));
+        player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.compass.done").replace("%player%",friend.getName())));
     }
 
-    /**
-     * @param player The player who ran the command
-     * @param args   The args passed into the command when run
-     * @return A list of arguments to be suggested for autocomplete
-     */
     @Override
-    public List<String> getSubcommandArguments(Player player, String[] args) {
-        List<String> list = new ArrayList<>();
-        if (args.length == 2) {
-            for (PlayerData playerData : PlayerDataManager.getAllData()) {
-                list.add(playerData.getPlayerName());
-            }
-        }
-        return list;
+    public void onConsoleUse(ConsoleCommandSender sender, String[] args) {
+
     }
 }
