@@ -8,7 +8,7 @@ import me.efekos.awakensmponline.data.TeamData;
 import me.efekos.awakensmponline.data.TempData;
 import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.awakensmponline.files.TeamDataManager;
-import me.efekos.awakensmponline.recipe.RecipeManager;
+import me.efekos.awakensmponline.utils.RecipeManager;
 import me.efekos.awakensmponline.utils.AnimationManager;
 import me.efekos.awakensmponline.utils.ParticleManager;
 import me.efekos.simpler.commands.translation.TranslateManager;

@@ -1,4 +1,4 @@
-package me.efekos.awakensmponline.recipe;
+package me.efekos.awakensmponline.utils;
 
 import me.efekos.awakensmponline.config.GameConfig;
 import me.efekos.awakensmponline.config.LangConfig;
