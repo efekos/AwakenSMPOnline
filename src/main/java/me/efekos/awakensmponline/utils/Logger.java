@@ -5,22 +5,22 @@ import org.bukkit.ChatColor;
 
 public class Logger {
     public static void log(Object message){
-        Bukkit.getConsoleSender().sendMessage("[LOG] "+message);
+        Bukkit.getConsoleSender().sendMessage("[AwakenSMPOnline] [LOG] "+message);
     }
 
     public static void warn(Object message){
-        Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[WARNING] "+message);
+        Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[AwakenSMPOnline] [WARNING] "+message);
     }
 
     public static void error(Object message){
-        Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[ERROR] "+message);
+        Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[AwakenSMPOnline] [ERROR] "+message);
     }
 
     public static void info(Object message){
-        Bukkit.getConsoleSender().sendMessage(ChatColor.BLUE + "[INFO] "+message);
+        Bukkit.getConsoleSender().sendMessage(ChatColor.BLUE + "[AwakenSMPOnline] [INFO] "+message);
     }
 
     public static void success(String message){
-        Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN +"[SUCCESS] "+message);
+        Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN +"[AwakenSMPOnline] [SUCCESS] "+message);
     }
 }
