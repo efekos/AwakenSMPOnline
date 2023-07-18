@@ -5,5 +5,4 @@ public enum AnimationType {
     BEAM,
     BLOCK,
     NONE,
-    CURSE
 }
