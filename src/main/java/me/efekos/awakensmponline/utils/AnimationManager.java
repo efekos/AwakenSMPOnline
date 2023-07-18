@@ -30,6 +30,7 @@ public class AnimationManager {
 
                         if(!location1.getBlock().getType().equals(Material.AIR) || !location2.getBlock().getType().equals(Material.AIR)){
                             playAnimation(player,AnimationType.NONE,spawnPlayer);
+                            break;
                         }
 
                         location1.getBlock().setType(underneath.getType());
@@ -50,7 +51,7 @@ public class AnimationManager {
                                         world.spawnParticle(Particle.BLOCK_DUST,location2,100,.1,.1,.1,underneath.getBlockData());
                                         world.playSound(location1,Sound.BLOCK_STONE_BREAK,SoundCategory.BLOCKS,100,1);
                                         world.playSound(location2,Sound.BLOCK_STONE_BREAK,SoundCategory.BLOCKS,100,1);
-                                        spawnPlayer.accept(player); // tells him "spawn executed" for now.
+                                        spawnPlayer.accept(player); // tells him "spawn executed" for now. // EDIT: now actually makes him out of spectator mode and tells him he should be in survival rn
                                     }
                                 }.runTaskLater(AwakenSMPOnline.getPlugin(),400/50);
 
