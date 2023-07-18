@@ -1,6 +1,7 @@
 package me.efekos.awakensmponline.commands;
 
-import me.efekos.awakensmponline.data.AnimationType;
+import me.efekos.awakensmponline.data.PlayerData;
+import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.awakensmponline.utils.AnimationManager;
 import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.BaseCommand;
@@ -33,7 +34,9 @@ public class animationTest extends BaseCommand {
             return;
         }
 
-        AnimationManager.playAnimation(player, AnimationType.BEAM,p -> {
+        PlayerData data = PlayerDataManager.fetch(player.getUniqueId());
+
+        AnimationManager.playAnimation(player, data.getSelectedAnimation(),p -> {
             p.sendMessage("U should get out of the spec now");
         });
     }

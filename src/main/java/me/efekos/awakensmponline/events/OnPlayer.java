@@ -2,15 +2,14 @@ package me.efekos.awakensmponline.events;
 
 import me.efekos.awakensmponline.config.GameConfig;
 import me.efekos.awakensmponline.config.LangConfig;
-import me.efekos.awakensmponline.data.AnimationType;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.data.TeamData;
 import me.efekos.awakensmponline.data.TempData;
 import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.awakensmponline.files.TeamDataManager;
-import me.efekos.awakensmponline.utils.RecipeManager;
 import me.efekos.awakensmponline.utils.AnimationManager;
 import me.efekos.awakensmponline.utils.ParticleManager;
+import me.efekos.awakensmponline.utils.RecipeManager;
 import me.efekos.simpler.commands.translation.TranslateManager;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -109,7 +108,7 @@ public class OnPlayer implements Listener {
         head.setType(Material.AIR);
         pToRevive.teleport(head.getLocation().add(0.5,0,0.5));
 
-        AnimationManager.playAnimation(pToRevive, AnimationType.BEAM,player -> {
+        AnimationManager.playAnimation(pToRevive, data.getSelectedAnimation(),player -> {
             data.setRevived(true);
             data.setAlive(true);
             PlayerDataManager.update(data.getUuid(),data);
