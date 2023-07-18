@@ -1,7 +1,6 @@
 package me.efekos.awakensmponline.menu;
 
 import me.efekos.awakensmponline.config.LangConfig;
-import me.efekos.awakensmponline.utils.Logger;
 import me.efekos.simpler.commands.translation.TranslateManager;
 import me.efekos.simpler.menu.Menu;
 import me.efekos.simpler.menu.MenuData;
@@ -43,6 +42,9 @@ public class ParticleOptionsMenu extends Menu {
            case WHITE_CONCRETE:
                MenuManager.Open(p,ParticleColorsMenu.class);
                break;
+           case BEACON:
+               MenuManager.Open(p,AnimationTypeMenu.class);
+               break;
        }
     }
 
@@ -59,6 +61,7 @@ public class ParticleOptionsMenu extends Menu {
     @Override
     public void fill() {
         inventory.setItem(12,createItem(Material.TOTEM_OF_UNDYING,TranslateManager.translateColors(LangConfig.get("menus.particle_options.type"))));
+        inventory.setItem(13,createItem(Material.BEACON,TranslateManager.translateColors(LangConfig.get("menus.particle_options.animation"))));
         inventory.setItem(14,createItem(Material.WHITE_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.particle_options.color"))));
         fillEmptyWith(createItem(Material.BLACK_STAINED_GLASS_PANE," "));
     }
