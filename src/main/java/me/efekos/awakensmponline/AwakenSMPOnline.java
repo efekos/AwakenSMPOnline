@@ -75,7 +75,7 @@ public final class AwakenSMPOnline extends JavaPlugin {
                 if (GameConfig.get().getBoolean("features.team",true)) // takım şeyleri açıkmı diye kontrol
                 CommandManager.registerCoreCommand(this, Team.class); // /team
 
-                CommandManager.registerBaseCommand(this, Particles.class); // /particles
+                CommandManager.registerBaseCommands(this, Particles.class,animationTest.class); // /particles
             }catch (Exception e){
                 e.printStackTrace();
                 Logger.error("Experienced an error while trying to load commands.");
