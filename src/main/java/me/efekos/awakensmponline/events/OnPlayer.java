@@ -109,7 +109,7 @@ public class OnPlayer implements Listener {
         head.setType(Material.AIR);
         pToRevive.teleport(head.getLocation().add(0.5,0,0.5));
 
-        AnimationManager.playAnimation(pToRevive, AnimationType.NONE,player -> {
+        AnimationManager.playAnimation(pToRevive, AnimationType.BEAM,player -> {
             data.setRevived(true);
             data.setAlive(true);
             PlayerDataManager.update(data.getUuid(),data);
