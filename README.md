@@ -8,6 +8,7 @@ If you find any bugs, report to [my discord server](https://discord.gg/8PPgcmYNf
 
 * AwakenSMP System!
 * Customizable particles when you get revived!
+* 3 Types of fancy animations to play when you get revived!
 * Friend system to be officially friends with your best pal!
 * Team system to manage your teams, and get a team chat!
 * Craftable head!
@@ -504,6 +505,9 @@ menus:
     # 'Particle Color' button. Leads to 'Choose a Particle Color' menu.
     color: '&eParticle Color'
 
+    # 'Animation' button. Leads to 'Choose an Animation type' menu.
+    animation: '&eAnimation'
+
     # Displays at the item that the player selected.
     selected: '&6You currently selected this'
 
@@ -593,6 +597,27 @@ menus:
 
       # 'Black' color.
       black: '&eBlack'
+
+  # 'Choose an Animation Type' menu.
+  animation_type:
+
+    # The menus title.
+    title: 'Choose an Animation Type'
+
+    # Animation types.
+    types:
+
+      # 'None' type. Which is nothing, only particles.
+      none: '&eNone'
+
+      # 'Block' type. Which is an animation where two block appear, and the player breaks out of them.
+      block: '&eBlock'
+
+      # 'Thunder' type. Which is an animation where a lot of lightning strikes hit the head to give him a soul, I mean revive player.
+      thunder: '&eThunder'
+
+      # 'Beam' type. Which is an animation where a diamond beacon appears, and brings the player back here from the other world.
+      beam: '&eBeam'
 
   # Inventory menu of a friend.
   friend_inventory:
