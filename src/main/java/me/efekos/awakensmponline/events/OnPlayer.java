@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class OnPlayer implements Listener {
+    // simply player getting killed
     @EventHandler
     public void onPlayerDie(@NotNull PlayerDeathEvent e){
         Player p = e.getEntity();
@@ -64,6 +65,7 @@ public class OnPlayer implements Listener {
         }
     }
 
+    // checking dead players to make them freeze & blind
     @EventHandler
     public void onPlayerMove(@NotNull PlayerMoveEvent e){
         Player p = e.getPlayer();
@@ -79,6 +81,7 @@ public class OnPlayer implements Listener {
             p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS,999999,255,false,false,false));
     }
 
+    // making revive heads work
     @EventHandler
     public void onPlayerPlaceBlock(@NotNull BlockPlaceEvent e){
         Player p = e.getPlayer();
@@ -134,6 +137,7 @@ public class OnPlayer implements Listener {
         });
     }
 
+    // sending players notifications
     @EventHandler
     public void onPlayerJoin(@NotNull PlayerJoinEvent e){
         Player p = e.getPlayer();
@@ -168,6 +172,7 @@ public class OnPlayer implements Listener {
         }
     }
 
+    // make revive heads a working one & announce it
     @EventHandler
     public void onPlayerCraft(@NotNull CraftItemEvent e){
         if(!e.getRecipe().equals(RecipeManager.getLastLoadedRecipe())) return;
@@ -179,6 +184,7 @@ public class OnPlayer implements Listener {
         ));
     }
 
+    // make team chats work
     @EventHandler
     public void onPlayerChat(@NotNull AsyncPlayerChatEvent e){
         Player p = e.getPlayer();
