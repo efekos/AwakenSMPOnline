@@ -2,6 +2,7 @@ package me.efekos.awakensmponline.events;
 
 import me.efekos.awakensmponline.config.GameConfig;
 import me.efekos.awakensmponline.config.LangConfig;
+import me.efekos.awakensmponline.data.AnimationType;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.data.TeamData;
 import me.efekos.awakensmponline.data.TempData;
@@ -108,7 +109,7 @@ public class OnPlayer implements Listener {
         head.setType(Material.AIR);
         pToRevive.teleport(head.getLocation().add(0.5,0,0.5));
 
-        AnimationManager.playAnimation(pToRevive, data.getSelectedAnimation(),player -> {
+        AnimationManager.playAnimation(pToRevive, GameConfig.get().getBoolean("revive-animations") ? data.getSelectedAnimation(): AnimationType.NONE, player -> {
             data.setRevived(true);
             data.setAlive(true);
             PlayerDataManager.update(data.getUuid(),data);
