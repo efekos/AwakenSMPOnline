@@ -35,7 +35,7 @@ public class ParticleTypeMenu extends Menu {
 
     @Override
     public String getTitle() {
-        return TranslateManager.translateColors(LangConfig.get("menus.particle_options_type.title"));
+        return TranslateManager.translateColors(LangConfig.get("menus.options_particle_type.title"));
     }
 
     @Override
@@ -86,12 +86,12 @@ public class ParticleTypeMenu extends Menu {
 
     @Override
     public void fill() {
-        inventory.setItem(0,createItem(Material.TOTEM_OF_UNDYING,TranslateManager.translateColors(LangConfig.get("menus.particle_options_type.types.totem"))));
-        inventory.setItem(1,createItem(Material.TNT,TranslateManager.translateColors(LangConfig.get("menus.particle_options_type.types.explosion"))));
-        inventory.setItem(2,createItem(Material.BEACON,TranslateManager.translateColors(LangConfig.get("menus.particle_options_type.types.beam"))));
-        inventory.setItem(3,createItem(Material.BONE_MEAL,TranslateManager.translateColors(LangConfig.get("menus.particle_options_type.types.fog"))));
-        inventory.setItem(4,createItem(Material.SNOWBALL,TranslateManager.translateColors(LangConfig.get("menus.particle_options_type.types.snowball"))));
-        inventory.setItem(5,createItem(Material.DIRT,TranslateManager.translateColors(LangConfig.get("menus.particle_options_type.types.block"))));
+        inventory.setItem(0,createItem(Material.TOTEM_OF_UNDYING,TranslateManager.translateColors(LangConfig.get("menus.options_particle_type.types.totem"))));
+        inventory.setItem(1,createItem(Material.TNT,TranslateManager.translateColors(LangConfig.get("menus.options_particle_type.types.explosion"))));
+        inventory.setItem(2,createItem(Material.BEACON,TranslateManager.translateColors(LangConfig.get("menus.options_particle_type.types.beam"))));
+        inventory.setItem(3,createItem(Material.BONE_MEAL,TranslateManager.translateColors(LangConfig.get("menus.options_particle_type.types.fog"))));
+        inventory.setItem(4,createItem(Material.SNOWBALL,TranslateManager.translateColors(LangConfig.get("menus.options_particle_type.types.snowball"))));
+        inventory.setItem(5,createItem(Material.DIRT,TranslateManager.translateColors(LangConfig.get("menus.options_particle_type.types.block"))));
 
         PlayerData data = PlayerDataManager.fetch(owner.getUniqueId());
         ParticleOptions options = data.getParticleOptions();
@@ -102,7 +102,7 @@ public class ParticleTypeMenu extends Menu {
 
             boolean isThis = options.getType() == translateMaterial(item.getType());
 
-            meta.setLore(Arrays.asList(" ", TranslateManager.translateColors(LangConfig.get(isThis ? "menus.particle_options.selected" : "menus.particle_options.unselected"))));
+            meta.setLore(Arrays.asList(" ", TranslateManager.translateColors(LangConfig.get(isThis ? "menus.options.selected" : "menus.options.unselected"))));
             if(isThis) meta.addEnchant(Enchantment.MENDING,1,true);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             item.setItemMeta(meta);

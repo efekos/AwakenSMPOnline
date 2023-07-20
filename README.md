@@ -46,7 +46,7 @@ If you find any bugs, report to [my discord server](https://discord.gg/8PPgcmYNf
 * chat \<message> - Use team chat
 * togglechat - Switch between team chat and normal chat. When you are on team chat, every message you sent will act like a message sent with /team chat.
 
-/particle - Open particle options menu.
+/options - Open reviving options menu.
 
 ![](./images/permissions-export.png)
 

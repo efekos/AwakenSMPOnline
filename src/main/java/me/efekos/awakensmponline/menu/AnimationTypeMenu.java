@@ -34,7 +34,7 @@ public class AnimationTypeMenu extends Menu {
 
     @Override
     public String getTitle() {
-        return TranslateManager.translateColors(LangConfig.get("menus.animation_type.title"));
+        return TranslateManager.translateColors(LangConfig.get("menus.options_animation_type.title"));
     }
 
     @Override
@@ -78,10 +78,10 @@ public class AnimationTypeMenu extends Menu {
 
     @Override
     public void fill() {
-        inventory.setItem(0,createItem(Material.BARRIER,TranslateManager.translateColors(LangConfig.get("menus.animation_type.types.none"))));
-        inventory.setItem(1,createItem(Material.STONE,TranslateManager.translateColors(LangConfig.get("menus.animation_type.types.block"))));
-        inventory.setItem(2,createItem(Material.BLAZE_POWDER,TranslateManager.translateColors(LangConfig.get("menus.animation_type.types.thunder"))));
-        inventory.setItem(3,createItem(Material.BEACON,TranslateManager.translateColors(LangConfig.get("menus.animation_type.types.beam"))));
+        inventory.setItem(0,createItem(Material.BARRIER,TranslateManager.translateColors(LangConfig.get("menus.options_animation_type.types.none"))));
+        inventory.setItem(1,createItem(Material.STONE,TranslateManager.translateColors(LangConfig.get("menus.options_animation_type.types.block"))));
+        inventory.setItem(2,createItem(Material.BLAZE_POWDER,TranslateManager.translateColors(LangConfig.get("menus.options_animation_type.types.thunder"))));
+        inventory.setItem(3,createItem(Material.BEACON,TranslateManager.translateColors(LangConfig.get("menus.options_animation_type.types.beam"))));
 
         PlayerData data = PlayerDataManager.fetch(owner.getUniqueId());
         AnimationType type = data.getSelectedAnimation();
@@ -92,7 +92,7 @@ public class AnimationTypeMenu extends Menu {
 
             boolean isThis = type == translateMaterial(item.getType());
 
-            meta.setLore(Arrays.asList(" ", TranslateManager.translateColors(LangConfig.get(isThis ? "menus.particle_options.selected" : "menus.particle_options.unselected"))));
+            meta.setLore(Arrays.asList(" ", TranslateManager.translateColors(LangConfig.get(isThis ? "menus.options.selected" : "menus.options.unselected"))));
             if(isThis) meta.addEnchant(Enchantment.MENDING,1,true);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             item.setItemMeta(meta);

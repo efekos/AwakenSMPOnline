@@ -1,6 +1,6 @@
 package me.efekos.awakensmponline.commands;
 
-import me.efekos.awakensmponline.menu.ParticleOptionsMenu;
+import me.efekos.awakensmponline.menu.OptionsMenu;
 import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.BaseCommand;
 import me.efekos.simpler.commands.syntax.Syntax;
@@ -11,8 +11,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@Command(name = "particles",description = "Customize your revive particles!",playerOnly = true,permission = "awakensmp.command.particles")
-public class Particles extends BaseCommand {
+@Command(name = "options",description = "Customize your reviving decorations!",playerOnly = true,permission = "awakensmp.command.options")
+public class Options extends BaseCommand {
     @Override
     public @NotNull Syntax getSyntax() {
         return new Syntax();
@@ -20,7 +20,7 @@ public class Particles extends BaseCommand {
 
     @Override
     public void onPlayerUse(Player player, String[] args) {
-        MenuManager.Open(player, ParticleOptionsMenu.class);
+        MenuManager.Open(player, OptionsMenu.class);
     }
 
     @Override
@@ -28,11 +28,11 @@ public class Particles extends BaseCommand {
 
     }
 
-    public Particles(@NotNull String name) {
+    public Options(@NotNull String name) {
         super(name);
     }
 
-    public Particles(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+    public Options(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
         super(name, description, usageMessage, aliases);
     }
 }

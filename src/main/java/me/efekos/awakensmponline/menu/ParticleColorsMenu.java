@@ -36,7 +36,7 @@ public class ParticleColorsMenu extends Menu {
 
     @Override
     public String getTitle() {
-        return TranslateManager.translateColors(LangConfig.get("menus.particle_options_color.title"));
+        return TranslateManager.translateColors(LangConfig.get("menus.options_particle_color.title"));
     }
 
     @Override
@@ -107,22 +107,22 @@ public class ParticleColorsMenu extends Menu {
 
     @Override
     public void fill() {
-        inventory.setItem(0,createItem(Material.WHITE_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.particle_options_color.colors.white"))));
-        inventory.setItem(1,createItem(Material.ORANGE_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.particle_options_color.colors.orange"))));
-        inventory.setItem(2,createItem(Material.MAGENTA_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.particle_options_color.colors.magenta"))));
-        inventory.setItem(3,createItem(Material.LIGHT_BLUE_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.particle_options_color.colors.light_blue"))));
-        inventory.setItem(4,createItem(Material.YELLOW_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.particle_options_color.colors.yellow"))));
-        inventory.setItem(5,createItem(Material.LIME_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.particle_options_color.colors.lime"))));
-        inventory.setItem(6,createItem(Material.PINK_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.particle_options_color.colors.pink"))));
-        inventory.setItem(7,createItem(Material.GRAY_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.particle_options_color.colors.gray"))));
-        inventory.setItem(8,createItem(Material.LIGHT_GRAY_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.particle_options_color.colors.light_gray"))));
-        inventory.setItem(9,createItem(Material.CYAN_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.particle_options_color.colors.cyan"))));
-        inventory.setItem(10,createItem(Material.PURPLE_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.particle_options_color.colors.purple"))));
-        inventory.setItem(11,createItem(Material.BLUE_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.particle_options_color.colors.blue"))));
-        inventory.setItem(12,createItem(Material.BROWN_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.particle_options_color.colors.brown"))));
-        inventory.setItem(13,createItem(Material.GREEN_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.particle_options_color.colors.green"))));
-        inventory.setItem(14,createItem(Material.RED_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.particle_options_color.colors.red"))));
-        inventory.setItem(15,createItem(Material.BLACK_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.particle_options_color.colors.black"))));
+        inventory.setItem(0,createItem(Material.WHITE_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.options_particle_color.colors.white"))));
+        inventory.setItem(1,createItem(Material.ORANGE_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.options_particle_color.colors.orange"))));
+        inventory.setItem(2,createItem(Material.MAGENTA_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.options_particle_color.colors.magenta"))));
+        inventory.setItem(3,createItem(Material.LIGHT_BLUE_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.options_particle_color.colors.light_blue"))));
+        inventory.setItem(4,createItem(Material.YELLOW_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.options_particle_color.colors.yellow"))));
+        inventory.setItem(5,createItem(Material.LIME_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.options_particle_color.colors.lime"))));
+        inventory.setItem(6,createItem(Material.PINK_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.options_particle_color.colors.pink"))));
+        inventory.setItem(7,createItem(Material.GRAY_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.options_particle_color.colors.gray"))));
+        inventory.setItem(8,createItem(Material.LIGHT_GRAY_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.options_particle_color.colors.light_gray"))));
+        inventory.setItem(9,createItem(Material.CYAN_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.options_particle_color.colors.cyan"))));
+        inventory.setItem(10,createItem(Material.PURPLE_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.options_particle_color.colors.purple"))));
+        inventory.setItem(11,createItem(Material.BLUE_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.options_particle_color.colors.blue"))));
+        inventory.setItem(12,createItem(Material.BROWN_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.options_particle_color.colors.brown"))));
+        inventory.setItem(13,createItem(Material.GREEN_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.options_particle_color.colors.green"))));
+        inventory.setItem(14,createItem(Material.RED_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.options_particle_color.colors.red"))));
+        inventory.setItem(15,createItem(Material.BLACK_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.options_particle_color.colors.black"))));
 
 
         PlayerData data = PlayerDataManager.fetch(owner.getUniqueId());
@@ -137,7 +137,7 @@ public class ParticleColorsMenu extends Menu {
             boolean isThis = options.getColor() == translateMaterial(item.getType());
 
             assert meta != null;
-            meta.setLore(Arrays.asList(" ", TranslateManager.translateColors(LangConfig.get(isThis ? "menus.particle_options.selected" : "menus.particle_options.unselected"))));
+            meta.setLore(Arrays.asList(" ", TranslateManager.translateColors(LangConfig.get(isThis ? "menus.options.selected" : "menus.options.unselected"))));
             if(isThis) meta.addEnchant(Enchantment.MENDING,1,true);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             item.setItemMeta(meta);

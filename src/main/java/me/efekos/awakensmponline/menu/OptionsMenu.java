@@ -11,7 +11,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 
-public class ParticleOptionsMenu extends Menu {
+public class OptionsMenu extends Menu {
     @Override
     public boolean cancelAllClicks() {
         return true;
@@ -22,30 +22,30 @@ public class ParticleOptionsMenu extends Menu {
         return 3;
     }
 
-    public ParticleOptionsMenu(MenuData data) {
+    public OptionsMenu(MenuData data) {
         super(data);
     }
 
     @Override
     public String getTitle() {
-        return TranslateManager.translateColors(LangConfig.get("menus.particle_options.title"));
+        return TranslateManager.translateColors(LangConfig.get("menus.options.title"));
     }
 
     @Override
     public void onClick(InventoryClickEvent event) {
         Player p = (Player) event.getWhoClicked();
 
-       switch (event.getCurrentItem().getType()){
-           case TOTEM_OF_UNDYING:
-               MenuManager.Open(p,ParticleTypeMenu.class);
-               break;
-           case WHITE_CONCRETE:
-               MenuManager.Open(p,ParticleColorsMenu.class);
-               break;
-           case BEACON:
-               MenuManager.Open(p,AnimationTypeMenu.class);
-               break;
-       }
+        switch (event.getCurrentItem().getType()){
+            case TOTEM_OF_UNDYING:
+                MenuManager.Open(p,ParticleTypeMenu.class);
+                break;
+            case WHITE_CONCRETE:
+                MenuManager.Open(p,ParticleColorsMenu.class);
+                break;
+            case BEACON:
+                MenuManager.Open(p,AnimationTypeMenu.class);
+                break;
+        }
     }
 
     @Override
@@ -60,9 +60,9 @@ public class ParticleOptionsMenu extends Menu {
 
     @Override
     public void fill() {
-        inventory.setItem(12,createItem(Material.TOTEM_OF_UNDYING,TranslateManager.translateColors(LangConfig.get("menus.particle_options.type"))));
-        inventory.setItem(13,createItem(Material.BEACON,TranslateManager.translateColors(LangConfig.get("menus.particle_options.animation"))));
-        inventory.setItem(14,createItem(Material.WHITE_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.particle_options.color"))));
+        inventory.setItem(12,createItem(Material.TOTEM_OF_UNDYING,TranslateManager.translateColors(LangConfig.get("menus.options.type"))));
+        inventory.setItem(13,createItem(Material.BEACON,TranslateManager.translateColors(LangConfig.get("menus.options.animation"))));
+        inventory.setItem(14,createItem(Material.WHITE_CONCRETE,TranslateManager.translateColors(LangConfig.get("menus.options.color"))));
         fillEmptyWith(createItem(Material.BLACK_STAINED_GLASS_PANE," "));
     }
 }
