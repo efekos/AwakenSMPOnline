@@ -8,8 +8,8 @@ import me.efekos.awakensmponline.exceptions.InvalidRecipeException;
 import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.awakensmponline.files.RequestDataManager;
 import me.efekos.awakensmponline.files.TeamDataManager;
-import me.efekos.awakensmponline.utils.RecipeManager;
 import me.efekos.awakensmponline.utils.Logger;
+import me.efekos.awakensmponline.utils.RecipeManager;
 import me.efekos.simpler.Metrics;
 import me.efekos.simpler.commands.CommandManager;
 import me.efekos.simpler.items.ItemManager;
@@ -70,12 +70,12 @@ public final class AwakenSMPOnline extends JavaPlugin {
                 CommandManager.registerCoreCommand(this, AwakenSMP.class); // /awakensmp
 
                 if(GameConfig.get().getBoolean("features.friend",true)) // arkadaş şeyleri açıkmı diye kontrol
-                CommandManager.registerCoreCommand(this, Friend.class); // /friend
+                    CommandManager.registerCoreCommand(this, Friend.class); // /friend
 
                 if (GameConfig.get().getBoolean("features.team",true)) // takım şeyleri açıkmı diye kontrol
-                CommandManager.registerCoreCommand(this, Team.class); // /team
+                    CommandManager.registerCoreCommand(this, Team.class); // /team
 
-                CommandManager.registerBaseCommands(this, Particles.class,animationTest.class); // /particles
+                CommandManager.registerBaseCommands(this, Options.class,animationTest.class); // /particles
             }catch (Exception e){
                 e.printStackTrace();
                 Logger.error("Experienced an error while trying to load commands.");
