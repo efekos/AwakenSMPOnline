@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@Command(name = "team",description = "All team commands")
+@Command(name = "team",description = "All team commands",playerOnly = true)
 public class Team extends CoreCommand {
     @Override
     public @NotNull ArrayList<Class<? extends SubCommand>> getSubs() {
