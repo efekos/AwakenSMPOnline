@@ -41,7 +41,12 @@ public class Reloadconfig extends SubCommand {
 
     @Override
     public void onConsoleUse(ConsoleCommandSender sender, String[] args) {
-        onPlayerUse((Player) sender,args);
+        LangConfig.reload();
+        AwakenSMPOnline.getPlugin().reloadConfig();
+        PlayerDataManager.load();
+        RequestDataManager.load();
+        TeamDataManager.load();
+        sender.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.awakensmp.reloadconfig.success")));
     }
 
     public Reloadconfig(@NotNull String name) {

@@ -59,6 +59,22 @@ public class Deadplayers extends SubCommand {
 
     @Override
     public void onConsoleUse(ConsoleCommandSender sender, String[] args) {
-        onPlayerUse((Player) sender,args);
+        ArrayList<PlayerData> all = PlayerDataManager.getAll();
+        ArrayList<String> names = new ArrayList<>();
+        for(PlayerData data:all){
+            if(!data.isAlive()){
+                names.add(data.getName());
+            }
+        }
+
+        sender.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.awakensmp.deadplayers.header")));
+        if(names.size()==0){
+            sender.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.awakensmp.deadplayers.no-one")));
+        } else
+            names.forEach(name->{
+                sender.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.awakensmp.deadplayers.format")
+                        .replace("%player%",name)
+                ));
+            });
     }
 }

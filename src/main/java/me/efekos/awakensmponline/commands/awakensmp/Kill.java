@@ -78,7 +78,44 @@ public class Kill extends SubCommand {
 
     @Override
     public void onConsoleUse(ConsoleCommandSender sender, String[] args) {
-        onPlayerUse((Player) sender,args);
+        PlayerData data = PlayerDataManager.get(args[0]);
+        if(data==null){
+            sender.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.awakensmp.kill.not-player").replace("%player%",args[0])));
+            return;
+        }
+        OfflinePlayer offlineVictim = Bukkit.getOfflinePlayer(data.getUuid());
+        if(!offlineVictim.isOnline()){
+            sender.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.awakensmp.kill.not-online").replace("%player%",data.getName())));
+            return;
+        }
+        if(!data.isAlive()){
+            sender.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.awakensmp.kill.not-alive").replace("%player%",data.getName())));
+            return;
+        }
+        Player victim = (Player) offlineVictim;
+        if(victim.hasPermission("awakensmp.god")){
+            sender.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.awakensmp.kill.god-player").replace("%player%",data.getName())));
+            return;
+        }
+        // data exists, belongs to an online player, and that player can be killed.
+
+        data.setAlive(false);
+        data.setRevived(false);
+
+        //add skull to his drops
+        ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
+        SkullMeta meta = (SkullMeta) skull.getItemMeta();
+        meta.setOwningPlayer(victim);
+        meta.setDisplayName(victim.getName());
+        skull.setItemMeta(meta);
+
+        victim.getInventory().addItem(skull);
+
+        victim.setHealth(0);
+        victim.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.awakensmp.kill.force").replace("%killer%",data.getName())));
+        victim.setGameMode(GameMode.SPECTATOR);
+
+        sender.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.awakensmp.kill.done").replace("%PLAYER%",victim.getName())));
     }
 
     public Kill(@NotNull String name) {

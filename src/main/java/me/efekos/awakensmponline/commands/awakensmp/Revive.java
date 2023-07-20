@@ -73,7 +73,40 @@ public class Revive extends SubCommand {
 
     @Override
     public void onConsoleUse(ConsoleCommandSender sender, String[] args) {
-        onPlayerUse((Player) sender,args);
+        PlayerData data = PlayerDataManager.get(args[0]);
+        if(data==null) {
+            sender.sendMessage(TranslateManager.translateColors(LangConfig.get("reviving.not-player")
+                    .replace("%player%",args[0])
+            ));
+            return;
+        }
+
+        if(data.isAlive()){
+            sender.sendMessage(TranslateManager.translateColors(LangConfig.get("reviving.not-dead")
+                    .replace("%player%",args[0])));
+            return;
+        }
+        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(data.getUuid());
+        if(!offlinePlayer.isOnline()){
+            sender.sendMessage(TranslateManager.translateColors(LangConfig.get("reviving.not-online").replace("%player%", offlinePlayer.getName())));
+            return;
+        }
+        Player p = (Player )offlinePlayer;
+
+        p.setGameMode(GameMode.SURVIVAL);
+        p.teleport(p.getWorld().getSpawnLocation());
+        p.removePotionEffect(PotionEffectType.BLINDNESS);
+
+        ParticleManager.spawnParticle(data.getParticleOptions(),p);
+
+        data.setRevived(true);
+        data.setAlive(true);
+
+        PlayerDataManager.update(data.getUuid(),data);
+
+        p.sendMessage(TranslateManager.translateColors(LangConfig.get("reviving.hey-console")));
+        sender.sendMessage(TranslateManager.translateColors(LangConfig.get("reviving.done")
+                .replace("%player%",args[0])));
     }
 
     public Revive(@NotNull String name) {
