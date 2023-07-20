@@ -478,6 +478,9 @@ reviving:
   # %player% - Player who revived you.
   hey: '&b%player% &arevived you!'
 
+  # When the console revives you.
+  hey-console: '&bThe Server Console &arevived you!'
+
 # Item messages.
 items:
 
