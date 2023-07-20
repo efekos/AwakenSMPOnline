@@ -2,13 +2,12 @@ package me.efekos.awakensmponline.items;
 
 import me.efekos.awakensmponline.config.LangConfig;
 import me.efekos.awakensmponline.utils.DateUtils;
+import me.efekos.simpler.annotations.Listen;
+import me.efekos.simpler.annotations.RightClick;
 import me.efekos.simpler.commands.translation.TranslateManager;
 import me.efekos.simpler.items.CustomItem;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityPickupItemEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.CompassMeta;
@@ -32,12 +31,8 @@ public class TrackingCompass extends CustomItem {
         this.expiresAt = expiresAt;
     }
 
-    @Override
-    public void onLeftClick(PlayerInteractEvent event) {
-
-    }
-
-    @Override
+    @Listen
+    @RightClick
     public void onRightClick(PlayerInteractEvent event) {
         Player p = event.getPlayer();
         if(new Date().after(expiresAt)){
@@ -63,16 +58,6 @@ public class TrackingCompass extends CustomItem {
         p.getInventory().setItemInMainHand(stack);
 
         p.sendMessage(TranslateManager.translateColors(LangConfig.get("items.tracking_compass.refreshed")));
-
-    }
-
-    @Override
-    public void onDrop(PlayerDropItemEvent event) {
-
-    }
-
-    @Override
-    public void onPickup(EntityPickupItemEvent event) {
 
     }
 
