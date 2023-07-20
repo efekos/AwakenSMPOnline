@@ -11,6 +11,7 @@ import me.efekos.awakensmponline.files.TeamDataManager;
 import me.efekos.awakensmponline.utils.Logger;
 import me.efekos.awakensmponline.utils.RecipeManager;
 import me.efekos.simpler.Metrics;
+import me.efekos.simpler.PluginSetups;
 import me.efekos.simpler.commands.CommandManager;
 import me.efekos.simpler.items.ItemManager;
 import me.efekos.simpler.menu.MenuManager;
@@ -93,9 +94,15 @@ public final class AwakenSMPOnline extends JavaPlugin {
             ItemManager.setPlugin(this); // setup custom items
 
             Logger.success("Successfully started!");
+
+            Logger.info("Checking For Updates...");
+            boolean upToDate = PluginSetups.checkUpdates(this,102573);
+            if(upToDate) Logger.info("There are no updates avaliable.");
+            else Logger.warn("There is a new update avaliable!");
+
         } catch (Exception e){ // random bişeyler olursa
             e.printStackTrace();
-            Logger.error("Experienced an unknown error while trying to enable plugin.");
+            Logger.error("Experienced an unexpected error while enabling plugin.");
             Logger.error("Stopping plugin.");
             Bukkit.getPluginManager().disablePlugin(this);
         }
