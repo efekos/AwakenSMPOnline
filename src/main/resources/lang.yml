@@ -315,11 +315,11 @@ menus:
     # 'Close' button
     close: '&cClose'
 
-  # 'Particle Options' menu messages.
-  particle_options:
+  # 'Options' menu messages.
+  options:
 
     # Menu's title.
-    title: 'Particle Options'
+    title: 'Options'
 
     # 'Particle Type' button. Leads to 'Choose a Particle Type' menu.
     type: '&eParticle Type'
@@ -337,7 +337,7 @@ menus:
     unselected: '&aClick to select this'
 
   # 'Choose a Particle Type' menu.
-  particle_options_type:
+  options_particle_type:
 
     # Menu's title.
     title: 'Choose a Particle Type'
@@ -364,7 +364,7 @@ menus:
       block: '&eBlock'
 
   # 'Choose a Particle Color' menu.
-  particle_options_color:
+  options_particle_color:
 
     # Menu's title.
     title: 'Choose a Particle Color'
@@ -421,7 +421,7 @@ menus:
       black: '&eBlack'
 
   # 'Choose an Animation Type' menu.
-  animation_type:
+  options_animation_type:
 
     # The menus title.
     title: 'Choose an Animation Type'
