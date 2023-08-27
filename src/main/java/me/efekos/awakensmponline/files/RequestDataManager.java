@@ -46,7 +46,6 @@ public class RequestDataManager {
                 data.setGetter(newData.getGetter());
                 data.setSender(newData.getSender());
                 data.setType(newData.getType());
-                data.setId(newData.getId());
             }
         }
         save();
