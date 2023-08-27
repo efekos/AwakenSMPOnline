@@ -1,10 +1,12 @@
 package me.efekos.awakensmponline.data;
 
+import me.efekos.simpler.config.Storable;
+
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class PlayerData {
-    private UUID uuid;
+public class PlayerData extends Storable {
+    private final UUID id = UUID.randomUUID();
     private String name;
     private boolean alive;
     private boolean revived;
@@ -17,8 +19,7 @@ public class PlayerData {
     private ArrayList<WaitingNotification> notifications;
     private UUID currentTeam;
 
-    public PlayerData(UUID uuid, String name, boolean alive, boolean revived, ParticleOptions particleOptions) {
-        this.uuid = uuid;
+    public PlayerData(String name, boolean alive, boolean revived, ParticleOptions particleOptions) {
         this.name = name;
         this.alive = alive;
         this.revived = revived;
@@ -151,12 +152,8 @@ public class PlayerData {
         this.revived = revived;
     }
 
-    public UUID getUuid() {
-        return this.uuid;
-    }
-
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
+    public UUID getId() {
+        return this.id;
     }
 
     public String getName() {

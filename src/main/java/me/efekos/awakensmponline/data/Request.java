@@ -1,16 +1,17 @@
 package me.efekos.awakensmponline.data;
 
+import me.efekos.simpler.config.Storable;
+
 import java.util.UUID;
 
-public class Request {
-    private UUID id;
+public class Request extends Storable {
+    private final UUID id = UUID.randomUUID();
     private RequestType type;
     private UUID sender;
     private UUID getter;
     private boolean done;
 
-    public Request(UUID id, RequestType type, UUID sender, UUID getter) {
-        this.id = id;
+    public Request(RequestType type, UUID sender, UUID getter) {
         this.type = type;
         this.sender = sender;
         this.getter = getter;
@@ -26,11 +27,7 @@ public class Request {
     }
 
     public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
+        return this.id;
     }
 
     public RequestType getType() {

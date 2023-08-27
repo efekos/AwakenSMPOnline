@@ -1,6 +1,6 @@
 package me.efekos.awakensmponline.commands.team;
 
-import me.efekos.awakensmponline.AwakenSMPOnline;
+import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.Team;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.data.Request;
@@ -52,38 +52,38 @@ public class Invite extends SubCommand {
     public void onPlayerUse(Player player, String[] args) {
         PlayerData ptiData = PlayerDataManager.get(args[0]);
         if(ptiData==null){
-            player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.invite.not-player","&cThere is no one called &b%player%&c.").replace("%player%",args[0])));
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.invite.not-player","&cThere is no one called &b%player%&c.").replace("%player%",args[0])));
             return;
         }
         if(ptiData.getCurrentTeam()!=null){
-            player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.already-in-team-other","&b%player% &cis in another team.").replace("%player%",ptiData.getName())));
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.already-in-team-other","&b%player% &cis in another team.").replace("%player%",ptiData.getName())));
             return;
         }
-        OfflinePlayer offlinePti = Bukkit.getOfflinePlayer(ptiData.getUuid());
+        OfflinePlayer offlinePti = Bukkit.getOfflinePlayer(ptiData.getId());
         if(!offlinePti.isOnline()){
-            player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.invite.not-online","&b%player% &cis not online.").replace("%player%",offlinePti.getName())));
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.invite.not-online","&b%player% &cis not online.").replace("%player%",offlinePti.getName())));
         }
         // there is a player online rn and we wanna send team req to him.
         Player pti = offlinePti.getPlayer();
 
         PlayerData data = PlayerDataManager.fetch(player.getUniqueId());
         if(data.getCurrentTeam()==null){
-            player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.not-in-team","&cYou are not in a team.")));
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.not-in-team","&cYou are not in a team.")));
             return;
         }
         TeamData team = TeamDataManager.get(data.getCurrentTeam());
         if(!team.getOwner().equals(player.getUniqueId())){
-            player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.invite.not-owner","&cYou are not the owner of this team. Only team owners can invite people to their team.")));
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.invite.not-owner","&cYou are not the owner of this team. Only team owners can invite people to their team.")));
             return;
         }
 
         Request req = new Request(UUID.randomUUID(), RequestType.TEAMMATE,team.getId(),pti.getUniqueId());
         RequestDataManager.create(req);
 
-        pti.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.invite.hey","&eTeam called &b%team% &esent you an invite to join their team!").replace("%team%",team.getDisplayName())));
+        pti.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.invite.hey","&eTeam called &b%team% &esent you an invite to join their team!").replace("%team%",team.getDisplayName())));
         pti.spigot().sendMessage(ButtonManager.generateJoinTeamButton(req.getId()+""),new TextComponent(" "),ButtonManager.generateRejectTeamInviteButton(req.getId()+""));
 
-        player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.invite.done","&aSuccessfully sent an invite to &b%player%&a!").replace("%player%",pti.getName())));
+        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.invite.done","&aSuccessfully sent an invite to &b%player%&a!").replace("%player%",pti.getName())));
     }
 
     @Override

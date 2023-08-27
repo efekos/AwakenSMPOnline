@@ -1,6 +1,6 @@
 package me.efekos.awakensmponline.menu;
 
-import me.efekos.awakensmponline.AwakenSMPOnline;
+import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.data.ParticleColor;
 import me.efekos.awakensmponline.data.ParticleOptions;
 import me.efekos.awakensmponline.data.PlayerData;
@@ -36,7 +36,7 @@ public class ParticleColorsMenu extends Menu {
 
     @Override
     public String getTitle() {
-        return TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_particle_color.title","Choose a Particle Color"));
+        return TranslateManager.translateColors(Main.LANG.getString("menus.options_particle_color.title","Choose a Particle Color"));
     }
 
     @Override
@@ -67,7 +67,7 @@ public class ParticleColorsMenu extends Menu {
             case PURPLE_CONCRETE:
                 options.setColor(translateMaterial(event.getCurrentItem().getType()));
                 data.setParticleOptions(options);
-                PlayerDataManager.update(data.getUuid(),data);
+                PlayerDataManager.update(data.getId(),data);
 
                 player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS,100,1);
                 refresh();
@@ -107,22 +107,22 @@ public class ParticleColorsMenu extends Menu {
 
     @Override
     public void fill() {
-        inventory.setItem(0,createItem(Material.WHITE_CONCRETE,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_particle_color.colors.white","&eWhite"))));
-        inventory.setItem(1,createItem(Material.ORANGE_CONCRETE,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_particle_color.colors.orange","&eOrange"))));
-        inventory.setItem(2,createItem(Material.MAGENTA_CONCRETE,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_particle_color.colors.magenta","&eMagenta"))));
-        inventory.setItem(3,createItem(Material.LIGHT_BLUE_CONCRETE,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_particle_color.colors.light_blue","&eLight Blue"))));
-        inventory.setItem(4,createItem(Material.YELLOW_CONCRETE,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_particle_color.colors.yellow","&eYellow"))));
-        inventory.setItem(5,createItem(Material.LIME_CONCRETE,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_particle_color.colors.lime","&eLime"))));
-        inventory.setItem(6,createItem(Material.PINK_CONCRETE,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_particle_color.colors.pink","&ePink"))));
-        inventory.setItem(7,createItem(Material.GRAY_CONCRETE,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_particle_color.colors.gray","&eGray"))));
-        inventory.setItem(8,createItem(Material.LIGHT_GRAY_CONCRETE,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_particle_color.colors.light_gray","&eLight Gray"))));
-        inventory.setItem(9,createItem(Material.CYAN_CONCRETE,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_particle_color.colors.cyan","&eCyan"))));
-        inventory.setItem(10,createItem(Material.PURPLE_CONCRETE,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_particle_color.colors.purple","&ePurple"))));
-        inventory.setItem(11,createItem(Material.BLUE_CONCRETE,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_particle_color.colors.blue","&eBlue"))));
-        inventory.setItem(12,createItem(Material.BROWN_CONCRETE,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_particle_color.colors.brown","&eBrown"))));
-        inventory.setItem(13,createItem(Material.GREEN_CONCRETE,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_particle_color.colors.green","&eGreen"))));
-        inventory.setItem(14,createItem(Material.RED_CONCRETE,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_particle_color.colors.red","&eRed"))));
-        inventory.setItem(15,createItem(Material.BLACK_CONCRETE,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_particle_color.colors.black","&eBlack"))));
+        inventory.setItem(0,createItem(Material.WHITE_CONCRETE,TranslateManager.translateColors(Main.LANG.getString("menus.options_particle_color.colors.white","&eWhite"))));
+        inventory.setItem(1,createItem(Material.ORANGE_CONCRETE,TranslateManager.translateColors(Main.LANG.getString("menus.options_particle_color.colors.orange","&eOrange"))));
+        inventory.setItem(2,createItem(Material.MAGENTA_CONCRETE,TranslateManager.translateColors(Main.LANG.getString("menus.options_particle_color.colors.magenta","&eMagenta"))));
+        inventory.setItem(3,createItem(Material.LIGHT_BLUE_CONCRETE,TranslateManager.translateColors(Main.LANG.getString("menus.options_particle_color.colors.light_blue","&eLight Blue"))));
+        inventory.setItem(4,createItem(Material.YELLOW_CONCRETE,TranslateManager.translateColors(Main.LANG.getString("menus.options_particle_color.colors.yellow","&eYellow"))));
+        inventory.setItem(5,createItem(Material.LIME_CONCRETE,TranslateManager.translateColors(Main.LANG.getString("menus.options_particle_color.colors.lime","&eLime"))));
+        inventory.setItem(6,createItem(Material.PINK_CONCRETE,TranslateManager.translateColors(Main.LANG.getString("menus.options_particle_color.colors.pink","&ePink"))));
+        inventory.setItem(7,createItem(Material.GRAY_CONCRETE,TranslateManager.translateColors(Main.LANG.getString("menus.options_particle_color.colors.gray","&eGray"))));
+        inventory.setItem(8,createItem(Material.LIGHT_GRAY_CONCRETE,TranslateManager.translateColors(Main.LANG.getString("menus.options_particle_color.colors.light_gray","&eLight Gray"))));
+        inventory.setItem(9,createItem(Material.CYAN_CONCRETE,TranslateManager.translateColors(Main.LANG.getString("menus.options_particle_color.colors.cyan","&eCyan"))));
+        inventory.setItem(10,createItem(Material.PURPLE_CONCRETE,TranslateManager.translateColors(Main.LANG.getString("menus.options_particle_color.colors.purple","&ePurple"))));
+        inventory.setItem(11,createItem(Material.BLUE_CONCRETE,TranslateManager.translateColors(Main.LANG.getString("menus.options_particle_color.colors.blue","&eBlue"))));
+        inventory.setItem(12,createItem(Material.BROWN_CONCRETE,TranslateManager.translateColors(Main.LANG.getString("menus.options_particle_color.colors.brown","&eBrown"))));
+        inventory.setItem(13,createItem(Material.GREEN_CONCRETE,TranslateManager.translateColors(Main.LANG.getString("menus.options_particle_color.colors.green","&eGreen"))));
+        inventory.setItem(14,createItem(Material.RED_CONCRETE,TranslateManager.translateColors(Main.LANG.getString("menus.options_particle_color.colors.red","&eRed"))));
+        inventory.setItem(15,createItem(Material.BLACK_CONCRETE,TranslateManager.translateColors(Main.LANG.getString("menus.options_particle_color.colors.black","&eBlack"))));
 
 
         PlayerData data = PlayerDataManager.fetch(owner.getUniqueId());
@@ -137,13 +137,13 @@ public class ParticleColorsMenu extends Menu {
             boolean isThis = options.getColor() == translateMaterial(item.getType());
 
             assert meta != null;
-            meta.setLore(Arrays.asList(" ", TranslateManager.translateColors(isThis ? AwakenSMPOnline.LANG.getString("menus.options.selected","&6You currently selected this") : AwakenSMPOnline.LANG.getString("menus.options.unselected","&aClick to select this"))));
+            meta.setLore(Arrays.asList(" ", TranslateManager.translateColors(isThis ? Main.LANG.getString("menus.options.selected","&6You currently selected this") : Main.LANG.getString("menus.options.unselected","&aClick to select this"))));
             if(isThis) meta.addEnchant(Enchantment.MENDING,1,true);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             item.setItemMeta(meta);
         }
 
-        inventory.setItem(26,createItem(Material.PAPER,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.buttons.back","&eBack"))));
+        inventory.setItem(26,createItem(Material.PAPER,TranslateManager.translateColors(Main.LANG.getString("menus.buttons.back","&eBack"))));
 
         fillEmptyWith(createItem(Material.BLACK_STAINED_GLASS_PANE," "));
     }

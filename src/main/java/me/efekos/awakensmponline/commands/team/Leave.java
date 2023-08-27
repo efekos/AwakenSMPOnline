@@ -1,6 +1,6 @@
 package me.efekos.awakensmponline.commands.team;
 
-import me.efekos.awakensmponline.AwakenSMPOnline;
+import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.Team;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.data.TeamData;
@@ -43,12 +43,12 @@ public class Leave extends SubCommand {
     public void onPlayerUse(Player player, String[] args) {
         PlayerData data = PlayerDataManager.fetch(player.getUniqueId());
         if(data.getCurrentTeam()==null){
-            player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.not-in-team","&cYou are not in a team.")));
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.not-in-team","&cYou are not in a team.")));
             return;
         }
         TeamData team = TeamDataManager.get(data.getCurrentTeam());
         if(team.getOwner().equals(player.getUniqueId())){
-            player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.leave.owner","&cYou are the owner of this team, you can''t leave unless you delete the team.")));
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.leave.owner","&cYou are the owner of this team, you can''t leave unless you delete the team.")));
             return;
         }
 
@@ -60,14 +60,14 @@ public class Leave extends SubCommand {
             OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);
 
             if(offlinePlayer.isOnline()){
-                offlinePlayer.getPlayer().sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("notifications.team.leaved","&5[&dTEAM&5] &b%player% &eleft the team!").replace("%player%",player.getName())));
+                offlinePlayer.getPlayer().sendMessage(TranslateManager.translateColors(Main.LANG.getString("notifications.team.leaved","&5[&dTEAM&5] &b%player% &eleft the team!").replace("%player%",player.getName())));
             }
         });
 
         TeamDataManager.update(team.getId(),team);
-        PlayerDataManager.update(data.getUuid(),data);
+        PlayerDataManager.update(data.getId(),data);
 
-        player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.leave.done","&aSuccessfully left the team!")));
+        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.leave.done","&aSuccessfully left the team!")));
     }
 
     @Override

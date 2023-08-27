@@ -1,6 +1,6 @@
 package me.efekos.awakensmponline.commands.team;
 
-import me.efekos.awakensmponline.AwakenSMPOnline;
+import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.Team;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.data.TeamData;
@@ -44,21 +44,21 @@ public class Members extends SubCommand {
     public void onPlayerUse(@NotNull Player player, String[] args) {
         PlayerData data = PlayerDataManager.fetch(player.getUniqueId());
         if(data.getCurrentTeam()==null){
-            player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.not-in-team","&cYou are not in a team.")));
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.not-in-team","&cYou are not in a team.")));
             return;
         }
         TeamData team = TeamDataManager.get(data.getCurrentTeam());
 
-        player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.members.header","&6----------&eTeam Members&6----------")));
+        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.members.header","&6----------&eTeam Members&6----------")));
 
         for(UUID uuid:team.getMembers()){
             OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);
-            player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.members."+(team.getOwner().equals(uuid)?"owner":"member"),"&f- &e%player%")
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.members."+(team.getOwner().equals(uuid)?"owner":"member"),"&f- &e%player%")
                     .replace("%player%",offlinePlayer.getName())
             ));
         }
 
-        player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.members.footer","&6--------------------------------")));
+        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.members.footer","&6--------------------------------")));
     }
 
     @Override

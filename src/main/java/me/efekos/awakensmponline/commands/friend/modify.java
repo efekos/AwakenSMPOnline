@@ -1,7 +1,7 @@
 package me.efekos.awakensmponline.commands.friend;
 
+import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.Friend;
-import me.efekos.awakensmponline.config.LangConfig;
 import me.efekos.awakensmponline.data.FriendModifications;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.files.PlayerDataManager;
@@ -9,9 +9,10 @@ import me.efekos.awakensmponline.utils.ButtonManager;
 import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
-import me.efekos.simpler.commands.syntax.PlayerArgument;
+import me.efekos.simpler.commands.syntax.ArgumentPriority;
+import me.efekos.simpler.commands.syntax.impl.PlayerArgument;
 import me.efekos.simpler.commands.syntax.Syntax;
-import me.efekos.simpler.commands.translation.TranslateManager;
+import me.efekos.simpler.translation.TranslateManager;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
@@ -37,27 +38,27 @@ public class Modify extends SubCommand {
     @Override
     public @NotNull Syntax getSyntax() {
         return new Syntax()
-                .withArgument(new PlayerArgument());
+                .withArgument(new PlayerArgument(ArgumentPriority.REQUIRED));
     }
 
     @Override
     public void onPlayerUse(Player player, String[] args) {
         PlayerData data = PlayerDataManager.get(args[0]);
         if(data==null){
-            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.modify.not-player").replace("%player%",args[0])));
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.modify.not-player","&b%player% &cis not a player").replace("%player%",args[0])));
             return;
         }
 
         me.efekos.awakensmponline.data.Friend friend = data.getFriend(player.getName());
         if(friend==null){
-            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.not-friend").replace("%player%",data.getName())));
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.not-friend","&b%player% &cis not your friend.").replace("%player%",data.getName())));
             return;
         }
         FriendModifications modifications = friend.getModifications();
 
         if(args.length>1){
             if(args.length!=3){
-                player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.modify.need-value")));
+                player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.modify.need-value","&cYou need to enter &etrue &cor &efalse &cas third argument to change a value.")));
                 return;
             }
 
@@ -91,12 +92,12 @@ public class Modify extends SubCommand {
                             Boolean.parseBoolean(args[2]));
                     break;
                 default:
-                    player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.modify.invalid-key").replace("%key%",args[1])));
+                    player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.modify.invalid-key","&b%key% &cis not an option.").replace("%key%",args[1])));
                     return;
             }
             friend.setModifications(modifications);
             data.updateFriend(friend.getPlayerId(),friend);
-            PlayerDataManager.update(data.getUuid(),data);
+            PlayerDataManager.update(data.getId(),data);
         }
 
         player.sendMessage("");
@@ -109,23 +110,23 @@ public class Modify extends SubCommand {
         player.sendMessage("");
         player.spigot().sendMessage(ButtonManager.generateBackButton("/awakensmponline:friend list"));
         player.sendMessage("");
-        player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.modify.header").replace("%player%", args[0])));
-        player.spigot().sendMessage(new TextComponent(TranslateManager.translateColors(LangConfig.get("commands.friend.modify.worldAllowed").replace("%value%",pSBTLV(modifications.isWorldAllowed()+"")))),new TextComponent(" "), ButtonManager.generateModifyToggleButton(args[0], "worldAllowed",!modifications.isWorldAllowed()));
-        player.spigot().sendMessage(new TextComponent(TranslateManager.translateColors(LangConfig.get("commands.friend.modify.locationAllowed").replace("%value%",pSBTLV(modifications.isLocationAllowed()+"")))),new TextComponent(" "), ButtonManager.generateModifyToggleButton(args[0], "locationAllowed",!modifications.isLocationAllowed()));
-        player.spigot().sendMessage(new TextComponent(TranslateManager.translateColors(LangConfig.get("commands.friend.modify.compassAllowed").replace("%value%",pSBTLV(modifications.isCompassAllowed()+"")))),new TextComponent(" "), ButtonManager.generateModifyToggleButton(args[0], "compassAllowed",!modifications.isCompassAllowed()));
-        player.spigot().sendMessage(new TextComponent(TranslateManager.translateColors(LangConfig.get("commands.friend.modify.inventoryAllowed").replace("%value%",pSBTLV(modifications.isInventoryAllowed()+"")))),new TextComponent(" "), ButtonManager.generateModifyToggleButton(args[0], "inventoryAllowed",!modifications.isInventoryAllowed()));
-        player.spigot().sendMessage(new TextComponent(TranslateManager.translateColors(LangConfig.get("commands.friend.modify.armorAllowed").replace("%value%",pSBTLV(modifications.isArmorAllowed()+"")))),new TextComponent(" "), ButtonManager.generateModifyToggleButton(args[0], "armorAllowed",!modifications.isArmorAllowed()));
-        player.spigot().sendMessage(new TextComponent(TranslateManager.translateColors(LangConfig.get("commands.friend.modify.healthAllowed").replace("%value%",pSBTLV(modifications.isHealthAllowed()+"")))),new TextComponent(" "), ButtonManager.generateModifyToggleButton(args[0], "healthAllowed",!modifications.isHealthAllowed()));
-        player.spigot().sendMessage(new TextComponent(TranslateManager.translateColors(LangConfig.get("commands.friend.modify.expAllowed").replace("%value%",pSBTLV(modifications.isExpAllowed()+"")))),new TextComponent(" "), ButtonManager.generateModifyToggleButton(args[0], "expAllowed",!modifications.isExpAllowed()));
-        player.spigot().sendMessage(new TextComponent(TranslateManager.translateColors(LangConfig.get("commands.friend.modify.foodAllowed").replace("%value%",pSBTLV(modifications.isFoodAllowed()+"")))),new TextComponent(" "), ButtonManager.generateModifyToggleButton(args[0], "foodAllowed",!modifications.isFoodAllowed()));
-        player.spigot().sendMessage(new TextComponent(TranslateManager.translateColors(LangConfig.get("commands.friend.modify.teleportAllowed").replace("%value%",pSBTLV(modifications.isTeleportAllowed()+"")))),new TextComponent(" "), ButtonManager.generateModifyToggleButton(args[0], "teleportAllowed",!modifications.isTeleportAllowed()));
-        player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.modify.footer")));
+        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.modify.header", "&1----------&9Modify what %player% can do&1----------").replace("%player%", args[0])));
+        player.spigot().sendMessage(new TextComponent(TranslateManager.translateColors(Main.LANG.getString("commands.friend.modify.worldAllowed","&9See which dimension you are in: &a%value%").replace("%value%",pSBTLV(modifications.isWorldAllowed()+"")))),new TextComponent(" "), ButtonManager.generateModifyToggleButton(args[0], "worldAllowed",!modifications.isWorldAllowed()));
+        player.spigot().sendMessage(new TextComponent(TranslateManager.translateColors(Main.LANG.getString("commands.friend.modify.locationAllowed","&9See where you are: &a%value%").replace("%value%",pSBTLV(modifications.isLocationAllowed()+"")))),new TextComponent(" "), ButtonManager.generateModifyToggleButton(args[0], "locationAllowed",!modifications.isLocationAllowed()));
+        player.spigot().sendMessage(new TextComponent(TranslateManager.translateColors(Main.LANG.getString("commands.friend.modify.compassAllowed","&9Get a compass that leads to you: &a%value%").replace("%value%",pSBTLV(modifications.isCompassAllowed()+"")))),new TextComponent(" "), ButtonManager.generateModifyToggleButton(args[0], "compassAllowed",!modifications.isCompassAllowed()));
+        player.spigot().sendMessage(new TextComponent(TranslateManager.translateColors(Main.LANG.getString("commands.friend.modify.inventoryAllowed","&9See your inventory: &a%value%").replace("%value%",pSBTLV(modifications.isInventoryAllowed()+"")))),new TextComponent(" "), ButtonManager.generateModifyToggleButton(args[0], "inventoryAllowed",!modifications.isInventoryAllowed()));
+        player.spigot().sendMessage(new TextComponent(TranslateManager.translateColors(Main.LANG.getString("commands.friend.modify.armorAllowed","&9See the items in your hands and your armor: &a%value%").replace("%value%",pSBTLV(modifications.isArmorAllowed()+"")))),new TextComponent(" "), ButtonManager.generateModifyToggleButton(args[0], "armorAllowed",!modifications.isArmorAllowed()));
+        player.spigot().sendMessage(new TextComponent(TranslateManager.translateColors(Main.LANG.getString("commands.friend.modify.healthAllowed","&9See your health status: &a%value%").replace("%value%",pSBTLV(modifications.isHealthAllowed()+"")))),new TextComponent(" "), ButtonManager.generateModifyToggleButton(args[0], "healthAllowed",!modifications.isHealthAllowed()));
+        player.spigot().sendMessage(new TextComponent(TranslateManager.translateColors(Main.LANG.getString("commands.friend.modify.expAllowed","&9See your exp and level: &a%value%").replace("%value%",pSBTLV(modifications.isExpAllowed()+"")))),new TextComponent(" "), ButtonManager.generateModifyToggleButton(args[0], "expAllowed",!modifications.isExpAllowed()));
+        player.spigot().sendMessage(new TextComponent(TranslateManager.translateColors(Main.LANG.getString("commands.friend.modify.foodAllowed","&9See how much hungry you are: &a%value%").replace("%value%",pSBTLV(modifications.isFoodAllowed()+"")))),new TextComponent(" "), ButtonManager.generateModifyToggleButton(args[0], "foodAllowed",!modifications.isFoodAllowed()));
+        player.spigot().sendMessage(new TextComponent(TranslateManager.translateColors(Main.LANG.getString("commands.friend.modify.teleportAllowed","&9Teleport to your location without asking: &a%value%").replace("%value%",pSBTLV(modifications.isTeleportAllowed()+"")))),new TextComponent(" "), ButtonManager.generateModifyToggleButton(args[0], "teleportAllowed",!modifications.isTeleportAllowed()));
+        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.modify.footer","&1------------------------------------------------")));
 
     }
 
     private String pSBTLV(String bool){
-        if(bool.equals("true")) return TranslateManager.translateColors(LangConfig.get("commands.friend.modify.true"));
-        if(bool.equals("false")) return TranslateManager.translateColors(LangConfig.get("commands.friend.modify.false"));
+        if(bool.equals("true")) return TranslateManager.translateColors(Main.LANG.getString("commands.friend.modify.true","&a✔"));
+        if(bool.equals("false")) return TranslateManager.translateColors(Main.LANG.getString("commands.friend.modify.false","&c✖"));
         return "";
     }
 

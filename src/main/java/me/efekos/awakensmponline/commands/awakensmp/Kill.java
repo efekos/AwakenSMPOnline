@@ -1,6 +1,6 @@
 package me.efekos.awakensmponline.commands.awakensmp;
 
-import me.efekos.awakensmponline.AwakenSMPOnline;
+import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.args.AlivePlayerArgument;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.files.PlayerDataManager;
@@ -38,14 +38,14 @@ public class Kill extends SubCommand {
     @Override
     public void onPlayerUse(Player player, String[] args) {
         PlayerData data = PlayerDataManager.get(args[0]);
-        Config lang = AwakenSMPOnline.LANG;
+        Config lang = Main.LANG;
 
 
         if(data==null){
             player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.not-player","&cThere is no one called &b%player%&c.").replace("%player%",args[0])));
             return;
         }
-        OfflinePlayer offlineVictim = Bukkit.getOfflinePlayer(data.getUuid());
+        OfflinePlayer offlineVictim = Bukkit.getOfflinePlayer(data.getId());
         if(!offlineVictim.isOnline()){
             player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.not-online","&b%player% &cis not online.").replace("%player%",data.getName())));
             return;
@@ -84,13 +84,13 @@ public class Kill extends SubCommand {
     public void onConsoleUse(ConsoleCommandSender sender, String[] args) {
         PlayerData data = PlayerDataManager.get(args[0]);
 
-        Config lang = AwakenSMPOnline.LANG;
+        Config lang = Main.LANG;
 
         if(data==null){
             sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.not-player","&cThere is no one called &b%player%&c.").replace("%player%",args[0])));
             return;
         }
-        OfflinePlayer offlineVictim = Bukkit.getOfflinePlayer(data.getUuid());
+        OfflinePlayer offlineVictim = Bukkit.getOfflinePlayer(data.getId());
         if(!offlineVictim.isOnline()){
             sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.not-online","&b%player% &cis not online.").replace("%player%",data.getName())));
             return;

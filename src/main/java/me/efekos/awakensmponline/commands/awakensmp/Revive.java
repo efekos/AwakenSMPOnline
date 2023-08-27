@@ -1,6 +1,6 @@
 package me.efekos.awakensmponline.commands.awakensmp;
 
-import me.efekos.awakensmponline.AwakenSMPOnline;
+import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.AwakenSMP;
 import me.efekos.awakensmponline.commands.args.DeadPlayerArgument;
 import me.efekos.awakensmponline.data.PlayerData;
@@ -36,20 +36,20 @@ public class Revive extends SubCommand {
     public void onPlayerUse(Player player, String[] args) {
         PlayerData data = PlayerDataManager.get(args[0]);
         if(data==null) {
-            player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("reviving.not-player","&cThere is no one called &b%player%&c.")
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.not-player","&cThere is no one called &b%player%&c.")
                     .replace("%player%",args[0])
             ));
             return;
         }
 
         if(data.isAlive()){
-            player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("reviving.not-dead","&b%player% &cis not dead.")
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.not-dead","&b%player% &cis not dead.")
                     .replace("%player%",args[0])));
             return;
         }
-        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(data.getUuid());
+        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(data.getId());
         if(!offlinePlayer.isOnline()){
-            player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("reviving.not-online","&b%player% &cis not online.").replace("%player%", offlinePlayer.getName())));
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.not-online","&b%player% &cis not online.").replace("%player%", offlinePlayer.getName())));
             return;
         }
         Player p = (Player )offlinePlayer;
@@ -63,10 +63,10 @@ public class Revive extends SubCommand {
         data.setRevived(true);
         data.setAlive(true);
 
-        PlayerDataManager.update(data.getUuid(),data);
+        PlayerDataManager.update(data.getId(),data);
 
-        p.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("reviving.hey","&b%player% &arevived you!").replace("%player%",player.getName())));
-        player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("reviving.done","&aSuccessfully revived &b%player%&a!")
+        p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.hey","&b%player% &arevived you!").replace("%player%",player.getName())));
+        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.done","&aSuccessfully revived &b%player%&a!")
                 .replace("%player%",args[0])));
         player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, SoundCategory.PLAYERS,100,1);
     }
@@ -75,20 +75,20 @@ public class Revive extends SubCommand {
     public void onConsoleUse(ConsoleCommandSender sender, String[] args) {
         PlayerData data = PlayerDataManager.get(args[0]);
         if(data==null) {
-            sender.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("reviving.not-player","&cThere is no one called &b%player%&c.")
+            sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.not-player","&cThere is no one called &b%player%&c.")
                     .replace("%player%",args[0])
             ));
             return;
         }
 
         if(data.isAlive()){
-            sender.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("reviving.not-dead","&b%player% &cis not dead.")
+            sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.not-dead","&b%player% &cis not dead.")
                     .replace("%player%",args[0])));
             return;
         }
-        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(data.getUuid());
+        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(data.getId());
         if(!offlinePlayer.isOnline()){
-            sender.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("reviving.not-online","&b%player% &cis not online.").replace("%player%", offlinePlayer.getName())));
+            sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.not-online","&b%player% &cis not online.").replace("%player%", offlinePlayer.getName())));
             return;
         }
         Player p = (Player )offlinePlayer;
@@ -102,10 +102,10 @@ public class Revive extends SubCommand {
         data.setRevived(true);
         data.setAlive(true);
 
-        PlayerDataManager.update(data.getUuid(),data);
+        PlayerDataManager.update(data.getId(),data);
 
-        p.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("reviving.hey-console","&bThe Server Console &arevived you!")));
-        sender.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("reviving.done","&aSuccessfully revived &b%player%&a!")
+        p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.hey-console","&bThe Server Console &arevived you!")));
+        sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.done","&aSuccessfully revived &b%player%&a!")
                 .replace("%player%",args[0])));
     }
 

@@ -277,8 +277,8 @@ commands:
 
     # /friend accept messages.
     accept:
-      not-uuid: '&b%uuid% &cis not a valid UUID.'
-      not-req: '&cThere is no request with id &b%uuid%&c.'
+      not-id: '&b%id% &cis not a valid UUID.'
+      not-req: '&cThere is no request with id &b%id%&c.'
       not-urs: '&cThis request was not sent to you.'
       not-friend: '&cThis is not a friend request.'
       done: '&aSuccessfully accepted &b%player%&a''s friend request!'
@@ -295,16 +295,16 @@ commands:
 
     # /friend cancel messages
     cancel:
-      not-uuid: '&b%uuid% &cis not a valid UUID.'
-      not-req: '&cThere is no request with id &b%uuid%&c.'
+      not-id: '&b%id% &cis not a valid UUID.'
+      not-req: '&cThere is no request with id &b%id%&c.'
       not-urs: '&cYou did not sent this request.'
       not-friend: '&cThis is not a friend request.'
       done: '&aSuccessfully canceled friend request!'
 
     # /friend deny messages.
     deny:
-      not-uuid: '&b%uuid% &cis not a valid UUID.'
-      not-req: '&cThere is no request with id &b%uuid%&c.'
+      not-id: '&b%id% &cis not a valid UUID.'
+      not-req: '&cThere is no request with id &b%id%&c.'
       not-urs: '&cThis request was not sent to you.'
       not-friend: '&cThis is not a friend request.'
       done: '&aSuccessfully denied &b%player%&a''s friend request!'

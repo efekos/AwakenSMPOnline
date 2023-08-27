@@ -3,6 +3,9 @@ package me.efekos.awakensmponline;
 import me.efekos.awakensmponline.commands.AwakenSMP;
 import me.efekos.awakensmponline.commands.Friend;
 import me.efekos.awakensmponline.commands.Team;
+import me.efekos.awakensmponline.data.PlayerData;
+import me.efekos.awakensmponline.data.Request;
+import me.efekos.awakensmponline.data.TeamData;
 import me.efekos.awakensmponline.events.OnPlayer;
 import me.efekos.awakensmponline.exceptions.InvalidRecipeException;
 import me.efekos.awakensmponline.files.PlayerDataManager;
@@ -14,28 +17,36 @@ import me.efekos.simpler.Metrics;
 import me.efekos.simpler.Utilities;
 import me.efekos.simpler.commands.CommandManager;
 import me.efekos.simpler.config.Config;
+import me.efekos.simpler.config.JSONDataManager;
 import me.efekos.simpler.items.ItemManager;
 import me.efekos.simpler.menu.MenuManager;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class AwakenSMPOnline extends JavaPlugin {
+public final class Main extends JavaPlugin {
 
-    private static AwakenSMPOnline plugin;
+    private static Main plugin;
 
-    public static AwakenSMPOnline getInstance() {
+    public static Main getInstance() {
         return plugin;
     }
 
     public static Config GAME;
     public static Config LANG;
 
+    public static JSONDataManager<PlayerData> PLAYER_DATA;
+    public static JSONDataManager<TeamData> TEAM_DATA;
+    public static JSONDataManager<Request> REQUEST_DATA;
+
     @Override
     public void onEnable() {
         plugin = this;
         GAME = new Config("config.yml",this);
         LANG = new Config("lang.yml",this);
+        PLAYER_DATA = new JSONDataManager<>("data\\PlayerData.json",this);
+        TEAM_DATA = new JSONDataManager<>("data\\TeamData.json",this);
+        REQUEST_DATA = new JSONDataManager<>("data\\RequestData.json",this);
         try {
             // Setup metrics
             Metrics metrics = new Metrics(this,16413);

@@ -1,6 +1,6 @@
 package me.efekos.awakensmponline.menu;
 
-import me.efekos.awakensmponline.AwakenSMPOnline;
+import me.efekos.awakensmponline.Main;
 import me.efekos.simpler.translation.TranslateManager;
 import me.efekos.simpler.menu.Menu;
 import me.efekos.simpler.menu.MenuData;
@@ -27,7 +27,7 @@ public class FriendInventoryMenu extends Menu {
 
     @Override
     public String getTitle() {
-        return TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.friend_inventory.title","%player%'s Inventory")
+        return TranslateManager.translateColors(Main.LANG.getString("menus.friend_inventory.title","%player%'s Inventory")
                 .replace("%player%",((PlayerInventory)data.get("invToOpen")).getHolder().getName()+"")
         );
     }

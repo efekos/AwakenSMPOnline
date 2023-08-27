@@ -1,6 +1,6 @@
 package me.efekos.awakensmponline.commands.team;
 
-import me.efekos.awakensmponline.AwakenSMPOnline;
+import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.Team;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.data.TeamData;
@@ -52,7 +52,7 @@ public class Chat extends SubCommand {
 
         PlayerData data = PlayerDataManager.fetch(player);
         if(data.getCurrentTeam()==null){
-            player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.not-in-team","&cYou are not in a team.")));
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.not-in-team","&cYou are not in a team.")));
             return;
         }
         TeamData team = TeamDataManager.get(data.getCurrentTeam());
@@ -60,7 +60,7 @@ public class Chat extends SubCommand {
         team.getMembers().forEach(uuid -> {
             OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);
             if(offlinePlayer.isOnline()){
-                offlinePlayer.getPlayer().sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("notifications.team.chat","&5[&dTEAM CHAT&5] &e%player%&8: &a%message%").replace("%player%",player.getName()).replace("%message%",message)));
+                offlinePlayer.getPlayer().sendMessage(TranslateManager.translateColors(Main.LANG.getString("notifications.team.chat","&5[&dTEAM CHAT&5] &e%player%&8: &a%message%").replace("%player%",player.getName()).replace("%message%",message)));
             }
         });
     }

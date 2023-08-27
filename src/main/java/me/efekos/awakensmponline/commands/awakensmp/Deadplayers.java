@@ -1,6 +1,6 @@
 package me.efekos.awakensmponline.commands.awakensmp;
 
-import me.efekos.awakensmponline.AwakenSMPOnline;
+import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.AwakenSMP;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.files.PlayerDataManager;
@@ -47,7 +47,7 @@ public class Deadplayers extends SubCommand {
             }
         }
 
-        Config lang = AwakenSMPOnline.LANG;
+        Config lang = Main.LANG;
 
         player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.header","&4-----&cDead &fPlayers&4-----")));
         if(names.size()==0){
@@ -70,7 +70,7 @@ public class Deadplayers extends SubCommand {
             }
         }
 
-        Config lang = AwakenSMPOnline.LANG;
+        Config lang = Main.LANG;
 
         sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.header","&4-----&cDead &fPlayers&4-----")));
         if(names.size()==0){

@@ -1,8 +1,8 @@
 package me.efekos.awakensmponline.commands.friend;
 
+import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.Friend;
 import me.efekos.awakensmponline.commands.args.GotRequestUUIDArgument;
-import me.efekos.awakensmponline.config.LangConfig;
 import me.efekos.awakensmponline.data.*;
 import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.awakensmponline.files.RequestDataManager;
@@ -10,7 +10,8 @@ import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
 import me.efekos.simpler.commands.syntax.Syntax;
-import me.efekos.simpler.commands.translation.TranslateManager;
+import me.efekos.simpler.config.Config;
+import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.ConsoleCommandSender;
@@ -35,23 +36,24 @@ public class Deny extends SubCommand {
 
     @Override
     public void onPlayerUse(Player player, String[] args) {
+        Config lang = Main.LANG;
         try {
             UUID.fromString(args[0]);
         } catch (IllegalArgumentException e){
-            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.deny.not-uuid").replace("%uuid%",args[0])));
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.deny.not-uuid","&b%uuid% &cis not a valid UUID.").replace("%uuid%",args[0])));
             return;
         }
         Request req = RequestDataManager.get(UUID.fromString(args[0]));
         if(req==null){
-            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.deny.not-req").replace("%uuid%",args[0])));
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.deny.not-req","&cThere is no request with id &b%uuid%&c.").replace("%uuid%",args[0])));
             return;
         }
         if(!req.getGetter().equals(player.getUniqueId())){
-            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.deny.not-urs")));
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.deny.not-urs","&cThis request was not sent to you.")));
             return;
         }
         if(!req.getType().equals(RequestType.FRIEND)){
-            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.deny.not-friend")));
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.deny.not-friend","&cThis is not a friend request.")));
             return;
         }
         // there is a friend request sent to us.
@@ -60,7 +62,7 @@ public class Deny extends SubCommand {
         req.setDone(true);
         RequestDataManager.delete(req.getId());
 
-        player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.deny.done").replace("%player%",offlineNewFriend.getName())));
+        player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.deny.done","&aSuccessfully denied &b%player%&a''s friend request!").replace("%player%",offlineNewFriend.getName())));
 
         if(!offlineNewFriend.isOnline()){
             WaitingNotification notification = new WaitingNotification(NotificationType.FRIEND_DENIED);
@@ -69,9 +71,9 @@ public class Deny extends SubCommand {
             PlayerData newFriendData = PlayerDataManager.fetch(offlineNewFriend.getUniqueId());
             newFriendData.addNotification(notification);
 
-            PlayerDataManager.update(newFriendData.getUuid(),newFriendData);
+            PlayerDataManager.update(newFriendData.getId(),newFriendData);
         } else {
-            offlineNewFriend.getPlayer().sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.deny.hey").replace("%player%",player.getName())));
+            offlineNewFriend.getPlayer().sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.deny.hey","&b%player% &edenied your friend request.").replace("%player%",player.getName())));
         }
     }
 

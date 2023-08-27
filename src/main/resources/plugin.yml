@@ -1,7 +1,109 @@
 name: AwakenSMPOnline
 version: '${project.version}'
-main: me.efekos.awakensmponline.AwakenSMPOnline
-api-version: 1.19
+main: me.efekos.awakensmponline.Main
+api-version: 1.20
 authors: [ efekos ]
 description: AwakenSMP System with advanced features
 website: https://www.spigotmc.org/resources/awakensmp-online.102573/
+author: efekos
+permissions:
+  awakensmp.deadplayers:
+    description: Allows you to use /awakensmp deadplayers
+  awakensmp.kill-command:
+    description: Allows you to use /awakensmp kill
+  awakensmp.reloadconfig:
+    description: Allows you to use /awakensmp reloadconfig
+  awakensmp.revive:
+    description: Allows you to use /awakensmp revive
+  awakensmp.admin:
+    description: Allows you to use every command under /awakensmp
+    children:
+      - awakensmp.deadplayers
+      - awakensmp.kill
+      - awakensmp.reloadconfig
+      - awakensmp.revive
+  awakensmp.friend.accept:
+    description: Allows you to use /friend accept
+  awakensmp.friend.add:
+    description: Allows you to use /friend add
+  awakensmp.friend.armor:
+    description: Allows you to use /friend armor
+  awakensmp.friend.cancel:
+    description: Allows you to use /friend cancel
+  awakensmp.friend.compass:
+    description: Allows you to use /friend compass
+  awakensmp.friend.deny:
+    description: Allows you to use /friend deny
+  awakensmp.friend.info:
+    description: Allows you to use /friend info
+  awakensmp.friend.inventory:
+    description: Allows you to use /friend inventory
+  awakensmp.friend.list:
+    description: Allows you to use /friend list
+  awakensmp.friend.modify:
+    description: Allows you to use /friend modify
+  awakensmp.friend.remove:
+    description: Allows you to use /friend remove
+  awakensmp.friend.teleport:
+    description: Allows you to use /friend teleport
+  awakensmp.friend.*:
+    description: Allows you to use every command under /friend
+    default: true
+    children:
+      - awakensmp.friend.accept
+      - awakensmp.friend.add
+      - awakensmp.friend.armor
+      - awakensmp.friend.cancel
+      - awakensmp.friend.compass
+      - awakensmp.friend.deny
+      - awakensmp.friend.info
+      - awakensmp.friend.inventory
+      - awakensmp.friend.list
+      - awakensmp.friend.modify
+      - awakensmp.friend.remove
+      - awakensmp.friend.teleport
+  awakensmp.team.chat:
+    description: Allows you to use /team chat
+  awakensmp.team.create:
+    description: Allows you to use /team create
+  awakensmp.team.delete:
+    description: Allows you to use /team delete
+  awakensmp.team.join:
+    description: Allows you to use /team join
+  awakensmp.team.leave:
+    description: Allows you to use /team leave
+  awakensmp.team.members:
+    description: Allows you to use /team members
+  awakensmp.team.my:
+    description: Allows you to use /team my
+  awakensmp.team.reject:
+    description: Allows you to use /team reject
+  awakensmp.team.togglechat:
+    description: Allows you to use /team togglechat
+  awakensmp.team.*:
+    default: true
+    description: Allows you to use every command under /team
+    children:
+      - awakensmp.team.chat
+      - awakensmp.team.create
+      - awakensmp.team.delete
+      - awakensmp.team.join
+      - awakensmp.team.leave
+      - awakensmp.team.members
+      - awakensmp.team.my
+      - awakensmp.team.reject
+      - awakensmp.team.togglechat
+  awakensmp.kill:
+    description: Allows you to kill someone
+    default: true
+  awakensmp.god:
+    description: Makes you invulnerable to actually die. You just respawn.
+  awakensmp.*:
+    description: Gives you everything
+    default: op
+    children:
+      - awakensmp.friend.*
+      - awakensmp.team.*
+      - awakensmp.kill
+      - awakensmp.god
+      - awakensmp.admin

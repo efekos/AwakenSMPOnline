@@ -1,7 +1,7 @@
 package me.efekos.awakensmponline.files;
 
 import com.google.gson.Gson;
-import me.efekos.awakensmponline.AwakenSMPOnline;
+import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.data.TeamData;
 
 import java.io.*;
@@ -50,7 +50,7 @@ public class TeamDataManager {
 
     public static void save(){
         Gson gson = new Gson();
-        String path = AwakenSMPOnline.getInstance().getDataFolder().getAbsolutePath()+"\\data\\TeamData.json";
+        String path = Main.getInstance().getDataFolder().getAbsolutePath()+"\\data\\TeamData.json";
 
         File file = new File(path);
         file.getParentFile().mkdir();
@@ -68,7 +68,7 @@ public class TeamDataManager {
     public static void load(){
 
         Gson gson = new Gson();
-        File file = new File(AwakenSMPOnline.getInstance().getDataFolder().getAbsolutePath()+"\\data\\TeamData.json");
+        File file = new File(Main.getInstance().getDataFolder().getAbsolutePath()+"\\data\\TeamData.json");
         if(file.exists()){
             try {
                 Reader reader = new FileReader(file);

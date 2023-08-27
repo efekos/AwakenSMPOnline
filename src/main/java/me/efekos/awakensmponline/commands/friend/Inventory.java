@@ -1,6 +1,6 @@
 package me.efekos.awakensmponline.commands.friend;
 
-import me.efekos.awakensmponline.AwakenSMPOnline;
+import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.Friend;
 import me.efekos.awakensmponline.commands.args.FriendArgument;
 import me.efekos.awakensmponline.data.PlayerData;
@@ -48,7 +48,7 @@ public class Inventory extends SubCommand {
     public void onPlayerUse(Player player, String[] args) {
         PlayerData data = PlayerDataManager.fetch(player.getUniqueId());
         me.efekos.awakensmponline.data.Friend dataFriend = data.getFriend(args[0]);
-        Config lang = AwakenSMPOnline.LANG;
+        Config lang = Main.LANG;
         if(dataFriend==null){
             player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.not-friend","&b%player% &cis not your friend.").replace("%player%",args[0])));
             return;

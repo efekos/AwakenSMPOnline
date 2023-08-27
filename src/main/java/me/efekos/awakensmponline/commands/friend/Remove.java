@@ -1,6 +1,6 @@
 package me.efekos.awakensmponline.commands.friend;
 
-import me.efekos.awakensmponline.AwakenSMPOnline;
+import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.Friend;
 import me.efekos.awakensmponline.commands.args.FriendArgument;
 import me.efekos.awakensmponline.data.PlayerData;
@@ -42,16 +42,16 @@ public class Remove extends SubCommand {
         PlayerData data = PlayerDataManager.fetch(player.getUniqueId());
         me.efekos.awakensmponline.data.Friend friend = data.getFriend(args[0]);
         if(friend==null){
-            player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.friend.not-friend","&b%player% &cis not your friend.").replace("%player%",args[0])));
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.not-friend","&b%player% &cis not your friend.").replace("%player%",args[0])));
         }
         data.getFriends().remove(friend);
         PlayerData friendsData = PlayerDataManager.fetch(friend.getPlayerId());
         friendsData.getFriends().remove(friendsData.getFriend(player.getUniqueId()));
 
-        PlayerDataManager.update(data.getUuid(),data);
-        PlayerDataManager.update(friendsData.getUuid(),friendsData);
+        PlayerDataManager.update(data.getId(),data);
+        PlayerDataManager.update(friendsData.getId(),friendsData);
 
-        player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.friend.remove.done","&aSuccessfully removed &b%player% &afrom friends!").replace("%player%",friendsData.getName())));
+        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.remove.done","&aSuccessfully removed &b%player% &afrom friends!").replace("%player%",friendsData.getName())));
     }
 
     @Override

@@ -1,7 +1,7 @@
 package me.efekos.awakensmponline.commands.friend;
 
+import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.Friend;
-import me.efekos.awakensmponline.config.LangConfig;
 import me.efekos.awakensmponline.data.*;
 import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.awakensmponline.files.RequestDataManager;
@@ -9,9 +9,11 @@ import me.efekos.awakensmponline.utils.ButtonManager;
 import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
-import me.efekos.simpler.commands.syntax.PlayerArgument;
+import me.efekos.simpler.commands.syntax.ArgumentPriority;
+import me.efekos.simpler.commands.syntax.impl.PlayerArgument;
 import me.efekos.simpler.commands.syntax.Syntax;
-import me.efekos.simpler.commands.translation.TranslateManager;
+import me.efekos.simpler.config.Config;
+import me.efekos.simpler.translation.TranslateManager;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -40,32 +42,33 @@ public class Add extends SubCommand {
     @Override
     public @NotNull Syntax getSyntax() {
         return new Syntax()
-                .withArgument(new PlayerArgument());
+                .withArgument(new PlayerArgument(ArgumentPriority.REQUIRED));
     }
 
     @Override
     public void onPlayerUse(Player player, String[] args) {
         PlayerData data = PlayerDataManager.fetch(player.getUniqueId());
         PlayerData otherData = PlayerDataManager.get(args[0]);
+        Config lang = Main.LANG;
         if(otherData==null){
-            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.add.not-player").replace("%player%",args[0])));
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.add.not-player","&cThere is no one called &b%player%&c.").replace("%player%",args[0])));
             return;
         }
-        if(otherData.friendsWith(data.getUuid())){
-            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.add.friend-already").replace("%player%",otherData.getName())));
+        if(otherData.friendsWith(data.getId())){
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.add.friend-already","&cYou are already friends with &b%player%&c.").replace("%player%",otherData.getName())));
             return;
         }
         if(otherData.equals(data)){
-            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.add.urself")));
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.add.urself","&cYou can''t send friend request to yourself.")));
             return;
         }
-        OfflinePlayer offlineOther = Bukkit.getOfflinePlayer(otherData.getUuid());
+        OfflinePlayer offlineOther = Bukkit.getOfflinePlayer(otherData.getId());
         if(!offlineOther.isOnline()){
-            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.not-online")));
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.not-online","&b%player% &cis not online.")));
             return;
         }
         if(RequestDataManager.exists(player.getUniqueId(),offlineOther.getUniqueId(),RequestType.FRIEND)){
-            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.add.already-sent").replace("%player%",offlineOther.getName())));
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.add.already-sent","&cYou already sent a friend request to &b%player%&c.").replace("%player%",offlineOther.getName())));
             return;
         }
 
@@ -80,13 +83,13 @@ public class Add extends SubCommand {
             PlayerData newFriendData = PlayerDataManager.fetch(offlineOther.getUniqueId());
             newFriendData.addNotification(notification);
 
-            PlayerDataManager.update(newFriendData.getUuid(),newFriendData);
+            PlayerDataManager.update(newFriendData.getId(),newFriendData);
         } else {
-            offlineOther.getPlayer().sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.add.other").replace("%player%",player.getName())));
+            offlineOther.getPlayer().sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.add.other","&b%player% &esent a friend request to you!").replace("%player%",player.getName())));
             offlineOther.getPlayer().spigot().sendMessage(ButtonManager.generateAcceptFriendButton(req.getId().toString()),new TextComponent(" "),ButtonManager.generateDenyFriendButton(req.getId().toString()));
         }
 
-        player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.friend.add.done").replace("%player%",offlineOther.getName())));
+        player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.add.done","&aSuccessfully sent a friend request to &b%player%&a!").replace("%player%",offlineOther.getName())));
         player.spigot().sendMessage(ButtonManager.generateCancelFriendButton(req.getId().toString()));
     }
 

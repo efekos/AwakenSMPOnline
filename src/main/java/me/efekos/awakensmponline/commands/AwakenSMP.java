@@ -1,6 +1,6 @@
 package me.efekos.awakensmponline.commands;
 
-import me.efekos.awakensmponline.AwakenSMPOnline;
+import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.awakensmp.Deadplayers;
 import me.efekos.awakensmponline.commands.awakensmp.Reloadconfig;
 import me.efekos.awakensmponline.commands.awakensmp.Revive;
@@ -35,13 +35,13 @@ public class AwakenSMP extends CoreCommand {
 
     @Override
     public void renderHelpList(CommandSender sender, List<SubCommand> subInstances) {
-        sender.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.awakensmp.help.header","&2----------&aHelp Menu&2----------")));
+        sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.awakensmp.help.header","&2----------&aHelp Menu&2----------")));
         subInstances.forEach(subCommand -> {
-            sender.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.awakensmp.help.format","&b%syntax% &6- &e%description%")
+            sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.awakensmp.help.format","&b%syntax% &6- &e%description%")
                     .replace("%syntax%",subCommand.getUsage())
                     .replace("%description%",subCommand.getDescription())
             ));
         });
-        sender.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.awakensmp.help.footer","&2-----------------------------")));
+        sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.awakensmp.help.footer","&2-----------------------------")));
     }
 }

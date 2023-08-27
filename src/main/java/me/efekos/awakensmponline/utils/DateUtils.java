@@ -1,6 +1,6 @@
 package me.efekos.awakensmponline.utils;
 
-import me.efekos.awakensmponline.AwakenSMPOnline;
+import me.efekos.awakensmponline.Main;
 import me.efekos.simpler.translation.TranslateManager;
 
 import java.text.SimpleDateFormat;
@@ -15,7 +15,7 @@ public class DateUtils {
         String year = new SimpleDateFormat("yyyy").format(date);
         String sec = new SimpleDateFormat("ss").format(date);
 
-        return TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("items.tracking_compass.date-format","%hour%:%minute%, %day%/%month%/%year%")
+        return TranslateManager.translateColors(Main.LANG.getString("items.tracking_compass.date-format","%hour%:%minute%, %day%/%month%/%year%")
                 .replace("%hour%",hour)
                 .replace("%minute%",min)
                 .replace("%day%",day)

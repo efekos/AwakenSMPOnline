@@ -1,6 +1,6 @@
 package me.efekos.awakensmponline.events;
 
-import me.efekos.awakensmponline.AwakenSMPOnline;
+import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.data.AnimationType;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.data.TeamData;
@@ -57,10 +57,10 @@ public class OnPlayer implements Listener {
 
         e.getDrops().add(item);
 
-        PlayerDataManager.update(playerData.getUuid(),playerData);
+        PlayerDataManager.update(playerData.getId(),playerData);
 
-        if (AwakenSMPOnline.GAME.getBoolean("announcements.kills",false) && !p.getWorld().getGameRuleValue(GameRule.SHOW_DEATH_MESSAGES).booleanValue()) {
-            Bukkit.broadcastMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("announcements.killed","&a%killer% &egot &a%victim%&e''s head!").replace("%killer%",killer.getName()).replace("%victim%",p.getName())));
+        if (Main.GAME.getBoolean("announcements.kills",false) && !p.getWorld().getGameRuleValue(GameRule.SHOW_DEATH_MESSAGES).booleanValue()) {
+            Bukkit.broadcastMessage(TranslateManager.translateColors(Main.LANG.getString("announcements.killed","&a%killer% &egot &a%victim%&e''s head!").replace("%killer%",killer.getName()).replace("%victim%",p.getName())));
         }
     }
 
@@ -72,11 +72,11 @@ public class OnPlayer implements Listener {
 
         if(playerData.isAlive())return;
 
-        if(AwakenSMPOnline.GAME.getBoolean("when-dead.freeze",true))
+        if(Main.GAME.getBoolean("when-dead.freeze",true))
             e.setCancelled(true);
 
 
-        if(AwakenSMPOnline.GAME.getBoolean("when-dead.blind",true))
+        if(Main.GAME.getBoolean("when-dead.blind",true))
             p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS,999999,255,false,false,false));
     }
 
@@ -93,44 +93,44 @@ public class OnPlayer implements Listener {
         Player pToRevive = Bukkit.getServer().getPlayerExact(blockStack.getItemMeta().getDisplayName());
         if(pToRevive==null) {
             e.setCancelled(true);
-            p.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("reviving.not-player","&cThere is no one called &b%player%&c.").replace("%player%",blockStack.getItemMeta().getDisplayName())));
+            p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.not-player","&cThere is no one called &b%player%&c.").replace("%player%",blockStack.getItemMeta().getDisplayName())));
             return;
         }
         PlayerData data = PlayerDataManager.fetch(pToRevive.getUniqueId());
         if(data.isAlive()){
             e.setCancelled(true);
-            p.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("reviving.not-dead","&b%player% &cis not dead.").replace("%player%",pToRevive.getName())));
+            p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.not-dead","&b%player% &cis not dead.").replace("%player%",pToRevive.getName())));
             return;
         }
         if(!pToRevive.isOnline()){
             e.setCancelled(true);
-            p.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("reviving.not-online","&b%player% &cis not online.").replace("%player%", pToRevive.getName())));
+            p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.not-online","&b%player% &cis not online.").replace("%player%", pToRevive.getName())));
             return;
         }
 
         head.setType(Material.AIR);
         pToRevive.teleport(head.getLocation().add(0.5,0,0.5));
 
-        AnimationManager.playAnimation(pToRevive, AwakenSMPOnline.GAME.getBoolean("revive-animations",false) ? data.getSelectedAnimation(): AnimationType.NONE, player -> {
+        AnimationManager.playAnimation(pToRevive, Main.GAME.getBoolean("revive-animations",false) ? data.getSelectedAnimation(): AnimationType.NONE, player -> {
             data.setRevived(true);
             data.setAlive(true);
-            PlayerDataManager.update(data.getUuid(),data);
+            PlayerDataManager.update(data.getId(),data);
 
             pToRevive.setGameMode(GameMode.SURVIVAL);
             pToRevive.removePotionEffect(PotionEffectType.BLINDNESS);
-            if(AwakenSMPOnline.GAME.getBoolean("revive-particles",true)){
+            if(Main.GAME.getBoolean("revive-particles",true)){
                 ParticleManager.spawnParticle(data.getParticleOptions(),pToRevive);
             }
 
-            pToRevive.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("reviving.hey","&b%player% &arevived you!").replace("%player%",p.getName())));
-            p.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("reviving.done","&aSuccessfully revived &b%player%&a!").replace("%player%",pToRevive.getName())));
+            pToRevive.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.hey","&b%player% &arevived you!").replace("%player%",p.getName())));
+            p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.done","&aSuccessfully revived &b%player%&a!").replace("%player%",pToRevive.getName())));
             p.playSound(p.getLocation(),Sound.ENTITY_PLAYER_LEVELUP,SoundCategory.PLAYERS,100,1);
 
-            if(AwakenSMPOnline.GAME.getBoolean("announcements.revives",true)){
-                Bukkit.broadcastMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("announcements.revived","&a%reviver% &eused a %head-name% &eand revived &a%revived%&e!")
+            if(Main.GAME.getBoolean("announcements.revives",true)){
+                Bukkit.broadcastMessage(TranslateManager.translateColors(Main.LANG.getString("announcements.revived","&a%reviver% &eused a %head-name% &eand revived &a%revived%&e!")
                         .replace("%reviver%",p.getName())
                         .replace("%revived%",pToRevive.getName())
-                        .replace("%head-name%",TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("items.revive_head.name","&eRevive Head")))
+                        .replace("%head-name%",TranslateManager.translateColors(Main.LANG.getString("items.revive_head.name","&eRevive Head")))
                 ));
             }
         });
@@ -143,7 +143,7 @@ public class OnPlayer implements Listener {
         PlayerData data = PlayerDataManager.fetch(p.getUniqueId());
 
         if(data.getNotifications().size()>0){
-            p.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("notifications.list","&eYou have &b%count% &enew notifications:").replace("%count%",data.getNotifications().size()+"")));
+            p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("notifications.list","&eYou have &b%count% &enew notifications:").replace("%count%",data.getNotifications().size()+"")));
 
             data.getNotifications().forEach(notification -> {
 
@@ -151,23 +151,23 @@ public class OnPlayer implements Listener {
 
                 switch (notification.getType()){
                     case REVIVED:
-                        p.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("notifications.revived","&b%player% &eRevived you!").replace("%player%",player.getName())));
+                        p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("notifications.revived","&b%player% &eRevived you!").replace("%player%",player.getName())));
                         break;
                     case FRIEND_ACCEPTED:
-                        p.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("notifications.friend.accepted","&b%player% &eaccepted your friend request!").replace("%player%",player.getName())));
+                        p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("notifications.friend.accepted","&b%player% &eaccepted your friend request!").replace("%player%",player.getName())));
                         break;
                     case FRIEND_DENIED:
-                        p.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("notifications.friend.denied","&b%player% &edenied your friend request!").replace("%player%",player.getName())));
+                        p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("notifications.friend.denied","&b%player% &edenied your friend request!").replace("%player%",player.getName())));
                         break;
                     case FRIEND_REQUESTED:
-                        p.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("notifications.friend.requested","&b%player% &esent you a friend request!").replace("%player%",player.getName())));
+                        p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("notifications.friend.requested","&b%player% &esent you a friend request!").replace("%player%",player.getName())));
                         break;
                 }
 
             });
 
             data.setNotifications(new ArrayList<>());
-            PlayerDataManager.update(data.getUuid(),data);
+            PlayerDataManager.update(data.getId(),data);
         }
     }
 
@@ -175,11 +175,11 @@ public class OnPlayer implements Listener {
     @EventHandler
     public void onPlayerCraft(@NotNull CraftItemEvent e){
         if(!e.getRecipe().equals(RecipeManager.getLastLoadedRecipe())) return;
-        if(!AwakenSMPOnline.GAME.getBoolean("announcements.crafts",false)) return;
+        if(!Main.GAME.getBoolean("announcements.crafts",false)) return;
 
-        Bukkit.broadcastMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("announcements.head-crafted","&a%player% &ejust crafted a %head-name%&e!")
+        Bukkit.broadcastMessage(TranslateManager.translateColors(Main.LANG.getString("announcements.head-crafted","&a%player% &ejust crafted a %head-name%&e!")
                 .replace("%player%",e.getWhoClicked().getName())
-                .replace("%head-name%",TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("items.revive_head.name","&eRevive Head")))
+                .replace("%head-name%",TranslateManager.translateColors(Main.LANG.getString("items.revive_head.name","&eRevive Head")))
         ));
     }
 
@@ -199,7 +199,7 @@ public class OnPlayer implements Listener {
         team.getMembers().forEach(uuid -> {
             OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);
             if(offlinePlayer.isOnline()){
-                offlinePlayer.getPlayer().sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("notifications.team.chat","5[&dTEAM CHAT&5] &e%player%&8: &a%message%")
+                offlinePlayer.getPlayer().sendMessage(TranslateManager.translateColors(Main.LANG.getString("notifications.team.chat","5[&dTEAM CHAT&5] &e%player%&8: &a%message%")
                         .replace("%player%",p.getName())
                         .replace("%message%",e.getMessage())
                 ));

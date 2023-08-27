@@ -1,6 +1,6 @@
 package me.efekos.awakensmponline.menu;
 
-import me.efekos.awakensmponline.AwakenSMPOnline;
+import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.data.ParticleOptions;
 import me.efekos.awakensmponline.data.ParticleType;
 import me.efekos.awakensmponline.data.PlayerData;
@@ -35,7 +35,7 @@ public class ParticleTypeMenu extends Menu {
 
     @Override
     public String getTitle() {
-        return TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_particle_type.title","Choose a Particle Type"));
+        return TranslateManager.translateColors(Main.LANG.getString("menus.options_particle_type.title","Choose a Particle Type"));
     }
 
     @Override
@@ -57,7 +57,7 @@ public class ParticleTypeMenu extends Menu {
             case DIRT:
                 options.setType(translateMaterial(event.getCurrentItem().getType()));
                 data.setParticleOptions(options);
-                PlayerDataManager.update(data.getUuid(),data);
+                PlayerDataManager.update(data.getId(),data);
 
                 p.playSound(p, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 100, 1);
                 refresh();
@@ -86,12 +86,12 @@ public class ParticleTypeMenu extends Menu {
 
     @Override
     public void fill() {
-        inventory.setItem(0,createItem(Material.TOTEM_OF_UNDYING,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_particle_type.types.totem","&eTotem"))));
-        inventory.setItem(1,createItem(Material.TNT,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_particle_type.types.explosion","&eExplosion"))));
-        inventory.setItem(2,createItem(Material.BEACON,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_particle_type.types.beam","&eBeam"))));
-        inventory.setItem(3,createItem(Material.BONE_MEAL,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_particle_type.types.fog","&eFog"))));
-        inventory.setItem(4,createItem(Material.SNOWBALL,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_particle_type.types.snowball","&eSnowball"))));
-        inventory.setItem(5,createItem(Material.DIRT,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_particle_type.types.block","&eBlock"))));
+        inventory.setItem(0,createItem(Material.TOTEM_OF_UNDYING,TranslateManager.translateColors(Main.LANG.getString("menus.options_particle_type.types.totem","&eTotem"))));
+        inventory.setItem(1,createItem(Material.TNT,TranslateManager.translateColors(Main.LANG.getString("menus.options_particle_type.types.explosion","&eExplosion"))));
+        inventory.setItem(2,createItem(Material.BEACON,TranslateManager.translateColors(Main.LANG.getString("menus.options_particle_type.types.beam","&eBeam"))));
+        inventory.setItem(3,createItem(Material.BONE_MEAL,TranslateManager.translateColors(Main.LANG.getString("menus.options_particle_type.types.fog","&eFog"))));
+        inventory.setItem(4,createItem(Material.SNOWBALL,TranslateManager.translateColors(Main.LANG.getString("menus.options_particle_type.types.snowball","&eSnowball"))));
+        inventory.setItem(5,createItem(Material.DIRT,TranslateManager.translateColors(Main.LANG.getString("menus.options_particle_type.types.block","&eBlock"))));
 
         PlayerData data = PlayerDataManager.fetch(owner.getUniqueId());
         ParticleOptions options = data.getParticleOptions();
@@ -102,13 +102,13 @@ public class ParticleTypeMenu extends Menu {
 
             boolean isThis = options.getType() == translateMaterial(item.getType());
 
-            meta.setLore(Arrays.asList(" ", TranslateManager.translateColors(isThis ? AwakenSMPOnline.LANG.getString("menus.options.selected","&6You currently selected this") : AwakenSMPOnline.LANG.getString("menus.options.unselected","&aClick to select this"))));
+            meta.setLore(Arrays.asList(" ", TranslateManager.translateColors(isThis ? Main.LANG.getString("menus.options.selected","&6You currently selected this") : Main.LANG.getString("menus.options.unselected","&aClick to select this"))));
             if(isThis) meta.addEnchant(Enchantment.MENDING,1,true);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             item.setItemMeta(meta);
         }
 
-        inventory.setItem(26,createItem(Material.PAPER,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.buttons.back","&eBack"))));
+        inventory.setItem(26,createItem(Material.PAPER,TranslateManager.translateColors(Main.LANG.getString("menus.buttons.back","&eBack"))));
 
         fillEmptyWith(createItem(Material.BLACK_STAINED_GLASS_PANE," "));
     }

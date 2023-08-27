@@ -1,7 +1,7 @@
 package me.efekos.awakensmponline.files;
 
 import com.google.gson.Gson;
-import me.efekos.awakensmponline.AwakenSMPOnline;
+import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.data.*;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -23,7 +23,7 @@ public class PlayerDataManager {
 
     public static PlayerData get(UUID id){
         for (PlayerData data:datas){
-            if(data.getUuid().equals(id)) return data;
+            if(data.getId().equals(id)) return data;
         }
         return null;
     }
@@ -76,8 +76,8 @@ public class PlayerDataManager {
         p1Data.addFriend(p1tp2Friend);
         p2Data.addFriend(p2tp1Friend);
 
-        update(p1Data.getUuid(),p1Data);
-        update(p2Data.getUuid(),p2Data);
+        update(p1Data.getId(),p1Data);
+        update(p2Data.getId(),p2Data);
     }
 
     public static PlayerData fetch(String name){
@@ -92,7 +92,7 @@ public class PlayerDataManager {
 
     public static void update(UUID id,PlayerData newData){
         for (PlayerData data:datas){
-            if(data.getUuid().equals(id)){
+            if(data.getId().equals(id)){
                 data.setAlive(newData.isAlive());
                 data.setName(newData.getName());
                 data.setRevived(newData.isRevived());
@@ -107,7 +107,7 @@ public class PlayerDataManager {
     public static void save(){
         Gson gson = new Gson();
 
-        String path = AwakenSMPOnline.getInstance().getDataFolder().getAbsolutePath()+"\\data\\PlayerData.json";
+        String path = Main.getInstance().getDataFolder().getAbsolutePath()+"\\data\\PlayerData.json";
 
         File file = new File(path);
         file.getParentFile().mkdir();
@@ -125,7 +125,7 @@ public class PlayerDataManager {
     public static void load(){
 
         Gson gson = new Gson();
-        File file = new File(AwakenSMPOnline.getInstance().getDataFolder().getAbsolutePath()+"\\data\\PlayerData.json");
+        File file = new File(Main.getInstance().getDataFolder().getAbsolutePath()+"\\data\\PlayerData.json");
         if(file.exists()){
             try {
                 Reader reader = new FileReader(file);

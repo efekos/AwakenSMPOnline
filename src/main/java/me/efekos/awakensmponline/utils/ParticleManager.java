@@ -1,6 +1,6 @@
 package me.efekos.awakensmponline.utils;
 
-import me.efekos.awakensmponline.AwakenSMPOnline;
+import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.data.ParticleColor;
 import me.efekos.awakensmponline.data.ParticleOptions;
 import org.bukkit.Color;
@@ -80,7 +80,7 @@ public class ParticleManager {
                         public void run() {
                             world.spawnParticle(Particle.REDSTONE, player.getLocation().add(0, finalI, 0), 100, .4, 0.6, .4, dustOptions);
                         }
-                    }.runTaskLater(AwakenSMPOnline.getInstance(),Math.round(i/4));
+                    }.runTaskLater(Main.getInstance(),Math.round(i/4));
                 }
                 break;
         }

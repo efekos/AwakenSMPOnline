@@ -1,6 +1,6 @@
 package me.efekos.awakensmponline.commands.awakensmp;
 
-import me.efekos.awakensmponline.AwakenSMPOnline;
+import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.AwakenSMP;
 import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.awakensmponline.files.RequestDataManager;
@@ -30,23 +30,23 @@ public class Reloadconfig extends SubCommand {
 
     @Override
     public void onPlayerUse(Player player, String[] args) {
-        AwakenSMPOnline.LANG.reload();
-        AwakenSMPOnline.GAME.reload();
+        Main.LANG.reload();
+        Main.GAME.reload();
         PlayerDataManager.load();
         RequestDataManager.load();
         TeamDataManager.load();
-        player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.awakensmp.reloadconfig.success","&aSuccessfully reloaded the config!")));
+        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.awakensmp.reloadconfig.success","&aSuccessfully reloaded the config!")));
     }
 
     @Override
     public void onConsoleUse(ConsoleCommandSender sender, String[] args) {
-        AwakenSMPOnline.GAME.reload();
-        AwakenSMPOnline.LANG.reload();
-        AwakenSMPOnline.getInstance().reloadConfig();
+        Main.GAME.reload();
+        Main.LANG.reload();
+        Main.getInstance().reloadConfig();
         PlayerDataManager.load();
         RequestDataManager.load();
         TeamDataManager.load();
-        sender.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.awakensmp.reloadconfig.success","&aSuccessfully reloaded the config!")));
+        sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.awakensmp.reloadconfig.success","&aSuccessfully reloaded the config!")));
     }
 
     public Reloadconfig(@NotNull String name) {

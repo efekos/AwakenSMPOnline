@@ -1,6 +1,6 @@
 package me.efekos.awakensmponline.menu;
 
-import me.efekos.awakensmponline.AwakenSMPOnline;
+import me.efekos.awakensmponline.Main;
 import me.efekos.simpler.translation.TranslateManager;
 import me.efekos.simpler.menu.Menu;
 import me.efekos.simpler.menu.MenuData;
@@ -28,7 +28,7 @@ public class OptionsMenu extends Menu {
 
     @Override
     public String getTitle() {
-        return TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options.title","Options"));
+        return TranslateManager.translateColors(Main.LANG.getString("menus.options.title","Options"));
     }
 
     @Override
@@ -60,9 +60,9 @@ public class OptionsMenu extends Menu {
 
     @Override
     public void fill() {
-        inventory.setItem(12,createItem(Material.TOTEM_OF_UNDYING,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options.type","&eParticle Type"))));
-        inventory.setItem(13,createItem(Material.BEACON,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options.animation","&eRevive Animation"))));
-        inventory.setItem(14,createItem(Material.WHITE_CONCRETE,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options.color","&eParticle Color"))));
+        inventory.setItem(12,createItem(Material.TOTEM_OF_UNDYING,TranslateManager.translateColors(Main.LANG.getString("menus.options.type","&eParticle Type"))));
+        inventory.setItem(13,createItem(Material.BEACON,TranslateManager.translateColors(Main.LANG.getString("menus.options.animation","&eRevive Animation"))));
+        inventory.setItem(14,createItem(Material.WHITE_CONCRETE,TranslateManager.translateColors(Main.LANG.getString("menus.options.color","&eParticle Color"))));
         fillEmptyWith(createItem(Material.BLACK_STAINED_GLASS_PANE," "));
     }
 }

@@ -1,6 +1,6 @@
 package me.efekos.awakensmponline.commands.team;
 
-import me.efekos.awakensmponline.AwakenSMPOnline;
+import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.Team;
 import me.efekos.awakensmponline.data.TempData;
 import me.efekos.simpler.annotations.Command;
@@ -41,10 +41,10 @@ public class ToggleChat extends SubCommand {
 
         if((Boolean) TempData.get(player,"teamchat")){
             TempData.set(player.getUniqueId(),"teamchat",false);
-            player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.togglechat.disabled","&eSwitched to general chat!")));
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.togglechat.disabled","&eSwitched to general chat!")));
         } else {
             TempData.set(player.getUniqueId(),"teamchat",true);
-            player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.togglechat.enabled","&eSwitched to team chat!")));
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.togglechat.enabled","&eSwitched to team chat!")));
         }
     }
 
