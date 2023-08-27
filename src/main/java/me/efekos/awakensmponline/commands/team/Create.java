@@ -1,8 +1,8 @@
 package me.efekos.awakensmponline.commands.team;
 
+import me.efekos.awakensmponline.AwakenSMPOnline;
 import me.efekos.awakensmponline.commands.Team;
 import me.efekos.awakensmponline.commands.args.TeamNameArgument;
-import me.efekos.awakensmponline.config.LangConfig;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.data.TeamData;
 import me.efekos.awakensmponline.files.PlayerDataManager;
@@ -11,7 +11,7 @@ import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
 import me.efekos.simpler.commands.syntax.Syntax;
-import me.efekos.simpler.commands.translation.TranslateManager;
+import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -47,29 +47,29 @@ public class Create extends SubCommand {
     @Override
     public void onPlayerUse(Player player, String[] args) {
         if (Arrays.stream(args[0].split("")).anyMatch(charVal -> !chars.contains(charVal))){
-            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.team.create.not-valid-chars")));
+            player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.create.not-valid-chars","&cYour team name should only include &ba-z characters&c,&bA-Z characters&c and &b_&c.")));
             return;
         }
 
         PlayerData data = PlayerDataManager.fetch(player.getUniqueId());
 
         if(data.getCurrentTeam()!=null){
-            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.team.already-in-team")));
+            player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.already-in-team","&cYou are in a team already.")));
             return;
         }
         if(TeamDataManager.get(args[0])!=null){
-            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.team.create.same-name").replace("%name%",args[0])));
+            player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.create.same-name","&b%name% &cis taken by another team.").replace("%name%",args[0])));
         }
 
 
-        TeamData teamData = new TeamData(UUID.randomUUID(),args[0],args[0],LangConfig.get("commands.team.create.default-description"),new ArrayList<>(),player.getUniqueId());
+        TeamData teamData = new TeamData(UUID.randomUUID(),args[0],args[0],AwakenSMPOnline.LANG.getString("commands.team.create.default-description","A brand new team!"),new ArrayList<>(),player.getUniqueId());
         TeamDataManager.create(teamData);
         teamData.getMembers().add(player.getUniqueId());
 
         data.setCurrentTeam(teamData.getId());
         PlayerDataManager.update(data.getUuid(),data);
 
-        player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.team.create.done").replace("%team%",args[0])));
+        player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.create.done","&aSuccessfully created a new team called &b%team%&a!").replace("%team%",args[0])));
     }
 
     @Override

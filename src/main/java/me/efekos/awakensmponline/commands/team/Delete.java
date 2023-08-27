@@ -1,7 +1,7 @@
 package me.efekos.awakensmponline.commands.team;
 
+import me.efekos.awakensmponline.AwakenSMPOnline;
 import me.efekos.awakensmponline.commands.Team;
-import me.efekos.awakensmponline.config.LangConfig;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.data.TeamData;
 import me.efekos.awakensmponline.files.PlayerDataManager;
@@ -10,7 +10,7 @@ import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
 import me.efekos.simpler.commands.syntax.Syntax;
-import me.efekos.simpler.commands.translation.TranslateManager;
+import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -41,12 +41,12 @@ public class Delete extends SubCommand {
     public void onPlayerUse(Player player, String[] args) {
         PlayerData data = PlayerDataManager.fetch(player.getUniqueId());
         if(data.getCurrentTeam()==null){
-            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.team.not-in-team")));
+            player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.not-in-team","&cYou are not in a team.")));
             return;
         }
         TeamData team = TeamDataManager.get(data.getCurrentTeam());
         if(!team.getOwner().equals(player.getUniqueId())){
-            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.team.not-owner").replace("%team%",team.getDisplayName())));
+            player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.not-owner","&cYou are not the owner of team called &b%team%&c.").replace("%team%",team.getDisplayName())));
             return;
         }
 
@@ -59,7 +59,7 @@ public class Delete extends SubCommand {
         data.setCurrentTeam(null);
         PlayerDataManager.update(data.getUuid(),data);
         TeamDataManager.delete(team.getId());
-        player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.team.delete.done").replace("%team%",team.getDisplayName())));
+        player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.delete.done","&aSuccessfully deleted the team &b%team%&a!").replace("%team%",team.getDisplayName())));
     }
 
     @Override

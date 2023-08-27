@@ -3,11 +3,11 @@ package me.efekos.awakensmponline.commands.args;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.simpler.commands.syntax.Argument;
+import me.efekos.simpler.commands.syntax.ArgumentHandleResult;
 import me.efekos.simpler.commands.syntax.ArgumentPriority;
-import me.efekos.simpler.commands.syntax.ArgumentResult;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class AlivePlayerArgument extends Argument {
@@ -17,8 +17,8 @@ public class AlivePlayerArgument extends Argument {
     }
 
     @Override
-    public ArrayList<ArgumentResult> getList(Player player, String current) {
-        return (ArrayList<ArgumentResult>) PlayerDataManager.getAll().stream().filter(playerData -> playerData.isAlive()).map(d->new ArgumentResult().setValue(d.getName()).setName(d.getName())).collect(Collectors.toList());
+    public List<String> getList(Player player, String current) {
+        return PlayerDataManager.getAll().stream().filter(playerData -> playerData.isAlive()).map(playerData -> playerData.getName()).collect(Collectors.toList());
     }
 
     @Override
@@ -27,8 +27,10 @@ public class AlivePlayerArgument extends Argument {
     }
 
     @Override
-    public boolean handleCorrection(String given) {
+    public ArgumentHandleResult handleCorrection(String given) {
         PlayerData data = PlayerDataManager.get(given);
-        return data!=null&&data.isAlive();
+        if(data==null) return ArgumentHandleResult.fail(given + " is not a player, or an unknown player");
+        if(!data.isAlive()) return ArgumentHandleResult.fail(given + " is not alive");
+        return ArgumentHandleResult.success();
     }
 }

@@ -1,9 +1,8 @@
 package me.efekos.awakensmponline.utils;
 
-import me.efekos.awakensmponline.config.GameConfig;
-import me.efekos.awakensmponline.config.LangConfig;
+import me.efekos.awakensmponline.AwakenSMPOnline;
 import me.efekos.awakensmponline.exceptions.InvalidRecipeException;
-import me.efekos.simpler.commands.translation.TranslateManager;
+import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -25,8 +24,8 @@ public class RecipeManager {
         SkullMeta meta = (SkullMeta) skull.getItemMeta();
 
         assert meta != null;
-        meta.setDisplayName(TranslateManager.translateColors(LangConfig.get("items.revive_head.name")));
-        meta.setLore(Collections.singletonList(TranslateManager.translateColors(LangConfig.get("items.revive_head.description"))));
+        meta.setDisplayName(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("items.revive_head.name","&eRevive Head")));
+        meta.setLore(Collections.singletonList(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("items.revive_head.description","&6Rename this head to revive someone!"))));
         skull.setItemMeta(meta);
 
         return skull;
@@ -48,7 +47,7 @@ public class RecipeManager {
 
         ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(plugin,"revive_head"),createHead());
 
-        List<String> shapeStrings = GameConfig.get().getStringList("recipe.shape");
+        List<String> shapeStrings = AwakenSMPOnline.GAME.getStringList("recipe.shape");
 
         recipe.shape(shapeStrings.get(0),shapeStrings.get(1),shapeStrings.get(2));
 
@@ -65,7 +64,7 @@ public class RecipeManager {
                     addedMaterials.add(character);
 
                     //make sure given key exists
-                    String materialString = GameConfig.get().getString("recipe.materials." + character);
+                    String materialString = AwakenSMPOnline.GAME.getString("recipe.materials." + character,null);
                     if(materialString==null) throw new InvalidRecipeException("Key '"+character+"' is used in shape, but there is no material for this key.");
 
                     //make sure given key is a valid material

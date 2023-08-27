@@ -181,10 +181,13 @@ commands:
   team:
 
     # If player is not in a team but tried to use a team only command.
-    not-in-team: '&cYou are not in a team'
+    not-in-team: '&cYou are not in a team.'
 
     # If player is in a team.
     already-in-team: '&cYou are in a team already.'
+
+    # If a player other than the executor is in a team.
+    already-in-team-other: '&b%player% &cis in another team.'
 
     # When player needs to be owner of the team, but he is not.
     not-owner: '&cYou are not the owner of team called &b%team%&c.'
@@ -238,7 +241,7 @@ commands:
       not-team: '&cThis request is not a team invite.'
 
       # If given request was sent to someone else
-      not-got: '&cThis request were sent to you.'
+      not-got: '&cThis request was not sent to you.'
 
       # When player successfully accepts that request.
       done: '&aSuccessfully joined to the team called &b%team%&a!'
@@ -290,6 +293,15 @@ commands:
 
     # /team reject messages.
     reject:
+
+      # If given request id was invalid.
+      invalid-req: '&cThere is no request with id &b%id%&c.'
+
+      # If given request is not a team invite.
+      not-team: '&cThis request is not a team invite.'
+
+      # If given request was sent to someone else
+      not-got: '&cThis request was not sent to you.'
 
       # When player successfully rejects the team invtite.
       done: '&aSuccessfully rejected the team invite came from &b%team%&a!'
@@ -556,16 +568,22 @@ buttons:
   # 'Modify' button. Used for an alias to /friend modify <player>
   modify: '&9[&bModify&9]'
 
+  # 'Remove' button. Used to remove friends
   remove: '&4[&cRemove&4]'
 
+  # 'Inventory' button. Used for an alias to /friend inventory
   inventory: '&6[&eInventory&6]'
 
+  # 'Armor' button. Used for an alias to /friend armor
   armor: '&6[&eArmor&6]'
 
+  # 'Back' button. Used to go back to another menu using its corresponding command.
   back: '&6[&eBack&6]'
 
+  # 'Join' button. Used for an alias to /team join
   join: '&2[&aJoin&2]'
 
+  # 'Reject' button. Used to reject friend/team requests.
   reject: '&4[&cReject&4]'
 
 # Notification messages.

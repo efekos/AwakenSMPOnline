@@ -53,11 +53,11 @@ public class AnimationManager {
                                         world.playSound(location2,Sound.BLOCK_STONE_BREAK,SoundCategory.BLOCKS,100,1);
                                         spawnPlayer.accept(player); // tells him "spawn executed" for now. // EDIT: now actually makes him out of spectator mode and tells him he should be in survival rn
                                     }
-                                }.runTaskLater(AwakenSMPOnline.getPlugin(),400/50);
+                                }.runTaskLater(AwakenSMPOnline.getInstance(),400/50);
 
 
                             }
-                        }.runTaskLater(AwakenSMPOnline.getPlugin(),400/50);
+                        }.runTaskLater(AwakenSMPOnline.getInstance(),400/50);
                     }
                     break;
                 case THUNDER:
@@ -80,7 +80,7 @@ public class AnimationManager {
                                 spawnPlayer.accept(player);
 
                             }
-                        }.runTaskLater(AwakenSMPOnline.getPlugin(),1400/50);
+                        }.runTaskLater(AwakenSMPOnline.getInstance(),1400/50);
 
                     }
                     break;
@@ -148,7 +148,7 @@ public class AnimationManager {
                             player.getLocation().getBlock().setType(Material.DIAMOND_BLOCK);
                             player.getLocation().add(0,1,0).getBlock().setType(Material.BEACON);
                             player.teleport(player.getLocation().add(0,2,0));
-                            task.set(runnable2.runTaskTimer(AwakenSMPOnline.getPlugin(), 0, 1));
+                            task.set(runnable2.runTaskTimer(AwakenSMPOnline.getInstance(), 0, 1));
                         },400/20);
                         run(o -> {
                             task.get().cancel();
@@ -180,6 +180,6 @@ public class AnimationManager {
             public void run() {
                 consumer.accept("");
             }
-        }.runTaskLater(AwakenSMPOnline.getPlugin(),delay);
+        }.runTaskLater(AwakenSMPOnline.getInstance(),delay);
     }
 }

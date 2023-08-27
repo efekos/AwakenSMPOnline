@@ -1,8 +1,8 @@
 package me.efekos.awakensmponline.commands.team;
 
+import me.efekos.awakensmponline.AwakenSMPOnline;
 import me.efekos.awakensmponline.commands.Team;
 import me.efekos.awakensmponline.commands.args.GotRequestUUIDArgument;
-import me.efekos.awakensmponline.config.LangConfig;
 import me.efekos.awakensmponline.data.*;
 import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.awakensmponline.files.RequestDataManager;
@@ -11,7 +11,7 @@ import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
 import me.efekos.simpler.commands.syntax.Syntax;
-import me.efekos.simpler.commands.translation.TranslateManager;
+import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.ConsoleCommandSender;
@@ -46,22 +46,22 @@ public class Reject extends SubCommand {
     public void onPlayerUse(Player player, String[] args) {
         Request req = RequestDataManager.get(UUID.fromString(args[0]));
         if(req==null){
-            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.team.reject.invalid-req").replace("%id%",args[0])));
+            player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.reject.invalid-req","&cThere is no request with id &b%id%&c.").replace("%id%",args[0])));
             return;
         }
         if(req.getType()!= RequestType.TEAMMATE){
-            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.team.reject.not-team")));
+            player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.reject.not-team","&cThis request is not a team invite.")));
             return;
         }
         if(req.getGetter()!=player.getUniqueId()){
-            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.team.reject.not-got")));
+            player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.reject.not-got","&cThis request was not sent to you.")));
         }
         //we have a team req and wanna accept it.
 
         PlayerData data = PlayerDataManager.fetch(player.getUniqueId());
 
         if(data.getCurrentTeam()!=null){
-            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.team.already-in-team")));
+            player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.already-in-team","&cYou are in a team already.")));
             return;
         }
 
@@ -71,12 +71,12 @@ public class Reject extends SubCommand {
         TeamData team = TeamDataManager.get(req.getSender());
 
 
-        player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.team.reject.done").replace("%team%", team.getDisplayName())));
+        player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.reject.done","&aSuccessfully rejected the team invite came from &b%team%&a!").replace("%team%", team.getDisplayName())));
 
         team.getMembers().forEach(uuid -> {
             OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);
             if(offlinePlayer.isOnline()){
-                offlinePlayer.getPlayer().sendMessage(TranslateManager.translateColors(LangConfig.get("notifications.team.reject").replace("%player%",player.getName())));
+                offlinePlayer.getPlayer().sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("notifications.team.reject","&5[&dTEAM&5] &b%player% &erejected our team invite!").replace("%player%",player.getName())));
             }
         });
     }

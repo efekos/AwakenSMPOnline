@@ -1,7 +1,7 @@
 package me.efekos.awakensmponline.commands.team;
 
+import me.efekos.awakensmponline.AwakenSMPOnline;
 import me.efekos.awakensmponline.commands.Team;
-import me.efekos.awakensmponline.config.LangConfig;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.data.TeamData;
 import me.efekos.awakensmponline.files.PlayerDataManager;
@@ -10,7 +10,7 @@ import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
 import me.efekos.simpler.commands.syntax.Syntax;
-import me.efekos.simpler.commands.translation.TranslateManager;
+import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.ConsoleCommandSender;
@@ -43,12 +43,12 @@ public class Leave extends SubCommand {
     public void onPlayerUse(Player player, String[] args) {
         PlayerData data = PlayerDataManager.fetch(player.getUniqueId());
         if(data.getCurrentTeam()==null){
-            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.team.not-in-team")));
+            player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.not-in-team","&cYou are not in a team.")));
             return;
         }
         TeamData team = TeamDataManager.get(data.getCurrentTeam());
         if(team.getOwner().equals(player.getUniqueId())){
-            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.team.leave.owner")));
+            player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.leave.owner","&cYou are the owner of this team, you can''t leave unless you delete the team.")));
             return;
         }
 
@@ -60,14 +60,14 @@ public class Leave extends SubCommand {
             OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);
 
             if(offlinePlayer.isOnline()){
-                offlinePlayer.getPlayer().sendMessage(TranslateManager.translateColors(LangConfig.get("notifications.team.leaved").replace("%player%",player.getName())));
+                offlinePlayer.getPlayer().sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("notifications.team.leaved","&5[&dTEAM&5] &b%player% &eleft the team!").replace("%player%",player.getName())));
             }
         });
 
         TeamDataManager.update(team.getId(),team);
         PlayerDataManager.update(data.getUuid(),data);
 
-        player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.team.leave.done")));
+        player.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.team.leave.done","&aSuccessfully left the team!")));
     }
 
     @Override

@@ -1,13 +1,12 @@
 package me.efekos.awakensmponline.commands.args;
 
-import me.efekos.simpler.Utils;
 import me.efekos.simpler.commands.syntax.Argument;
+import me.efekos.simpler.commands.syntax.ArgumentHandleResult;
 import me.efekos.simpler.commands.syntax.ArgumentPriority;
-import me.efekos.simpler.commands.syntax.ArgumentResult;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class FriendModifySettingArgument extends Argument {
     @Override
@@ -15,12 +14,11 @@ public class FriendModifySettingArgument extends Argument {
         return "setting";
     }
 
-    private static final ArrayList<String> avaliable = Utils.fromStreamToArrayList(Arrays.stream(new String[]{"worldAllowed","locationAllowed","compassAllowed","inventoryAllowed","armorAllowed","healthAllowed","expAllowed","foodAllowed","teleportAllowed"}));
+    private static final List<String> avaliable = Arrays.asList("worldAllowed","locationAllowed","compassAllowed","inventoryAllowed","armorAllowed","healthAllowed","expAllowed","foodAllowed","teleportAllowed");
 
     @Override
-    public ArrayList<ArgumentResult> getList(Player player, String current) {
-
-        return Utils.fromStreamToArrayList(avaliable.stream().map(s -> new ArgumentResult().setName(s).setValue(s)));
+    public List<String> getList(Player player, String current) {
+        return avaliable;
     }
 
     @Override
@@ -29,7 +27,8 @@ public class FriendModifySettingArgument extends Argument {
     }
 
     @Override
-    public boolean handleCorrection(String given) {
-        return avaliable.contains(given);
+    public ArgumentHandleResult handleCorrection(String given) {
+        if(avaliable.contains(given)) return ArgumentHandleResult.fail(given + " is not a modify option");
+        return ArgumentHandleResult.success();
     }
 }

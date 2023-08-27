@@ -4,13 +4,12 @@ import me.efekos.awakensmponline.data.Friend;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.simpler.commands.syntax.Argument;
+import me.efekos.simpler.commands.syntax.ArgumentHandleResult;
 import me.efekos.simpler.commands.syntax.ArgumentPriority;
-import me.efekos.simpler.commands.syntax.ArgumentResult;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class FriendArgument extends Argument {
 
@@ -20,15 +19,10 @@ public class FriendArgument extends Argument {
     }
 
     @Override
-    public ArrayList<ArgumentResult> getList(Player player, String current) {
+    public List<String> getList(Player player, String current) {
         PlayerData data = PlayerDataManager.fetch(player.getUniqueId());
-        ArrayList<ArgumentResult> results = new ArrayList<>();
 
-        for(Friend friend:data.getFriends()){
-            results.add(new ArgumentResult().setValue(friend.getLastName()).setName(friend.getLastName()));
-        }
-
-        return results;
+        return data.getFriends().stream().map(Friend::getLastName).collect(Collectors.toList());
     }
 
     @Override
@@ -37,7 +31,9 @@ public class FriendArgument extends Argument {
     }
 
     @Override
-    public boolean handleCorrection(String given) {
-        return true;
+    public ArgumentHandleResult handleCorrection(String given) {
+        PlayerData data = PlayerDataManager.get(given);
+        if(data==null) return ArgumentHandleResult.fail(given + " is not a player");
+        return ArgumentHandleResult.success();
     }
 }

@@ -1,8 +1,8 @@
 package me.efekos.awakensmponline;
 
-import me.efekos.awakensmponline.commands.*;
-import me.efekos.awakensmponline.config.GameConfig;
-import me.efekos.awakensmponline.config.LangConfig;
+import me.efekos.awakensmponline.commands.AwakenSMP;
+import me.efekos.awakensmponline.commands.Friend;
+import me.efekos.awakensmponline.commands.Team;
 import me.efekos.awakensmponline.events.OnPlayer;
 import me.efekos.awakensmponline.exceptions.InvalidRecipeException;
 import me.efekos.awakensmponline.files.PlayerDataManager;
@@ -11,8 +11,9 @@ import me.efekos.awakensmponline.files.TeamDataManager;
 import me.efekos.awakensmponline.utils.Logger;
 import me.efekos.awakensmponline.utils.RecipeManager;
 import me.efekos.simpler.Metrics;
-import me.efekos.simpler.PluginSetups;
+import me.efekos.simpler.Utilities;
 import me.efekos.simpler.commands.CommandManager;
+import me.efekos.simpler.config.Config;
 import me.efekos.simpler.items.ItemManager;
 import me.efekos.simpler.menu.MenuManager;
 import org.bukkit.Bukkit;
@@ -23,13 +24,18 @@ public final class AwakenSMPOnline extends JavaPlugin {
 
     private static AwakenSMPOnline plugin;
 
-    public static AwakenSMPOnline getPlugin() {
+    public static AwakenSMPOnline getInstance() {
         return plugin;
     }
+
+    public static Config GAME;
+    public static Config LANG;
 
     @Override
     public void onEnable() {
         plugin = this;
+        GAME = new Config("config.yml",this);
+        LANG = new Config("lang.yml",this);
         try {
             // Setup metrics
             Metrics metrics = new Metrics(this,16413);
@@ -39,8 +45,8 @@ public final class AwakenSMPOnline extends JavaPlugin {
             Logger.log("Loading config.");
 
             // Load configs and clone them if a file for them doesn't exist
-            GameConfig.setup();
-            LangConfig.setup();
+            GAME.setup();
+            LANG.setup();
 
 
             Logger.log("Loading data.");
@@ -51,7 +57,7 @@ public final class AwakenSMPOnline extends JavaPlugin {
             RequestDataManager.load();
 
             Logger.log("Loading recipe.");
-            if(GameConfig.get().getBoolean("recipe.use-default",true)){
+            if(GAME.getBoolean("recipe.use-default",true)){
                 // Default açıksa direk default yükle
                 Bukkit.addRecipe(RecipeManager.loadDefaultRecipe(this));
             } else {
@@ -70,13 +76,11 @@ public final class AwakenSMPOnline extends JavaPlugin {
             try {
                 CommandManager.registerCoreCommand(this, AwakenSMP.class); // /awakensmp
 
-                if(GameConfig.get().getBoolean("features.friend",true)) // arkadaş şeyleri açıkmı diye kontrol
+                if(GAME.getBoolean("features.friend",true)) // arkadaş şeyleri açıkmı diye kontrol
                     CommandManager.registerCoreCommand(this, Friend.class); // /friend
 
-                if (GameConfig.get().getBoolean("features.team",true)) // takım şeyleri açıkmı diye kontrol
+                if (GAME.getBoolean("features.team",true)) // takım şeyleri açıkmı diye kontrol
                     CommandManager.registerCoreCommand(this, Team.class); // /team
-
-                CommandManager.registerBaseCommands(this, Options.class,animationTest.class); // /particles
             }catch (Exception e){
                 e.printStackTrace();
                 Logger.error("Experienced an error while trying to load commands.");
@@ -96,7 +100,7 @@ public final class AwakenSMPOnline extends JavaPlugin {
             Logger.success("Successfully started!");
 
             Logger.info("Checking For Updates...");
-            boolean upToDate = PluginSetups.checkUpdates(this,102573);
+            boolean upToDate = Utilities.checkUpdates(this,102573);
             if(upToDate) Logger.info("There are no updates avaliable.");
             else Logger.warn("There is a new update avaliable!");
 

@@ -1,10 +1,10 @@
 package me.efekos.awakensmponline.menu;
 
-import me.efekos.awakensmponline.config.LangConfig;
+import me.efekos.awakensmponline.AwakenSMPOnline;
 import me.efekos.awakensmponline.data.AnimationType;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.files.PlayerDataManager;
-import me.efekos.simpler.commands.translation.TranslateManager;
+import me.efekos.simpler.translation.TranslateManager;
 import me.efekos.simpler.menu.Menu;
 import me.efekos.simpler.menu.MenuData;
 import org.bukkit.Material;
@@ -34,7 +34,7 @@ public class AnimationTypeMenu extends Menu {
 
     @Override
     public String getTitle() {
-        return TranslateManager.translateColors(LangConfig.get("menus.options_animation_type.title"));
+        return TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_animation_type.title","Choose an Animation Type"));
     }
 
     @Override
@@ -78,10 +78,10 @@ public class AnimationTypeMenu extends Menu {
 
     @Override
     public void fill() {
-        inventory.setItem(0,createItem(Material.BARRIER,TranslateManager.translateColors(LangConfig.get("menus.options_animation_type.types.none"))));
-        inventory.setItem(1,createItem(Material.STONE,TranslateManager.translateColors(LangConfig.get("menus.options_animation_type.types.block"))));
-        inventory.setItem(2,createItem(Material.BLAZE_POWDER,TranslateManager.translateColors(LangConfig.get("menus.options_animation_type.types.thunder"))));
-        inventory.setItem(3,createItem(Material.BEACON,TranslateManager.translateColors(LangConfig.get("menus.options_animation_type.types.beam"))));
+        inventory.setItem(0,createItem(Material.BARRIER,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_animation_type.types.none","&eNone"))));
+        inventory.setItem(1,createItem(Material.STONE,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_animation_type.types.block","&eBlock"))));
+        inventory.setItem(2,createItem(Material.BLAZE_POWDER,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_animation_type.types.thunder","&eThunder"))));
+        inventory.setItem(3,createItem(Material.BEACON,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.options_animation_type.types.beam","&eBeam"))));
 
         PlayerData data = PlayerDataManager.fetch(owner.getUniqueId());
         AnimationType type = data.getSelectedAnimation();
@@ -92,13 +92,13 @@ public class AnimationTypeMenu extends Menu {
 
             boolean isThis = type == translateMaterial(item.getType());
 
-            meta.setLore(Arrays.asList(" ", TranslateManager.translateColors(LangConfig.get(isThis ? "menus.options.selected" : "menus.options.unselected"))));
+            meta.setLore(Arrays.asList(" ", TranslateManager.translateColors(isThis ? AwakenSMPOnline.LANG.getString("menus.options.selected","&6You currently selected this") : AwakenSMPOnline.LANG.getString("menus.options.unselected","&aClick to select this"))));
             if(isThis) meta.addEnchant(Enchantment.MENDING,1,true);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             item.setItemMeta(meta);
         }
 
-        inventory.setItem(26,createItem(Material.PAPER,TranslateManager.translateColors(LangConfig.get("menus.buttons.back"))));
+        inventory.setItem(26,createItem(Material.PAPER,TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("menus.buttons.back","&eBack"))));
 
         fillEmptyWith(createItem(Material.BLACK_STAINED_GLASS_PANE," "));
     }

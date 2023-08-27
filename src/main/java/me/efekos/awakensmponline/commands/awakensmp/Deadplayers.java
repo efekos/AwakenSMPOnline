@@ -1,14 +1,15 @@
 package me.efekos.awakensmponline.commands.awakensmp;
 
+import me.efekos.awakensmponline.AwakenSMPOnline;
 import me.efekos.awakensmponline.commands.AwakenSMP;
-import me.efekos.awakensmponline.config.LangConfig;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
 import me.efekos.simpler.commands.syntax.Syntax;
-import me.efekos.simpler.commands.translation.TranslateManager;
+import me.efekos.simpler.config.Config;
+import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -46,12 +47,14 @@ public class Deadplayers extends SubCommand {
             }
         }
 
-        player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.awakensmp.deadplayers.header")));
+        Config lang = AwakenSMPOnline.LANG;
+
+        player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.header","&4-----&cDead &fPlayers&4-----")));
         if(names.size()==0){
-            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.awakensmp.deadplayers.no-one")));
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.no-one","- &a%player%")));
         } else
         names.forEach(name->{
-            player.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.awakensmp.deadplayers.format")
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.format","No one died, yet...")
                     .replace("%player%",name)
             ));
         });
@@ -67,12 +70,14 @@ public class Deadplayers extends SubCommand {
             }
         }
 
-        sender.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.awakensmp.deadplayers.header")));
+        Config lang = AwakenSMPOnline.LANG;
+
+        sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.header","&4-----&cDead &fPlayers&4-----")));
         if(names.size()==0){
-            sender.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.awakensmp.deadplayers.no-one")));
+            sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.no-one","- &a%player%")));
         } else
             names.forEach(name->{
-                sender.sendMessage(TranslateManager.translateColors(LangConfig.get("commands.awakensmp.deadplayers.format")
+                sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.format","No one died, yet...")
                         .replace("%player%",name)
                 ));
             });

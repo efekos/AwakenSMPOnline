@@ -1,10 +1,10 @@
 package me.efekos.awakensmponline.items;
 
-import me.efekos.awakensmponline.config.LangConfig;
+import me.efekos.awakensmponline.AwakenSMPOnline;
 import me.efekos.awakensmponline.utils.DateUtils;
 import me.efekos.simpler.annotations.Listen;
 import me.efekos.simpler.annotations.RightClick;
-import me.efekos.simpler.commands.translation.TranslateManager;
+import me.efekos.simpler.translation.TranslateManager;
 import me.efekos.simpler.items.CustomItem;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -36,15 +36,15 @@ public class TrackingCompass extends CustomItem {
     public void onRightClick(PlayerInteractEvent event) {
         Player p = event.getPlayer();
         if(new Date().after(expiresAt)){
-            p.sendMessage(TranslateManager.translateColors(LangConfig.get("items.tracking_compass.expired").replace("%date%",DateUtils.translateDate(expiresAt))));
+            p.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("items.tracking_compass.expired","&cThis compass is expired at &a%date%&c.").replace("%date%",DateUtils.translateDate(expiresAt))));
             return;
         }
         if(!p.equals(whoBelongs)){
-            p.sendMessage(TranslateManager.translateColors(LangConfig.get("items.tracking_compass.not-owner")));
+            p.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("items.tracking_compass.not-owner","&cYou are not the owner of this compass.")));
             return;
         }
         if(!whoToTrack.isOnline()){
-            p.sendMessage(TranslateManager.translateColors(LangConfig.get("items.tracking_compass.not-online").replace("%player%",whoToTrack.getName())));
+            p.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("items.tracking_compass.not-online","&a%player% &cis not online right now.").replace("%player%",whoToTrack.getName())));
         }
 
 
@@ -57,9 +57,10 @@ public class TrackingCompass extends CustomItem {
         stack.setItemMeta(meta);
         p.getInventory().setItemInMainHand(stack);
 
-        p.sendMessage(TranslateManager.translateColors(LangConfig.get("items.tracking_compass.refreshed")));
+        p.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("items.tracking_compass.refreshed","&aRefreshed location!")));
 
     }
+
 
     @Override
     public @NotNull String getId() {
@@ -71,11 +72,11 @@ public class TrackingCompass extends CustomItem {
         CompassMeta meta = (CompassMeta) new ItemStack(Material.COMPASS).getItemMeta();
         assert meta != null;
         meta.setLodestone(whoToTrack.getLocation());
-        meta.setDisplayName(TranslateManager.translateColors(LangConfig.get("items.tracking_compass.name")));
+        meta.setDisplayName(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("items.tracking_compass.name","&eTracking Compass")));
         meta.setLore(Arrays.asList(
-               TranslateManager.translateColors(LangConfig.get("items.tracking_compass.description.attach").replace("%player%",whoToTrack.getName())),
-               TranslateManager.translateColors(LangConfig.get("items.tracking_compass.description.own").replace("%tracker%",whoBelongs.getName())),
-                TranslateManager.translateColors(LangConfig.get("items.tracking_compass.description.expire").replace("%date%", DateUtils.translateDate(expiresAt)))
+               TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("items.tracking_compass.description.attach","&6Attached to &d%player%").replace("%player%",whoToTrack.getName())),
+               TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("items.tracking_compass.description.own","&6Owned by &d%tracker%").replace("%tracker%",whoBelongs.getName())),
+                TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("items.tracking_compass.description.expire","&6Expires at &b%date%").replace("%date%", DateUtils.translateDate(expiresAt)))
         ));
 
         return meta;

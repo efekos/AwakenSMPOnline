@@ -50,7 +50,7 @@ public class TeamDataManager {
 
     public static void save(){
         Gson gson = new Gson();
-        String path = AwakenSMPOnline.getPlugin().getDataFolder().getAbsolutePath()+"\\data\\TeamData.json";
+        String path = AwakenSMPOnline.getInstance().getDataFolder().getAbsolutePath()+"\\data\\TeamData.json";
 
         File file = new File(path);
         file.getParentFile().mkdir();
@@ -68,7 +68,7 @@ public class TeamDataManager {
     public static void load(){
 
         Gson gson = new Gson();
-        File file = new File(AwakenSMPOnline.getPlugin().getDataFolder().getAbsolutePath()+"\\data\\TeamData.json");
+        File file = new File(AwakenSMPOnline.getInstance().getDataFolder().getAbsolutePath()+"\\data\\TeamData.json");
         if(file.exists()){
             try {
                 Reader reader = new FileReader(file);

@@ -1,8 +1,8 @@
 package me.efekos.awakensmponline.commands.args;
 
 import me.efekos.simpler.commands.syntax.Argument;
+import me.efekos.simpler.commands.syntax.ArgumentHandleResult;
 import me.efekos.simpler.commands.syntax.ArgumentPriority;
-import me.efekos.simpler.commands.syntax.ArgumentResult;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class TeamNameArgument extends Argument {
     }
 
     @Override
-    public ArrayList<ArgumentResult> getList(Player player, String current) {
+    public List<String> getList(Player player, String current) {
         return new ArrayList<>();
     }
 
@@ -28,11 +28,10 @@ public class TeamNameArgument extends Argument {
     private final List<String> chars = Arrays.asList("q","w","e","r","t","y","u","i","o","p","a","s","d","f","g","h","j","k","l","z","x","c","v","b","n","m","Q","W","E","R","T","Y","U","I","O","P","A","S","D","D","F","G","H","J","K","L","Z","X","C","V","B","N","M","_");
 
     @Override
-    public boolean handleCorrection(String given) {
-
-
-        return given.length()>=2&&
-                given.length()<=32&&
-                Arrays.stream(given.split("")).allMatch(chars::contains);
+    public ArgumentHandleResult handleCorrection(String given) {
+        if(given.length()<2) return ArgumentHandleResult.fail(given + " is too short (minimum 2 characters)");
+        if(given.length()>32) return ArgumentHandleResult.fail(given + " is too long (maximum 32 characters)");
+        if(!Arrays.stream(given.split("")).allMatch(chars::contains)) return ArgumentHandleResult.fail(given + "includes inappropriate characters: Only a-z,A-Z and underscore (_) is allowed");
+        return ArgumentHandleResult.success();
     }
 }

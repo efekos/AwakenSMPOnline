@@ -1,9 +1,11 @@
 package me.efekos.awakensmponline.commands;
 
+import me.efekos.awakensmponline.AwakenSMPOnline;
 import me.efekos.awakensmponline.commands.team.*;
 import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
+import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,8 +23,16 @@ public class Team extends CoreCommand {
     }
 
     @Override
-    public void renderHelpList(CommandSender sender, ArrayList<SubCommand> subInstances) {
+    public void renderHelpList(CommandSender sender, List<SubCommand> subInstances) {
+        sender.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.awakensmp.help.header","&2----------&aHelp Menu&2----------")));
+        subInstances.forEach(subCommand -> {
+            sender.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.awakensmp.help.format","%syntax% - %description%")
+                    .replace("%syntax%",subCommand.getUsage())
+                    .replace("%description%",subCommand.getDescription())
+            ));
+        });
 
+        sender.sendMessage(TranslateManager.translateColors(AwakenSMPOnline.LANG.getString("commands.awakensmp.help.footer","&2-----------------------------")));
     }
 
     public Team(@NotNull String name) {
