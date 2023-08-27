@@ -50,59 +50,40 @@ If you find any bugs, report to [my discord server](https://discord.gg/8PPgcmYNf
 
 ![](./images/permissions-export.png)
 
-````text
-awakensmp.command.team.chat - Allows to use /team chat
-
-awakensmp.command.team.create - Allows to use /team create
-
-awakensmp.command.team.delete - Allows to use /team delete
-
-awakensmp.command.team.invite - Allows to use /team invite
-
-awakensmp.command.team.join - Allows to use /team join
-
-awakensmp.command.team.leave - Allows to use /team leave
-
-awakensmp.command.team.members - Allows to use /team members
-
-awakensmp.command.team.my - Allows to use /team my
-
-awakensmp.command.team.reject - Allows to use /team reject
-
-awakensmp.command.team.togglechat - Allows to use /team togglechat
-
-awakensmp.command.particles - Allows to use /particles
-
-awakensmp.command.friend.accept - Allows to use /friend accept
-
-awakensmp.command.friend.add - Allows to use /friend add
-
-awakensmp.command.friend.armor - Allows to use /friend armor
-
-awakensmp.command.friend.cancel - Allows to use /friend cancel
-
-awakensmp.command.friend.compass - Allows to use /friend compass
-
-awakensmp.command.friend.deny - Allows to use /friend deny
-
-awakensmp.command.friend.info - Allows to use /friend info
-
-awakensmp.command.friend.inventory - Allows to use /friend inventory
-
-awakensmp.command.friend.list - Allows to use /friend list
-
-awakensmp.command.friend.modify - Allows to use /friend modify
-
-awakensmp.command.friend.remove - Allows to use /friend remove
-
-awakensmp.command.friend.teleport - Allows to use /friend teleport
-
-awakensmp.god - Be invincible to dropping head.
-
-awakensmp.kill - Be able to drop someone's head.
-
-awakensmp.revive - Be able to revive someone with his head.
-````
+| Permission                 | Description                                    |
+|----------------------------|------------------------------------------------|
+| awakensmp.kill             | Allows you to actually kill someone            |
+| awakensmp.god              | Makes you invulnerable to actually dying       |
+| awakensmp.kill-command     | Allows to use /awakensmp kill                  |
+| awakensmp.deadplayers      | Allows to use /awakensmp deadplayers           |
+| awakensmp.reloadconfig     | Allows to use /awakensmp reloadconfig          |
+| awakensmp.revive           | Allows to use /awakensmp revive                |
+| awakensmp.friend.accept    | Allows to use /friend accept                   |
+| awakensmp.friend.add       | Allows to use /friend add                      |
+| awakensmp.friend.armor     | Allows to use /friend armor                    |
+| awakensmp.friend.cancel    | Allows to use /friend cancel                   |
+| awakensmp.friend.compass   | Allows to use /friend compass                  |
+| awakensmp.friend.deny      | Allows to use /friend deny                     |
+| awakensmp.friend.info      | Allows to use /friend info                     |
+| awakensmp.friend.inventory | Allows to use /friend inventory                |
+| awakensmp.friend.list      | Allows to use /friend list                     |
+| awakensmp.friend.modify    | Allows to use /friend modify                   |
+| awakensmp.friend.remove    | Allows to use /friend remove                   |
+| awakensmp.friend.teleport  | Allows to use /friend teleport                 |
+| awakensmp.team.chat        | Allows to use /team chat                       |
+| awakensmp.team.create      | Allows to use /team create                     |
+| awakensmp.team.delete      | Allows to use /team delete                     |
+| awakensmp.team.invite      | Allows to use /team invite                     |
+| awakensmp.team.join        | Allows to use /team join                       |
+| awakensmp.team.leave       | Allows to use /team leave                      |
+| awakensmp.team.members     | Allows to use /team members                    |
+| awakensmp.team.my          | Allows to use /team my                         |
+| awakensmp.team.reject      | Allows to use /team reject                     |
+| awakensmp.team.togglechat  | Allows to use /team togglechat                 |
+| awakensmp.*                | Everything starting with `awakensmp.`          |
+| awakensmp.friend.*         | Everything starting with `awakensmp.friend.`   |
+| awakensmp.team.*           | Everything starting with `awakensmp.team.`     |
+| awakensmp.admin            | Allows to use all the command under /awakensmp |
 
 ![](./images/installation-export.png)
 
