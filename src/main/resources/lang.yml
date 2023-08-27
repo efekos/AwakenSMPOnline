@@ -228,7 +228,7 @@ commands:
       # When a team invited you to join.
       hey: '&eTeam called &b%team% &esent you an invite to join their team!'
 
-      # When player successfully sends an invite to someone.
+      # When player successfully sends an invitation to someone.
       done: '&aSuccessfully sent an invite to &b%player%&a!'
 
     # /team join messages.
