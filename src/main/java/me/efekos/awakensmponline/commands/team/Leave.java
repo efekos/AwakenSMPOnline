@@ -65,7 +65,7 @@ public class Leave extends SubCommand {
         });
 
         TeamDataManager.update(team.getId(),team);
-        PlayerDataManager.update(data.getId(),data);
+        PlayerDataManager.update(data.getUuid(),data);
 
         player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.leave.done","&aSuccessfully left the team!")));
     }

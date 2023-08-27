@@ -45,7 +45,7 @@ public class Kill extends SubCommand {
             player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.not-player","&cThere is no one called &b%player%&c.").replace("%player%",args[0])));
             return;
         }
-        OfflinePlayer offlineVictim = Bukkit.getOfflinePlayer(data.getId());
+        OfflinePlayer offlineVictim = Bukkit.getOfflinePlayer(data.getUuid());
         if(!offlineVictim.isOnline()){
             player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.not-online","&b%player% &cis not online.").replace("%player%",data.getName())));
             return;
@@ -90,7 +90,7 @@ public class Kill extends SubCommand {
             sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.not-player","&cThere is no one called &b%player%&c.").replace("%player%",args[0])));
             return;
         }
-        OfflinePlayer offlineVictim = Bukkit.getOfflinePlayer(data.getId());
+        OfflinePlayer offlineVictim = Bukkit.getOfflinePlayer(data.getUuid());
         if(!offlineVictim.isOnline()){
             sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.not-online","&b%player% &cis not online.").replace("%player%",data.getName())));
             return;

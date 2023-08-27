@@ -47,7 +47,7 @@ public class Revive extends SubCommand {
                     .replace("%player%",args[0])));
             return;
         }
-        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(data.getId());
+        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(data.getUuid());
         if(!offlinePlayer.isOnline()){
             player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.not-online","&b%player% &cis not online.").replace("%player%", offlinePlayer.getName())));
             return;
@@ -63,7 +63,7 @@ public class Revive extends SubCommand {
         data.setRevived(true);
         data.setAlive(true);
 
-        PlayerDataManager.update(data.getId(),data);
+        PlayerDataManager.update(data.getUuid(),data);
 
         p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.hey","&b%player% &arevived you!").replace("%player%",player.getName())));
         player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.done","&aSuccessfully revived &b%player%&a!")
@@ -86,7 +86,7 @@ public class Revive extends SubCommand {
                     .replace("%player%",args[0])));
             return;
         }
-        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(data.getId());
+        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(data.getUuid());
         if(!offlinePlayer.isOnline()){
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.not-online","&b%player% &cis not online.").replace("%player%", offlinePlayer.getName())));
             return;
@@ -102,7 +102,7 @@ public class Revive extends SubCommand {
         data.setRevived(true);
         data.setAlive(true);
 
-        PlayerDataManager.update(data.getId(),data);
+        PlayerDataManager.update(data.getUuid(),data);
 
         p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.hey-console","&bThe Server Console &arevived you!")));
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.done","&aSuccessfully revived &b%player%&a!")

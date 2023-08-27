@@ -74,7 +74,7 @@ public class Accept extends SubCommand {
             PlayerData newFriendData = PlayerDataManager.fetch(offlineNewFriend.getUniqueId());
             newFriendData.addNotification(notification);
 
-            PlayerDataManager.update(newFriendData.getId(),newFriendData);
+            PlayerDataManager.update(newFriendData.getUuid(),newFriendData);
         }
     }
 

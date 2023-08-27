@@ -48,8 +48,8 @@ public class Remove extends SubCommand {
         PlayerData friendsData = PlayerDataManager.fetch(friend.getPlayerId());
         friendsData.getFriends().remove(friendsData.getFriend(player.getUniqueId()));
 
-        PlayerDataManager.update(data.getId(),data);
-        PlayerDataManager.update(friendsData.getId(),friendsData);
+        PlayerDataManager.update(data.getUuid(),data);
+        PlayerDataManager.update(friendsData.getUuid(),friendsData);
 
         player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.remove.done","&aSuccessfully removed &b%player% &afrom friends!").replace("%player%",friendsData.getName())));
     }

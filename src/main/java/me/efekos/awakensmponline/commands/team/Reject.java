@@ -66,7 +66,7 @@ public class Reject extends SubCommand {
         }
 
         data.setCurrentTeam(req.getSender());
-        PlayerDataManager.update(data.getId(),data);
+        PlayerDataManager.update(data.getUuid(),data);
         req.setDone(true);
         TeamData team = TeamDataManager.get(req.getSender());
 

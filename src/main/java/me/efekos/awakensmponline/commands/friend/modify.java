@@ -97,7 +97,7 @@ public class Modify extends SubCommand {
             }
             friend.setModifications(modifications);
             data.updateFriend(friend.getPlayerId(),friend);
-            PlayerDataManager.update(data.getId(),data);
+            PlayerDataManager.update(data.getUuid(),data);
         }
 
         player.sendMessage("");

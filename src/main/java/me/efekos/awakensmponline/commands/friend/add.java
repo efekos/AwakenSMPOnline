@@ -54,7 +54,7 @@ public class Add extends SubCommand {
             player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.add.not-player","&cThere is no one called &b%player%&c.").replace("%player%",args[0])));
             return;
         }
-        if(otherData.friendsWith(data.getId())){
+        if(otherData.friendsWith(data.getUuid())){
             player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.add.friend-already","&cYou are already friends with &b%player%&c.").replace("%player%",otherData.getName())));
             return;
         }
@@ -62,7 +62,7 @@ public class Add extends SubCommand {
             player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.add.urself","&cYou can''t send friend request to yourself.")));
             return;
         }
-        OfflinePlayer offlineOther = Bukkit.getOfflinePlayer(otherData.getId());
+        OfflinePlayer offlineOther = Bukkit.getOfflinePlayer(otherData.getUuid());
         if(!offlineOther.isOnline()){
             player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.not-online","&b%player% &cis not online.")));
             return;
@@ -83,7 +83,7 @@ public class Add extends SubCommand {
             PlayerData newFriendData = PlayerDataManager.fetch(offlineOther.getUniqueId());
             newFriendData.addNotification(notification);
 
-            PlayerDataManager.update(newFriendData.getId(),newFriendData);
+            PlayerDataManager.update(newFriendData.getUuid(),newFriendData);
         } else {
             offlineOther.getPlayer().sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.add.other","&b%player% &esent a friend request to you!").replace("%player%",player.getName())));
             offlineOther.getPlayer().spigot().sendMessage(ButtonManager.generateAcceptFriendButton(req.getId().toString()),new TextComponent(" "),ButtonManager.generateDenyFriendButton(req.getId().toString()));

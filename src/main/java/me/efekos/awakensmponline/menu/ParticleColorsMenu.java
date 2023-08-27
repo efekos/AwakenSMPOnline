@@ -67,7 +67,7 @@ public class ParticleColorsMenu extends Menu {
             case PURPLE_CONCRETE:
                 options.setColor(translateMaterial(event.getCurrentItem().getType()));
                 data.setParticleOptions(options);
-                PlayerDataManager.update(data.getId(),data);
+                PlayerDataManager.update(data.getUuid(),data);
 
                 player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS,100,1);
                 refresh();

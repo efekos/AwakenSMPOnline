@@ -57,7 +57,7 @@ public class ParticleTypeMenu extends Menu {
             case DIRT:
                 options.setType(translateMaterial(event.getCurrentItem().getType()));
                 data.setParticleOptions(options);
-                PlayerDataManager.update(data.getId(),data);
+                PlayerDataManager.update(data.getUuid(),data);
 
                 p.playSound(p, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 100, 1);
                 refresh();

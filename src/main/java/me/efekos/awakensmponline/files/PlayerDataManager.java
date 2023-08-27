@@ -23,7 +23,7 @@ public class PlayerDataManager {
 
     public static PlayerData get(UUID id){
         for (PlayerData data:datas){
-            if(data.getId().equals(id)) return data;
+            if(data.getUuid().equals(id)) return data;
         }
         return null;
     }
@@ -76,8 +76,8 @@ public class PlayerDataManager {
         p1Data.addFriend(p1tp2Friend);
         p2Data.addFriend(p2tp1Friend);
 
-        update(p1Data.getId(),p1Data);
-        update(p2Data.getId(),p2Data);
+        update(p1Data.getUuid(),p1Data);
+        update(p2Data.getUuid(),p2Data);
     }
 
     public static PlayerData fetch(String name){
@@ -92,7 +92,7 @@ public class PlayerDataManager {
 
     public static void update(UUID id,PlayerData newData){
         for (PlayerData data:datas){
-            if(data.getId().equals(id)){
+            if(data.getUuid().equals(id)){
                 data.setAlive(newData.isAlive());
                 data.setName(newData.getName());
                 data.setRevived(newData.isRevived());

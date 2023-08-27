@@ -71,7 +71,7 @@ public class Deny extends SubCommand {
             PlayerData newFriendData = PlayerDataManager.fetch(offlineNewFriend.getUniqueId());
             newFriendData.addNotification(notification);
 
-            PlayerDataManager.update(newFriendData.getId(),newFriendData);
+            PlayerDataManager.update(newFriendData.getUuid(),newFriendData);
         } else {
             offlineNewFriend.getPlayer().sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.deny.hey","&b%player% &edenied your friend request.").replace("%player%",player.getName())));
         }

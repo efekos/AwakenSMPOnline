@@ -51,7 +51,7 @@ public class AnimationTypeMenu extends Menu {
                 break;
             default:
                 data.setSelectedAnimation(translateMaterial(event.getCurrentItem().getType()));
-                PlayerDataManager.update(data.getId(),data);
+                PlayerDataManager.update(data.getUuid(),data);
 
                 p.playSound(p, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 100, 1);
                 refresh();

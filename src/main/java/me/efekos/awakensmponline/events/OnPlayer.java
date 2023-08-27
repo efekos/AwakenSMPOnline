@@ -57,7 +57,7 @@ public class OnPlayer implements Listener {
 
         e.getDrops().add(item);
 
-        PlayerDataManager.update(playerData.getId(),playerData);
+        PlayerDataManager.update(playerData.getUuid(),playerData);
 
         if (Main.GAME.getBoolean("announcements.kills",false) && !p.getWorld().getGameRuleValue(GameRule.SHOW_DEATH_MESSAGES).booleanValue()) {
             Bukkit.broadcastMessage(TranslateManager.translateColors(Main.LANG.getString("announcements.killed","&a%killer% &egot &a%victim%&e''s head!").replace("%killer%",killer.getName()).replace("%victim%",p.getName())));
@@ -114,7 +114,7 @@ public class OnPlayer implements Listener {
         AnimationManager.playAnimation(pToRevive, Main.GAME.getBoolean("revive-animations",false) ? data.getSelectedAnimation(): AnimationType.NONE, player -> {
             data.setRevived(true);
             data.setAlive(true);
-            PlayerDataManager.update(data.getId(),data);
+            PlayerDataManager.update(data.getUuid(),data);
 
             pToRevive.setGameMode(GameMode.SURVIVAL);
             pToRevive.removePotionEffect(PotionEffectType.BLINDNESS);
@@ -167,7 +167,7 @@ public class OnPlayer implements Listener {
             });
 
             data.setNotifications(new ArrayList<>());
-            PlayerDataManager.update(data.getId(),data);
+            PlayerDataManager.update(data.getUuid(),data);
         }
     }
 

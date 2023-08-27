@@ -53,11 +53,11 @@ public class Delete extends SubCommand {
         team.getMembers().forEach(uuid -> {
             PlayerData memberData = PlayerDataManager.fetch(uuid);
             memberData.setCurrentTeam(null);
-            PlayerDataManager.update(memberData.getId(),memberData);
+            PlayerDataManager.update(memberData.getUuid(),memberData);
         });
 
         data.setCurrentTeam(null);
-        PlayerDataManager.update(data.getId(),data);
+        PlayerDataManager.update(data.getUuid(),data);
         TeamDataManager.delete(team.getId());
         player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.delete.done","&aSuccessfully deleted the team &b%team%&a!").replace("%team%",team.getDisplayName())));
     }

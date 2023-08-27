@@ -67,7 +67,7 @@ public class Create extends SubCommand {
         teamData.getMembers().add(player.getUniqueId());
 
         data.setCurrentTeam(teamData.getId());
-        PlayerDataManager.update(data.getId(),data);
+        PlayerDataManager.update(data.getUuid(),data);
 
         player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.create.done","&aSuccessfully created a new team called &b%team%&a!").replace("%team%",args[0])));
     }

@@ -59,7 +59,7 @@ public class Invite extends SubCommand {
             player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.already-in-team-other","&b%player% &cis in another team.").replace("%player%",ptiData.getName())));
             return;
         }
-        OfflinePlayer offlinePti = Bukkit.getOfflinePlayer(ptiData.getId());
+        OfflinePlayer offlinePti = Bukkit.getOfflinePlayer(ptiData.getUuid());
         if(!offlinePti.isOnline()){
             player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.invite.not-online","&b%player% &cis not online.").replace("%player%",offlinePti.getName())));
         }

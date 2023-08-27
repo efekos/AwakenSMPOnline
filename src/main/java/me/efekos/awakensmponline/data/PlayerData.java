@@ -7,6 +7,7 @@ import java.util.UUID;
 
 public class PlayerData extends Storable {
     private final UUID id = UUID.randomUUID();
+    private final UUID uuid;
     private String name;
     private boolean alive;
     private boolean revived;
@@ -19,7 +20,8 @@ public class PlayerData extends Storable {
     private ArrayList<WaitingNotification> notifications;
     private UUID currentTeam;
 
-    public PlayerData(String name, boolean alive, boolean revived, ParticleOptions particleOptions) {
+    public PlayerData(UUID id,String name, boolean alive, boolean revived, ParticleOptions particleOptions) {
+        this.uuid = id;
         this.name = name;
         this.alive = alive;
         this.revived = revived;
@@ -152,8 +154,8 @@ public class PlayerData extends Storable {
         this.revived = revived;
     }
 
-    public UUID getId() {
-        return this.id;
+    public UUID getUuid() {
+        return this.uuid;
     }
 
     public String getName() {
