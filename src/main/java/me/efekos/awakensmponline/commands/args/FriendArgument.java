@@ -1,11 +1,12 @@
 package me.efekos.awakensmponline.commands.args;
 
+import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.data.Friend;
 import me.efekos.awakensmponline.data.PlayerData;
-import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.simpler.commands.syntax.Argument;
 import me.efekos.simpler.commands.syntax.ArgumentHandleResult;
 import me.efekos.simpler.commands.syntax.ArgumentPriority;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class FriendArgument extends Argument {
 
     @Override
     public List<String> getList(Player player, String current) {
-        PlayerData data = PlayerDataManager.fetch(player.getUniqueId());
+        PlayerData data = Main.fetchPlayer(player.getUniqueId());
 
         return data.getFriends().stream().map(Friend::getLastName).collect(Collectors.toList());
     }
@@ -32,7 +33,9 @@ public class FriendArgument extends Argument {
 
     @Override
     public ArgumentHandleResult handleCorrection(String given) {
-        PlayerData data = PlayerDataManager.get(given);
+        Player player = Bukkit.getPlayer(given);
+        if(player==null) return ArgumentHandleResult.fail(given + " is not a player, or not online.");
+        PlayerData data = Main.PLAYER_DATA.get(player.getUniqueId());
         if(data==null) return ArgumentHandleResult.fail(given + " is not a player");
         return ArgumentHandleResult.success();
     }

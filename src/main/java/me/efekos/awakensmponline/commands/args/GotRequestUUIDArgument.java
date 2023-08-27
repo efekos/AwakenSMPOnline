@@ -1,7 +1,7 @@
 package me.efekos.awakensmponline.commands.args;
 
+import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.data.Request;
-import me.efekos.awakensmponline.files.RequestDataManager;
 import me.efekos.simpler.commands.syntax.Argument;
 import me.efekos.simpler.commands.syntax.ArgumentHandleResult;
 import me.efekos.simpler.commands.syntax.ArgumentPriority;
@@ -20,7 +20,7 @@ public class GotRequestUUIDArgument extends Argument {
 
     @Override
     public List<String> getList(Player player, String current) {
-        Stream<Request> xrequests = RequestDataManager.getAll().stream().filter(request -> request.getGetter().equals(player.getUniqueId()));
+        Stream<Request> xrequests = Main.REQUEST_DATA.getAll().stream().filter(request -> request.getGetter().equals(player.getUniqueId()));
         List<String> results = new ArrayList<>();
 
         for (Request req:xrequests.collect(Collectors.toList())){

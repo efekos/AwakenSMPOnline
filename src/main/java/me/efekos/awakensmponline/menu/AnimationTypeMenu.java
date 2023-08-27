@@ -3,10 +3,9 @@ package me.efekos.awakensmponline.menu;
 import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.data.AnimationType;
 import me.efekos.awakensmponline.data.PlayerData;
-import me.efekos.awakensmponline.files.PlayerDataManager;
-import me.efekos.simpler.translation.TranslateManager;
 import me.efekos.simpler.menu.Menu;
 import me.efekos.simpler.menu.MenuData;
+import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.SoundCategory;
@@ -40,7 +39,7 @@ public class AnimationTypeMenu extends Menu {
     @Override
     public void onClick(InventoryClickEvent event) {
         Player p = (Player) event.getWhoClicked();
-        PlayerData data = PlayerDataManager.fetch(p.getUniqueId());
+        PlayerData data = Main.fetchPlayer(p.getUniqueId());
 
 
         switch (event.getCurrentItem().getType()) {
@@ -51,7 +50,7 @@ public class AnimationTypeMenu extends Menu {
                 break;
             default:
                 data.setSelectedAnimation(translateMaterial(event.getCurrentItem().getType()));
-                PlayerDataManager.update(data.getUuid(),data);
+                Main.PLAYER_DATA.update(data.getUuid(),data);
 
                 p.playSound(p, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 100, 1);
                 refresh();
@@ -83,7 +82,7 @@ public class AnimationTypeMenu extends Menu {
         inventory.setItem(2,createItem(Material.BLAZE_POWDER,TranslateManager.translateColors(Main.LANG.getString("menus.options_animation_type.types.thunder","&eThunder"))));
         inventory.setItem(3,createItem(Material.BEACON,TranslateManager.translateColors(Main.LANG.getString("menus.options_animation_type.types.beam","&eBeam"))));
 
-        PlayerData data = PlayerDataManager.fetch(owner.getUniqueId());
+        PlayerData data = Main.fetchPlayer(owner.getUniqueId());
         AnimationType type = data.getSelectedAnimation();
 
         for (int i = 0; i < 4; i++) {

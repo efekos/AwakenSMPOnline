@@ -3,7 +3,6 @@ package me.efekos.awakensmponline.commands.awakensmp;
 import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.AwakenSMP;
 import me.efekos.awakensmponline.data.PlayerData;
-import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
@@ -39,8 +38,8 @@ public class Deadplayers extends SubCommand {
 
     @Override
     public void onPlayerUse(Player player, String[] args) {
-        ArrayList<PlayerData> all = PlayerDataManager.getAll();
-        ArrayList<String> names = new ArrayList<>();
+        List<PlayerData> all = Main.PLAYER_DATA.getAll();
+        List<String> names = new ArrayList<>();
         for(PlayerData data:all){
             if(!data.isAlive()){
                 names.add(data.getName());
@@ -62,8 +61,8 @@ public class Deadplayers extends SubCommand {
 
     @Override
     public void onConsoleUse(ConsoleCommandSender sender, String[] args) {
-        ArrayList<PlayerData> all = PlayerDataManager.getAll();
-        ArrayList<String> names = new ArrayList<>();
+        List<PlayerData> all = Main.PLAYER_DATA.getAll();
+        List<String> names = new ArrayList<>();
         for(PlayerData data:all){
             if(!data.isAlive()){
                 names.add(data.getName());

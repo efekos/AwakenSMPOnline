@@ -2,9 +2,9 @@ package me.efekos.awakensmponline.commands.awakensmp;
 
 import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.AwakenSMP;
-import me.efekos.awakensmponline.files.PlayerDataManager;
-import me.efekos.awakensmponline.files.RequestDataManager;
-import me.efekos.awakensmponline.files.TeamDataManager;
+import me.efekos.awakensmponline.data.PlayerData;
+import me.efekos.awakensmponline.data.Request;
+import me.efekos.awakensmponline.data.TeamData;
 import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
@@ -32,9 +32,9 @@ public class Reloadconfig extends SubCommand {
     public void onPlayerUse(Player player, String[] args) {
         Main.LANG.reload();
         Main.GAME.reload();
-        PlayerDataManager.load();
-        RequestDataManager.load();
-        TeamDataManager.load();
+        Main.PLAYER_DATA.load(PlayerData[].class);
+        Main.TEAM_DATA.load(TeamData[].class);
+        Main.REQUEST_DATA.load(Request[].class);
         player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.awakensmp.reloadconfig.success","&aSuccessfully reloaded the config!")));
     }
 
@@ -42,10 +42,9 @@ public class Reloadconfig extends SubCommand {
     public void onConsoleUse(ConsoleCommandSender sender, String[] args) {
         Main.GAME.reload();
         Main.LANG.reload();
-        Main.getInstance().reloadConfig();
-        PlayerDataManager.load();
-        RequestDataManager.load();
-        TeamDataManager.load();
+        Main.PLAYER_DATA.load(PlayerData[].class);
+        Main.TEAM_DATA.load(TeamData[].class);
+        Main.REQUEST_DATA.load(Request[].class);
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.awakensmp.reloadconfig.success","&aSuccessfully reloaded the config!")));
     }
 

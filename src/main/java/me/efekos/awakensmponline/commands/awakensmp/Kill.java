@@ -3,7 +3,6 @@ package me.efekos.awakensmponline.commands.awakensmp;
 import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.args.AlivePlayerArgument;
 import me.efekos.awakensmponline.data.PlayerData;
-import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
@@ -37,7 +36,7 @@ public class Kill extends SubCommand {
 
     @Override
     public void onPlayerUse(Player player, String[] args) {
-        PlayerData data = PlayerDataManager.get(args[0]);
+        PlayerData data = Main.getPlayerFromName(args[0]);
         Config lang = Main.LANG;
 
 
@@ -82,7 +81,7 @@ public class Kill extends SubCommand {
 
     @Override
     public void onConsoleUse(ConsoleCommandSender sender, String[] args) {
-        PlayerData data = PlayerDataManager.get(args[0]);
+        PlayerData data = Main.getPlayerFromName(args[0]);
 
         Config lang = Main.LANG;
 

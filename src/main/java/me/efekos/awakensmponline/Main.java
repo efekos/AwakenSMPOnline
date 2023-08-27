@@ -3,14 +3,9 @@ package me.efekos.awakensmponline;
 import me.efekos.awakensmponline.commands.AwakenSMP;
 import me.efekos.awakensmponline.commands.Friend;
 import me.efekos.awakensmponline.commands.Team;
-import me.efekos.awakensmponline.data.PlayerData;
-import me.efekos.awakensmponline.data.Request;
-import me.efekos.awakensmponline.data.TeamData;
+import me.efekos.awakensmponline.data.*;
 import me.efekos.awakensmponline.events.OnPlayer;
 import me.efekos.awakensmponline.exceptions.InvalidRecipeException;
-import me.efekos.awakensmponline.files.PlayerDataManager;
-import me.efekos.awakensmponline.files.RequestDataManager;
-import me.efekos.awakensmponline.files.TeamDataManager;
 import me.efekos.awakensmponline.utils.Logger;
 import me.efekos.awakensmponline.utils.RecipeManager;
 import me.efekos.simpler.Metrics;
@@ -21,8 +16,11 @@ import me.efekos.simpler.config.JSONDataManager;
 import me.efekos.simpler.items.ItemManager;
 import me.efekos.simpler.menu.MenuManager;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.UUID;
 
 public final class Main extends JavaPlugin {
 
@@ -44,30 +42,26 @@ public final class Main extends JavaPlugin {
         plugin = this;
         GAME = new Config("config.yml",this);
         LANG = new Config("lang.yml",this);
-        //PLAYER_DATA = new JSONDataManager<>("data\\PlayerData.json",this);
-        //TEAM_DATA = new JSONDataManager<>("data\\TeamData.json",this);
-        //REQUEST_DATA = new JSONDataManager<>("data\\RequestData.json",this);
+        PLAYER_DATA = new JSONDataManager<>("data\\PlayerData.json",this);
+        TEAM_DATA = new JSONDataManager<>("data\\TeamData.json",this);
+        REQUEST_DATA = new JSONDataManager<>("data\\RequestData.json",this);
         try {
             // Setup metrics
             Metrics metrics = new Metrics(this,16413);
 
-            Logger.info("Starting plugin.");
+            //configs
 
-            Logger.log("Loading config.");
-
-            // Load configs and clone them if a file for them doesn't exist
             GAME.setup();
             LANG.setup();
 
+            // data
 
-            Logger.log("Loading data.");
+            PLAYER_DATA.load(PlayerData[].class);
+            TEAM_DATA.load(TeamData[].class);
+            REQUEST_DATA.load(Request[].class);
 
-            // Loading every data
-            PlayerDataManager.load();
-            TeamDataManager.load();
-            RequestDataManager.load();
+            //recipe
 
-            Logger.log("Loading recipe.");
             if(GAME.getBoolean("recipe.use-default",true)){
                 // Default açıksa direk default yükle
                 Bukkit.addRecipe(RecipeManager.loadDefaultRecipe(this));
@@ -83,7 +77,8 @@ public final class Main extends JavaPlugin {
                 }
             }
 
-            Logger.log("Loading commands.");
+            // commands
+
             try {
                 CommandManager.registerCoreCommand(this, AwakenSMP.class); // /awakensmp
 
@@ -92,6 +87,7 @@ public final class Main extends JavaPlugin {
 
                 if (GAME.getBoolean("features.team",true)) // takım şeyleri açıkmı diye kontrol
                     CommandManager.registerCoreCommand(this, Team.class); // /team
+
             }catch (Exception e){
                 e.printStackTrace();
                 Logger.error("Experienced an error while trying to load commands.");
@@ -99,16 +95,15 @@ public final class Main extends JavaPlugin {
                 Bukkit.getPluginManager().disablePlugin(this); // hata varsa direk duruyo
             }
 
-            Logger.log("Loading events.");
+            // event
 
             getServer().getPluginManager().registerEvents(new OnPlayer(),this);
             MenuManager.setPlugin(this); // setup menu manager
+            ItemManager.setPlugin(this);
 
-            Logger.log("Loading items.");
+            //done!!1!1!
 
-            ItemManager.setPlugin(this); // setup custom items
-
-            Logger.success("Successfully started!");
+            //updates
 
             Logger.info("Checking For Updates...");
             boolean upToDate = Utilities.checkUpdates(this,102573);
@@ -127,14 +122,22 @@ public final class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        Logger.info("Stopping plugin.");
-
         Logger.log("Saving data.");
-        PlayerDataManager.save();
-        RequestDataManager.save();
-        TeamDataManager.save();
-        // datalar dosyadan değişse bile bi bok olmaz
+        PLAYER_DATA.save();
+        TEAM_DATA.save();
+        REQUEST_DATA.save();
+    }
 
-        Logger.success("Successfully stopped!");
+    public static PlayerData fetchPlayer(UUID id){
+        OfflinePlayer player = Bukkit.getOfflinePlayer(id);
+        if (PLAYER_DATA.get(id)==null) PLAYER_DATA.update(id,new PlayerData(id,player.getName(),true,false,new ParticleOptions(ParticleType.POP,ParticleColor.WHITE)));
+        return PLAYER_DATA.get(id);
+    }
+
+    public static PlayerData getPlayerFromName(String name){
+        for (PlayerData data : PLAYER_DATA.getAll()) {
+            if(data.getName().equals(name))return data;
+        }
+        return null;
     }
 }

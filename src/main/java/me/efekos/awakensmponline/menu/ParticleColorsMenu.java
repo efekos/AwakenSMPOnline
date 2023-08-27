@@ -4,10 +4,9 @@ import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.data.ParticleColor;
 import me.efekos.awakensmponline.data.ParticleOptions;
 import me.efekos.awakensmponline.data.PlayerData;
-import me.efekos.awakensmponline.files.PlayerDataManager;
-import me.efekos.simpler.translation.TranslateManager;
 import me.efekos.simpler.menu.Menu;
 import me.efekos.simpler.menu.MenuData;
+import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.SoundCategory;
@@ -42,7 +41,7 @@ public class ParticleColorsMenu extends Menu {
     @Override
     public void onClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
-        PlayerData data = PlayerDataManager.fetch(player.getUniqueId());
+        PlayerData data = Main.fetchPlayer(player.getUniqueId());
         ParticleOptions options = data.getParticleOptions();
 
         switch (Objects.requireNonNull(event.getCurrentItem()).getType()){
@@ -67,7 +66,7 @@ public class ParticleColorsMenu extends Menu {
             case PURPLE_CONCRETE:
                 options.setColor(translateMaterial(event.getCurrentItem().getType()));
                 data.setParticleOptions(options);
-                PlayerDataManager.update(data.getUuid(),data);
+                Main.PLAYER_DATA.update(data.getUuid(),data);
 
                 player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS,100,1);
                 refresh();
@@ -125,7 +124,7 @@ public class ParticleColorsMenu extends Menu {
         inventory.setItem(15,createItem(Material.BLACK_CONCRETE,TranslateManager.translateColors(Main.LANG.getString("menus.options_particle_color.colors.black","&eBlack"))));
 
 
-        PlayerData data = PlayerDataManager.fetch(owner.getUniqueId());
+        PlayerData data = Main.fetchPlayer(owner.getUniqueId());
         ParticleOptions options = data.getParticleOptions();
 
 

@@ -4,10 +4,9 @@ import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.data.ParticleOptions;
 import me.efekos.awakensmponline.data.ParticleType;
 import me.efekos.awakensmponline.data.PlayerData;
-import me.efekos.awakensmponline.files.PlayerDataManager;
-import me.efekos.simpler.translation.TranslateManager;
 import me.efekos.simpler.menu.Menu;
 import me.efekos.simpler.menu.MenuData;
+import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.SoundCategory;
@@ -41,7 +40,7 @@ public class ParticleTypeMenu extends Menu {
     @Override
     public void onClick(InventoryClickEvent event) {
         Player p = (Player) event.getWhoClicked();
-        PlayerData data = PlayerDataManager.fetch(p.getUniqueId());
+        PlayerData data = Main.fetchPlayer(p.getUniqueId());
         ParticleOptions options = data.getParticleOptions();
 
 
@@ -57,7 +56,7 @@ public class ParticleTypeMenu extends Menu {
             case DIRT:
                 options.setType(translateMaterial(event.getCurrentItem().getType()));
                 data.setParticleOptions(options);
-                PlayerDataManager.update(data.getUuid(),data);
+                Main.PLAYER_DATA.update(data.getUuid(),data);
 
                 p.playSound(p, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 100, 1);
                 refresh();
@@ -93,7 +92,7 @@ public class ParticleTypeMenu extends Menu {
         inventory.setItem(4,createItem(Material.SNOWBALL,TranslateManager.translateColors(Main.LANG.getString("menus.options_particle_type.types.snowball","&eSnowball"))));
         inventory.setItem(5,createItem(Material.DIRT,TranslateManager.translateColors(Main.LANG.getString("menus.options_particle_type.types.block","&eBlock"))));
 
-        PlayerData data = PlayerDataManager.fetch(owner.getUniqueId());
+        PlayerData data = Main.fetchPlayer(owner.getUniqueId());
         ParticleOptions options = data.getParticleOptions();
 
         for (int i = 0; i < 6; i++) {

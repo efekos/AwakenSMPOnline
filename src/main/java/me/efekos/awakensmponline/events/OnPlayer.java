@@ -5,8 +5,6 @@ import me.efekos.awakensmponline.data.AnimationType;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.data.TeamData;
 import me.efekos.awakensmponline.data.TempData;
-import me.efekos.awakensmponline.files.PlayerDataManager;
-import me.efekos.awakensmponline.files.TeamDataManager;
 import me.efekos.awakensmponline.utils.AnimationManager;
 import me.efekos.awakensmponline.utils.ParticleManager;
 import me.efekos.awakensmponline.utils.RecipeManager;
@@ -42,7 +40,7 @@ public class OnPlayer implements Listener {
         if(p.hasPermission("awakensmp.god")) return;
         if(!killer.hasPermission("awakensmp.kill")) return;
 
-        PlayerData playerData = PlayerDataManager.get(p.getUniqueId());
+        PlayerData playerData = Main.fetchPlayer(p.getUniqueId());
 
         playerData.setAlive(false);
         playerData.setRevived(false);
@@ -57,7 +55,7 @@ public class OnPlayer implements Listener {
 
         e.getDrops().add(item);
 
-        PlayerDataManager.update(playerData.getUuid(),playerData);
+        Main.PLAYER_DATA.update(playerData.getUuid(),playerData);
 
         if (Main.GAME.getBoolean("announcements.kills",false) && !p.getWorld().getGameRuleValue(GameRule.SHOW_DEATH_MESSAGES).booleanValue()) {
             Bukkit.broadcastMessage(TranslateManager.translateColors(Main.LANG.getString("announcements.killed","&a%killer% &egot &a%victim%&e''s head!").replace("%killer%",killer.getName()).replace("%victim%",p.getName())));
@@ -68,7 +66,7 @@ public class OnPlayer implements Listener {
     @EventHandler
     public void onPlayerMove(@NotNull PlayerMoveEvent e){
         Player p = e.getPlayer();
-        PlayerData playerData = PlayerDataManager.get(p.getUniqueId());
+        PlayerData playerData = Main.PLAYER_DATA.get(p.getUniqueId());
 
         if(playerData.isAlive())return;
 
@@ -96,7 +94,7 @@ public class OnPlayer implements Listener {
             p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.not-player","&cThere is no one called &b%player%&c.").replace("%player%",blockStack.getItemMeta().getDisplayName())));
             return;
         }
-        PlayerData data = PlayerDataManager.fetch(pToRevive.getUniqueId());
+        PlayerData data = Main.fetchPlayer(pToRevive.getUniqueId());
         if(data.isAlive()){
             e.setCancelled(true);
             p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.not-dead","&b%player% &cis not dead.").replace("%player%",pToRevive.getName())));
@@ -114,7 +112,7 @@ public class OnPlayer implements Listener {
         AnimationManager.playAnimation(pToRevive, Main.GAME.getBoolean("revive-animations",false) ? data.getSelectedAnimation(): AnimationType.NONE, player -> {
             data.setRevived(true);
             data.setAlive(true);
-            PlayerDataManager.update(data.getUuid(),data);
+            Main.PLAYER_DATA.update(data.getUuid(),data);
 
             pToRevive.setGameMode(GameMode.SURVIVAL);
             pToRevive.removePotionEffect(PotionEffectType.BLINDNESS);
@@ -140,7 +138,7 @@ public class OnPlayer implements Listener {
     @EventHandler
     public void onPlayerJoin(@NotNull PlayerJoinEvent e){
         Player p = e.getPlayer();
-        PlayerData data = PlayerDataManager.fetch(p.getUniqueId());
+        PlayerData data = Main.fetchPlayer(p.getUniqueId());
 
         if(data.getNotifications().size()>0){
             p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("notifications.list","&eYou have &b%count% &enew notifications:").replace("%count%",data.getNotifications().size()+"")));
@@ -167,7 +165,7 @@ public class OnPlayer implements Listener {
             });
 
             data.setNotifications(new ArrayList<>());
-            PlayerDataManager.update(data.getUuid(),data);
+            Main.PLAYER_DATA.update(data.getUuid(),data);
         }
     }
 
@@ -187,14 +185,14 @@ public class OnPlayer implements Listener {
     @EventHandler
     public void onPlayerChat(@NotNull AsyncPlayerChatEvent e){
         Player p = e.getPlayer();
-        PlayerData pData = PlayerDataManager.fetch(p);
+        PlayerData pData = Main.fetchPlayer(p.getUniqueId());
 
         if(TempData.get(p,"teamchat")==null) TempData.set(p,"teamchat",false);
 
         if(!(Boolean)TempData.get(p,"teamchat")) return;
         if(pData.getCurrentTeam()==null)return;
 
-        TeamData team = TeamDataManager.get(pData.getCurrentTeam());
+        TeamData team = Main.TEAM_DATA.get(pData.getCurrentTeam());
 
         team.getMembers().forEach(uuid -> {
             OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);

@@ -4,7 +4,6 @@ import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.AwakenSMP;
 import me.efekos.awakensmponline.commands.args.DeadPlayerArgument;
 import me.efekos.awakensmponline.data.PlayerData;
-import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.awakensmponline.utils.ParticleManager;
 import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
@@ -34,7 +33,7 @@ public class Revive extends SubCommand {
 
     @Override
     public void onPlayerUse(Player player, String[] args) {
-        PlayerData data = PlayerDataManager.get(args[0]);
+        PlayerData data = Main.getPlayerFromName(args[0]);
         if(data==null) {
             player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.not-player","&cThere is no one called &b%player%&c.")
                     .replace("%player%",args[0])
@@ -63,7 +62,7 @@ public class Revive extends SubCommand {
         data.setRevived(true);
         data.setAlive(true);
 
-        PlayerDataManager.update(data.getUuid(),data);
+        Main.PLAYER_DATA.update(data.getUuid(),data);
 
         p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.hey","&b%player% &arevived you!").replace("%player%",player.getName())));
         player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.done","&aSuccessfully revived &b%player%&a!")
@@ -73,7 +72,7 @@ public class Revive extends SubCommand {
 
     @Override
     public void onConsoleUse(ConsoleCommandSender sender, String[] args) {
-        PlayerData data = PlayerDataManager.get(args[0]);
+        PlayerData data = Main.getPlayerFromName(args[0]);
         if(data==null) {
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.not-player","&cThere is no one called &b%player%&c.")
                     .replace("%player%",args[0])
@@ -102,7 +101,7 @@ public class Revive extends SubCommand {
         data.setRevived(true);
         data.setAlive(true);
 
-        PlayerDataManager.update(data.getUuid(),data);
+        Main.PLAYER_DATA.update(data.getUuid(),data);
 
         p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.hey-console","&bThe Server Console &arevived you!")));
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.done","&aSuccessfully revived &b%player%&a!")
