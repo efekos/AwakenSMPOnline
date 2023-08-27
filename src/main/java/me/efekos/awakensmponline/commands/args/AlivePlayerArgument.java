@@ -19,7 +19,7 @@ public class AlivePlayerArgument extends Argument {
 
     @Override
     public List<String> getList(Player player, String current) {
-        return Main.PLAYER_DATA.getAll().stream().filter(playerData -> playerData.isAlive()).map(playerData -> playerData.getName()).collect(Collectors.toList());
+        return Main.PLAYER_DATA.getAll().stream().filter(PlayerData::isAlive).map(PlayerData::getName).collect(Collectors.toList());
     }
 
     @Override

@@ -49,14 +49,11 @@ public class Deadplayers extends SubCommand {
         Config lang = Main.LANG;
 
         player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.header","&4-----&cDead &fPlayers&4-----")));
-        if(names.size()==0){
+        if(names.isEmpty()){
             player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.no-one","- &a%player%")));
-        } else
-        names.forEach(name->{
-            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.format","No one died, yet...")
-                    .replace("%player%",name)
-            ));
-        });
+        } else names.forEach(name-> player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.format","No one died, yet...")
+                .replace("%player%",name)
+        )));
     }
 
     @Override
@@ -72,13 +69,11 @@ public class Deadplayers extends SubCommand {
         Config lang = Main.LANG;
 
         sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.header","&4-----&cDead &fPlayers&4-----")));
-        if(names.size()==0){
+        if(names.isEmpty()){
             sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.no-one","- &a%player%")));
         } else
-            names.forEach(name->{
-                sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.format","No one died, yet...")
-                        .replace("%player%",name)
-                ));
-            });
+            names.forEach(name-> sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.format","No one died, yet...")
+                    .replace("%player%",name)
+            )));
     }
 }
