@@ -4,15 +4,14 @@ import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.Friend;
 import me.efekos.awakensmponline.commands.args.FriendArgument;
 import me.efekos.awakensmponline.data.PlayerData;
-import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.awakensmponline.items.TrackingCompass;
 import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
 import me.efekos.simpler.commands.syntax.Syntax;
 import me.efekos.simpler.config.Config;
-import me.efekos.simpler.translation.TranslateManager;
 import me.efekos.simpler.items.ItemManager;
+import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.ConsoleCommandSender;
@@ -44,7 +43,7 @@ public class Compass extends SubCommand {
 
     @Override
     public void onPlayerUse(Player player, String[] args) {
-        PlayerData data = PlayerDataManager.fetch(player.getUniqueId());
+        PlayerData data = Main.fetchPlayer(player.getUniqueId());
         Config lang = Main.LANG;
         if(!data.friendsWith(args[0])){
             player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.not-friend","&b%player% &cis not your friend.").replace("%player%",args[0])));

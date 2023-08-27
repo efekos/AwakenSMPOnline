@@ -3,7 +3,6 @@ package me.efekos.awakensmponline.commands.friend;
 import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.Friend;
 import me.efekos.awakensmponline.data.PlayerData;
-import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.awakensmponline.utils.ButtonManager;
 import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
@@ -31,9 +30,9 @@ public class List extends SubCommand {
     public void onPlayerUse(Player player, String[] args) {
         player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.list.header","&4--------&cYour Friends&4--------")));
 
-        PlayerData data = PlayerDataManager.fetch(player.getUniqueId());
+        PlayerData data = Main.fetchPlayer(player.getUniqueId());
         data.getFriends().forEach(friend -> {
-            PlayerData friendData = PlayerDataManager.fetch(friend.getPlayerId());
+            PlayerData friendData = Main.fetchPlayer(friend.getPlayerId());
 
             player.spigot().sendMessage(new TextComponent(TranslateManager.translateColors(Main.LANG.getString("commands.friend.list.format","- &e%name%")
                     .replace("%name%",friendData.getName())

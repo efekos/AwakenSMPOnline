@@ -4,14 +4,13 @@ import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.Friend;
 import me.efekos.awakensmponline.data.FriendModifications;
 import me.efekos.awakensmponline.data.PlayerData;
-import me.efekos.awakensmponline.files.PlayerDataManager;
 import me.efekos.awakensmponline.utils.ButtonManager;
 import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
 import me.efekos.simpler.commands.syntax.ArgumentPriority;
-import me.efekos.simpler.commands.syntax.impl.PlayerArgument;
 import me.efekos.simpler.commands.syntax.Syntax;
+import me.efekos.simpler.commands.syntax.impl.PlayerArgument;
 import me.efekos.simpler.translation.TranslateManager;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.command.ConsoleCommandSender;
@@ -43,7 +42,7 @@ public class Modify extends SubCommand {
 
     @Override
     public void onPlayerUse(Player player, String[] args) {
-        PlayerData data = PlayerDataManager.get(args[0]);
+        PlayerData data = Main.getPlayerFromName(args[0]);
         if(data==null){
             player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.modify.not-player","&b%player% &cis not a player").replace("%player%",args[0])));
             return;
@@ -97,7 +96,7 @@ public class Modify extends SubCommand {
             }
             friend.setModifications(modifications);
             data.updateFriend(friend.getPlayerId(),friend);
-            PlayerDataManager.update(data.getUuid(),data);
+            Main.PLAYER_DATA.update(data.getUuid(),data);
         }
 
         player.sendMessage("");

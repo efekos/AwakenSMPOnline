@@ -4,8 +4,6 @@ import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.Friend;
 import me.efekos.awakensmponline.commands.args.GotRequestUUIDArgument;
 import me.efekos.awakensmponline.data.*;
-import me.efekos.awakensmponline.files.PlayerDataManager;
-import me.efekos.awakensmponline.files.RequestDataManager;
 import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
@@ -43,7 +41,7 @@ public class Deny extends SubCommand {
             player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.deny.not-uuid","&b%uuid% &cis not a valid UUID.").replace("%uuid%",args[0])));
             return;
         }
-        Request req = RequestDataManager.get(UUID.fromString(args[0]));
+        Request req = Main.REQUEST_DATA.get(UUID.fromString(args[0]));
         if(req==null){
             player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.deny.not-req","&cThere is no request with id &b%uuid%&c.").replace("%uuid%",args[0])));
             return;
@@ -60,7 +58,7 @@ public class Deny extends SubCommand {
         OfflinePlayer offlineNewFriend = Bukkit.getOfflinePlayer(req.getSender());
 
         req.setDone(true);
-        RequestDataManager.delete(req.getId());
+        Main.REQUEST_DATA.delete(req.getId());
 
         player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.deny.done","&aSuccessfully denied &b%player%&a''s friend request!").replace("%player%",offlineNewFriend.getName())));
 
@@ -68,10 +66,10 @@ public class Deny extends SubCommand {
             WaitingNotification notification = new WaitingNotification(NotificationType.FRIEND_DENIED);
             notification.set("player",player.getUniqueId());
 
-            PlayerData newFriendData = PlayerDataManager.fetch(offlineNewFriend.getUniqueId());
+            PlayerData newFriendData = Main.fetchPlayer(offlineNewFriend.getUniqueId());
             newFriendData.addNotification(notification);
 
-            PlayerDataManager.update(newFriendData.getUuid(),newFriendData);
+            Main.PLAYER_DATA.update(newFriendData.getUuid(),newFriendData);
         } else {
             offlineNewFriend.getPlayer().sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.deny.hey","&b%player% &edenied your friend request.").replace("%player%",player.getName())));
         }

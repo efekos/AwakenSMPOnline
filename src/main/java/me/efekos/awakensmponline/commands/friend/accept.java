@@ -43,7 +43,7 @@ public class Accept extends SubCommand {
             player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.accept.not-uuid","&b%uuid% &cis not a valid UUID.").replace("%uuid%",args[0])));
             return;
         }
-        Request req = RequestDataManager.get(UUID.fromString(args[0]));
+        Request req = Main.REQUEST_DATA.get(UUID.fromString(args[0]));
         if(req==null){
             player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.accept.not-req","&cThere is no request with id &b%uuid%&c.").replace("%uuid%",args[0])));
             return;
@@ -59,9 +59,8 @@ public class Accept extends SubCommand {
         // there is a friend request sent to us.
         OfflinePlayer offlineNewFriend = Bukkit.getOfflinePlayer(req.getSender());
 
-
         PlayerDataManager.makeFriends(player,offlineNewFriend);
-        RequestDataManager.delete(req.getId());
+        Main.REQUEST_DATA.delete(req.getId());
 
         player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.accept.done","&aSuccessfully accepted &b%player%&a''s friend request!").replace("%player%",offlineNewFriend.getName())));
 
@@ -71,10 +70,10 @@ public class Accept extends SubCommand {
             WaitingNotification notification = new WaitingNotification(NotificationType.FRIEND_ACCEPTED);
             notification.set("player",player.getUniqueId());
 
-            PlayerData newFriendData = PlayerDataManager.fetch(offlineNewFriend.getUniqueId());
+            PlayerData newFriendData = Main.fetchPlayer(offlineNewFriend.getUniqueId());
             newFriendData.addNotification(notification);
 
-            PlayerDataManager.update(newFriendData.getUuid(),newFriendData);
+            Main.PLAYER_DATA.update(newFriendData.getUuid(),newFriendData);
         }
     }
 

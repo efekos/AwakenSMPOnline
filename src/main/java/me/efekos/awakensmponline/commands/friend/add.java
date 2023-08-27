@@ -3,8 +3,6 @@ package me.efekos.awakensmponline.commands.friend;
 import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.Friend;
 import me.efekos.awakensmponline.data.*;
-import me.efekos.awakensmponline.files.PlayerDataManager;
-import me.efekos.awakensmponline.files.RequestDataManager;
 import me.efekos.awakensmponline.utils.ButtonManager;
 import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
@@ -46,8 +44,8 @@ public class Add extends SubCommand {
 
     @Override
     public void onPlayerUse(Player player, String[] args) {
-        PlayerData data = PlayerDataManager.fetch(player.getUniqueId());
-        PlayerData otherData = PlayerDataManager.get(args[0]);
+        PlayerData data = Main.fetchPlayer(player.getUniqueId());
+        PlayerData otherData = Main.getPlayerFromName(args[0]);
         Config lang = Main.LANG;
         if(otherData==null){
             player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.add.not-player","&cThere is no one called &b%player%&c.").replace("%player%",args[0])));
@@ -66,23 +64,23 @@ public class Add extends SubCommand {
             player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.not-online","&b%player% &cis not online.")));
             return;
         }
-        if(RequestDataManager.exists(player.getUniqueId(),offlineOther.getUniqueId(),RequestType.FRIEND)){
+        if(Main.REQUEST_DATA.getAll().contains(new Request(RequestType.FRIEND,player.getUniqueId(),offlineOther.getUniqueId()))){
             player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.add.already-sent","&cYou already sent a friend request to &b%player%&c.").replace("%player%",offlineOther.getName())));
             return;
         }
 
         Request req = new Request(RequestType.FRIEND,player.getUniqueId(),offlineOther.getUniqueId());
-        RequestDataManager.create(req);
+        Main.REQUEST_DATA.add(req);
 
 
         if(!offlineOther.isOnline()){
             WaitingNotification notification = new WaitingNotification(NotificationType.FRIEND_DENIED);
             notification.set("player",player.getUniqueId());
 
-            PlayerData newFriendData = PlayerDataManager.fetch(offlineOther.getUniqueId());
+            PlayerData newFriendData = Main.fetchPlayer(offlineOther.getUniqueId());
             newFriendData.addNotification(notification);
 
-            PlayerDataManager.update(newFriendData.getUuid(),newFriendData);
+            Main.PLAYER_DATA.update(newFriendData.getUuid(),newFriendData);
         } else {
             offlineOther.getPlayer().sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.add.other","&b%player% &esent a friend request to you!").replace("%player%",player.getName())));
             offlineOther.getPlayer().spigot().sendMessage(ButtonManager.generateAcceptFriendButton(req.getId().toString()),new TextComponent(" "),ButtonManager.generateDenyFriendButton(req.getId().toString()));
