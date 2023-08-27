@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@Command(name = "options",description = "Customize your reviving decorations!",playerOnly = true,permission = "awakensmp.command.options")
+@Command(name = "options",description = "Customize your reviving decorations!",playerOnly = true,permission = "awakensmp.options")
 public class Options extends BaseCommand {
     @Override
     public @NotNull Syntax getSyntax() {

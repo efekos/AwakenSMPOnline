@@ -19,9 +19,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
-@Command(name = "create",description = "Create a new team!",permission = "awakensmp.command.team.create")
+@Command(name = "create",description = "Create a new team!",permission = "awakensmp.team.create")
 public class Create extends SubCommand {
     public Create(@NotNull String name) {
         super(name);
@@ -62,7 +61,7 @@ public class Create extends SubCommand {
         }
 
 
-        TeamData teamData = new TeamData(UUID.randomUUID(),args[0],args[0], Main.LANG.getString("commands.team.create.default-description","A brand new team!"),new ArrayList<>(),player.getUniqueId());
+        TeamData teamData = new TeamData(args[0],args[0], Main.LANG.getString("commands.team.create.default-description","A brand new team!"),new ArrayList<>(),player.getUniqueId());
         TeamDataManager.create(teamData);
         teamData.getMembers().add(player.getUniqueId());
 

@@ -23,7 +23,7 @@ import java.util.List;
 
 ;
 
-@Command(name = "chat",description = "Use your team's chat!",permission = "awakensmp.command.team.chat")
+@Command(name = "chat",description = "Use your team's chat!",permission = "awakensmp.team.chat")
 public class Chat extends SubCommand {
     public Chat(@NotNull String name) {
         super(name);

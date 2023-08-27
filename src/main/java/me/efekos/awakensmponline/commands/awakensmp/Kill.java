@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@Command(name = "kill",description = "Kill someone permanently",permission = "awakensmp.kill")
+@Command(name = "kill",description = "Kill someone permanently",permission = "awakensmp.kill-command")
 public class Kill extends SubCommand {
     @Override
     public Class<? extends CoreCommand> getParent() {

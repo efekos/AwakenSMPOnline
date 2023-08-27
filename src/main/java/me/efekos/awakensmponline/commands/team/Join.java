@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.UUID;
 
-@Command(name = "join",description = "Join to a team that sent a friend request to you!",permission = "awakensmp.command.team.join")
+@Command(name = "join",description = "Join to a team that sent a friend request to you!",permission = "awakensmp.team.join")
 public class Join extends SubCommand {
     public Join(@NotNull String name) {
         super(name);

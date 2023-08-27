@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.UUID;
 
-@Command(name = "reject",description = "Reject a team that sent a friend request to you!",permission = "awakensmp.command.team.reject")
+@Command(name = "reject",description = "Reject a team that sent a friend request to you!",permission = "awakensmp.team.reject")
 public class Reject extends SubCommand {
     public Reject(@NotNull String name) {
         super(name);

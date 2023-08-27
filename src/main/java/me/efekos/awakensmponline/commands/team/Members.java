@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.UUID;
 
-@Command(name = "members",description = "See the members on your team!",permission = "awakensmp.command.team.members")
+@Command(name = "members",description = "See the members on your team!",permission = "awakensmp.team.members")
 public class Members extends SubCommand {
     public Members(@NotNull String name) {
         super(name);

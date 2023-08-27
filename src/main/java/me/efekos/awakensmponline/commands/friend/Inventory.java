@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@Command(name = "inventory",description = "See the inventory of your player",permission = "awakensmp.command.friend.inventory")
+@Command(name = "inventory",description = "See the inventory of your player",permission = "awakensmp.friend.inventory")
 public class Inventory extends SubCommand {
     public Inventory(@NotNull String name) {
         super(name);

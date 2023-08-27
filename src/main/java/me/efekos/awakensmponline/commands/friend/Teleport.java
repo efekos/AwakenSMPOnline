@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@Command(name = "teleport",description = "Teleport to your friends!",permission = "awakensmp.command.friend.teleport")
+@Command(name = "teleport",description = "Teleport to your friends!",permission = "awakensmp.friend.teleport")
 public class Teleport extends SubCommand {
     public Teleport(@NotNull String name) {
         super(name);

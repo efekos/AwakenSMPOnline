@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@Command(name = "delete",description = "Delete a team",permission = "awakensmp.command.team.delete")
+@Command(name = "delete",description = "Delete a team",permission = "awakensmp.team.delete")
 public class Delete extends SubCommand {
     @Override
     public Class<? extends CoreCommand> getParent() {

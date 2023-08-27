@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@Command(name = "leave",description = "Leave your team!",permission = "awakensmp.command.team.leave")
+@Command(name = "leave",description = "Leave your team!",permission = "awakensmp.team.leave")
 public class Leave extends SubCommand {
     public Leave(@NotNull String name) {
         super(name);

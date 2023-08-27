@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@Command(name = "togglechat",description = "Switch to team chat channel!",permission = "awakensmp.command.team.togglechat")
+@Command(name = "togglechat",description = "Switch to team chat channel!",permission = "awakensmp.team.togglechat")
 public class ToggleChat extends SubCommand {
 
     public ToggleChat(@NotNull String name) {

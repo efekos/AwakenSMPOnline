@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@Command(name = "deadplayers",description = "A list of dead players.",permission = "awakensmp.cmd.deadplayers")
+@Command(name = "deadplayers",description = "A list of dead players.",permission = "awakensmp.deadplayers")
 public class Deadplayers extends SubCommand {
     public Deadplayers(@NotNull String name) {
         super(name);

@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@Command(name = "my",description = "See the current team you are in!",permission = "awakensmp.command.team.my")
+@Command(name = "my",description = "See the current team you are in!",permission = "awakensmp.team.my")
 public class My extends SubCommand {
     public My(@NotNull String name) {
         super(name);

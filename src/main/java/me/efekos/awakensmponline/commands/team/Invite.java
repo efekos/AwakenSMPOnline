@@ -14,8 +14,8 @@ import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
 import me.efekos.simpler.commands.syntax.ArgumentPriority;
-import me.efekos.simpler.commands.syntax.impl.PlayerArgument;
 import me.efekos.simpler.commands.syntax.Syntax;
+import me.efekos.simpler.commands.syntax.impl.PlayerArgument;
 import me.efekos.simpler.translation.TranslateManager;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -25,9 +25,8 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.UUID;
 
-@Command(name = "invite",description = "Invite someone to your team!",permission = "awakensmp.command.team.invite")
+@Command(name = "invite",description = "Invite someone to your team!",permission = "awakensmp.team.invite")
 public class Invite extends SubCommand {
     @Override
     public Class<? extends CoreCommand> getParent() {
@@ -77,7 +76,7 @@ public class Invite extends SubCommand {
             return;
         }
 
-        Request req = new Request(UUID.randomUUID(), RequestType.TEAMMATE,team.getId(),pti.getUniqueId());
+        Request req = new Request(RequestType.TEAMMATE,team.getId(),pti.getUniqueId());
         RequestDataManager.create(req);
 
         pti.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.invite.hey","&eTeam called &b%team% &esent you an invite to join their team!").replace("%team%",team.getDisplayName())));

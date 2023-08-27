@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@Command(name = "reloadconfig",permission = "awakensmp.cmd.reloadconfig",description = "Reloads the config")
+@Command(name = "reloadconfig",permission = "awakensmp.reloadconfig",description = "Reloads the config")
 public class Reloadconfig extends SubCommand {
     @Override
     public Class<? extends CoreCommand> getParent() {

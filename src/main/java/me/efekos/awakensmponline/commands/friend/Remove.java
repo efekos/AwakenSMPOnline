@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@Command(name = "remove",description = "Remove one of your friends",permission = "awakensmp.command.friend.remove")
+@Command(name = "remove",description = "Remove one of your friends",permission = "awakensmp.friend.remove")
 public class Remove extends SubCommand {
     public Remove(@NotNull String name) {
         super(name);

@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@Command(name = "revive",description = "Revives a player",permission = "awakensmp.cmd.revive")
+@Command(name = "revive",description = "Revives a player",permission = "awakensmp.revive")
 public class Revive extends SubCommand {
     @Override
     public Class<? extends CoreCommand> getParent() {
