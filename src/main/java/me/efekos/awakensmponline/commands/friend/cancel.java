@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.UUID;
 
-@Command(name = "cancel",description = "Cancel a friend requet.",permission = "awakensmp.command.friend.cancel")
+@Command(name = "cancel",description = "Cancel a friend requet.",permission = "awakensmp.friend.cancel")
 public class Cancel extends SubCommand {
     @Override
     public Class<? extends CoreCommand> getParent() {

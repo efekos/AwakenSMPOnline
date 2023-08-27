@@ -15,7 +15,7 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-@Command(name = "list",description = "See a list of your friends!",permission = "awakensmp.command.friend.list")
+@Command(name = "list",description = "See a list of your friends!",permission = "awakensmp.friend.list")
 public class List extends SubCommand {
     @Override
     public Class<? extends CoreCommand> getParent() {

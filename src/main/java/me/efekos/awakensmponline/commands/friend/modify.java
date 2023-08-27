@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@Command(name = "modify",description = "Modify what your friends can see",permission = "awakensmp.command.friend.modify")
+@Command(name = "modify",description = "Modify what your friends can see",permission = "awakensmp.friend.modify")
 public class Modify extends SubCommand {
     public Modify(@NotNull String name) {
         super(name);

@@ -10,8 +10,8 @@ import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
 import me.efekos.simpler.commands.syntax.ArgumentPriority;
-import me.efekos.simpler.commands.syntax.impl.PlayerArgument;
 import me.efekos.simpler.commands.syntax.Syntax;
+import me.efekos.simpler.commands.syntax.impl.PlayerArgument;
 import me.efekos.simpler.config.Config;
 import me.efekos.simpler.translation.TranslateManager;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -22,9 +22,8 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.UUID;
 
-@Command(name = "add",description = "add someone as your friend!",permission = "awakensmp.command.friend.add")
+@Command(name = "add",description = "add someone as your friend!",permission = "awakensmp.friend.add")
 public class Add extends SubCommand {
     public Add(@NotNull String name) {
         super(name);
@@ -72,7 +71,7 @@ public class Add extends SubCommand {
             return;
         }
 
-        Request req = new Request(UUID.randomUUID(), RequestType.FRIEND,player.getUniqueId(),offlineOther.getUniqueId());
+        Request req = new Request(RequestType.FRIEND,player.getUniqueId(),offlineOther.getUniqueId());
         RequestDataManager.create(req);
 
 

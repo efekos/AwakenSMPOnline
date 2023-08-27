@@ -44,9 +44,9 @@ public final class Main extends JavaPlugin {
         plugin = this;
         GAME = new Config("config.yml",this);
         LANG = new Config("lang.yml",this);
-        PLAYER_DATA = new JSONDataManager<>("data\\PlayerData.json",this);
-        TEAM_DATA = new JSONDataManager<>("data\\TeamData.json",this);
-        REQUEST_DATA = new JSONDataManager<>("data\\RequestData.json",this);
+        //PLAYER_DATA = new JSONDataManager<>("data\\PlayerData.json",this);
+        //TEAM_DATA = new JSONDataManager<>("data\\TeamData.json",this);
+        //REQUEST_DATA = new JSONDataManager<>("data\\RequestData.json",this);
         try {
             // Setup metrics
             Metrics metrics = new Metrics(this,16413);

@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.UUID;
 
-@Command(name = "accept",description = "Accept a friend request!",permission = "awakensmp.command.friend.accept")
+@Command(name = "accept",description = "Accept a friend request!",permission = "awakensmp.friend.accept")
 public class Accept extends SubCommand {
     @Override
     public Class<? extends CoreCommand> getParent() {

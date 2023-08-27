@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.UUID;
 
-@Command(name = "deny",description = "Accept a friend request!",permission = "awakensmp.command.friend.deny")
+@Command(name = "deny",description = "Accept a friend request!",permission = "awakensmp.friend.deny")
 public class Deny extends SubCommand {
     @Override
     public Class<? extends CoreCommand> getParent() {

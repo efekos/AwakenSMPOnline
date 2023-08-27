@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@Command(name = "info",description = "Information about your friends",permission = "awakensmp.command.friend.info")
+@Command(name = "info",description = "Information about your friends",permission = "awakensmp.friend.info")
 public class Info extends SubCommand {
     public Info(@NotNull String name) {
         super(name);

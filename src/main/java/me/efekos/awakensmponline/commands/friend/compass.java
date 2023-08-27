@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Date;
 import java.util.List;
 
-@Command(name = "compass",description = "Get a compass leads to your friends",permission = "awakensmp.command.friend.compass")
+@Command(name = "compass",description = "Get a compass leads to your friends",permission = "awakensmp.friend.compass")
 public class Compass extends SubCommand {
     public Compass(@NotNull String name) {
         super(name);
