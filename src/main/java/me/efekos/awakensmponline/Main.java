@@ -140,4 +140,18 @@ public final class Main extends JavaPlugin {
         }
         return null;
     }
+
+    public static void makeFriends(UUID p1u,UUID p2u){
+        PlayerData p1Data = fetchPlayer(p1u);
+        PlayerData p2Data = fetchPlayer(p2u);
+
+        me.efekos.awakensmponline.data.Friend p1tp2Friend = new me.efekos.awakensmponline.data.Friend(p1Data.getDefaultFriendModifications(),p2u,p2Data.getName());
+        me.efekos.awakensmponline.data.Friend p2tp1Friend = new me.efekos.awakensmponline.data.Friend(p2Data.getDefaultFriendModifications(),p1u,p1Data.getName());
+
+        p1Data.addFriend(p1tp2Friend);
+        p2Data.addFriend(p2tp1Friend);
+
+        PLAYER_DATA.update(p1Data.getUuid(),p1Data);
+        PLAYER_DATA.update(p2Data.getUuid(),p2Data);
+    }
 }
