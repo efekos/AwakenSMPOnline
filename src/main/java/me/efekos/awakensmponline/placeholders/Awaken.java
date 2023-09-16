@@ -50,7 +50,9 @@ public class Awaken extends PlaceholderExpansion {
             }
             case "team":{
                 TeamData teamData = Main.TEAM_DATA.get(data.getCurrentTeam());
+                if(teamData!=null)
                 return teamData.getName();
+                else return ChatColor.RED+"✖";
             }
             default:return "";
         }
