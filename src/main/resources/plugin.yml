@@ -6,6 +6,8 @@ authors: [ efekos ]
 description: AwakenSMP System with advanced features
 website: https://www.spigotmc.org/resources/awakensmp-online.102573/
 author: efekos
+depend:
+  - PlaceholderAPI
 permissions:
   awakensmp.deadplayers:
     description: Allows you to use /awakensmp deadplayers
