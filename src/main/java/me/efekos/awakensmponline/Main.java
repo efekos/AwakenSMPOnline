@@ -2,6 +2,7 @@ package me.efekos.awakensmponline;
 
 import me.efekos.awakensmponline.commands.AwakenSMP;
 import me.efekos.awakensmponline.commands.Friend;
+import me.efekos.awakensmponline.commands.Options;
 import me.efekos.awakensmponline.commands.Team;
 import me.efekos.awakensmponline.data.*;
 import me.efekos.awakensmponline.events.OnPlayer;
@@ -87,6 +88,9 @@ public final class Main extends JavaPlugin {
 
                 if (GAME.getBoolean("features.team",true)) // takım şeyleri açıkmı diye kontrol
                     CommandManager.registerCoreCommand(this, Team.class); // /team
+
+                if(GAME.getBoolean("revive-particles",true) || GAME.getBoolean("revive-animations",false))
+                    CommandManager.registerBaseCommand(this, Options.class);
 
             }catch (Exception e){
                 e.printStackTrace();
