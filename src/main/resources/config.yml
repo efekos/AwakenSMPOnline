@@ -1,5 +1,5 @@
 # Enables PlaceHolderAPI expansions. Have fun with %awaken%!
-papi: false
+papi: true
 
 # Effects that will be applied to dead players
 when-dead:
