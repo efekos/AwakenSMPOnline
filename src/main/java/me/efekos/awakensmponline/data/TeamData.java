@@ -6,13 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class TeamData extends Storable {
+public class TeamData implements Storable {
     private final UUID id = UUID.randomUUID();
     private String name;
     private String displayName;
     private String description;
     private List<UUID> members;
     private UUID owner;
+
+    @Override
+    public UUID getUniqueId() {
+        return id;
+    }
 
     public TeamData(String name) {
         this(name,name,"Another brand new team!",new ArrayList<>(),null);

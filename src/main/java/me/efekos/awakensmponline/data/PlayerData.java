@@ -5,7 +5,7 @@ import me.efekos.simpler.config.Storable;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class PlayerData extends Storable {
+public class PlayerData implements Storable {
     private final UUID uuid;
     private String name;
     private boolean alive;
@@ -32,6 +32,11 @@ public class PlayerData extends Storable {
         this.selectedAnimation = AnimationType.NONE;
         this.notifications = new ArrayList<>();
         this.currentTeam = null;
+    }
+
+    @Override
+    public UUID getUniqueId() {
+        return uuid;
     }
 
     public UUID getCurrentTeam() {

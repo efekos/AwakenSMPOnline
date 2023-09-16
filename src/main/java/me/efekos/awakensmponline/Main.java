@@ -14,7 +14,7 @@ import me.efekos.simpler.Metrics;
 import me.efekos.simpler.Utilities;
 import me.efekos.simpler.commands.CommandManager;
 import me.efekos.simpler.config.Config;
-import me.efekos.simpler.config.JSONDataManager;
+import me.efekos.simpler.config.ListDataManager;
 import me.efekos.simpler.items.ItemManager;
 import me.efekos.simpler.menu.MenuManager;
 import org.bukkit.Bukkit;
@@ -35,18 +35,18 @@ public final class Main extends JavaPlugin {
     public static Config GAME;
     public static Config LANG;
 
-    public static JSONDataManager<PlayerData> PLAYER_DATA;
-    public static JSONDataManager<TeamData> TEAM_DATA;
-    public static JSONDataManager<Request> REQUEST_DATA;
+    public static ListDataManager<PlayerData> PLAYER_DATA;
+    public static ListDataManager<TeamData> TEAM_DATA;
+    public static ListDataManager<Request> REQUEST_DATA;
 
     @Override
     public void onEnable() {
         plugin = this;
         GAME = new Config("config.yml",this);
         LANG = new Config("lang.yml",this);
-        PLAYER_DATA = new JSONDataManager<>("data\\PlayerData.json",this);
-        TEAM_DATA = new JSONDataManager<>("data\\TeamData.json",this);
-        REQUEST_DATA = new JSONDataManager<>("data\\RequestData.json",this);
+        PLAYER_DATA = new ListDataManager<>("\\data\\PlayerData.json",this);
+        TEAM_DATA = new ListDataManager<>("\\data\\TeamData.json",this);
+        REQUEST_DATA = new ListDataManager<>("\\data\\RequestData.json",this);
         try {
             // Setup metrics
             Metrics metrics = new Metrics(this,16413);

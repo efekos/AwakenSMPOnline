@@ -4,12 +4,17 @@ import me.efekos.simpler.config.Storable;
 
 import java.util.UUID;
 
-public class Request extends Storable {
+public class Request implements Storable {
     private final UUID id = UUID.randomUUID();
     private RequestType type;
     private UUID sender;
     private UUID getter;
     private boolean done;
+
+    @Override
+    public UUID getUniqueId() {
+        return id;
+    }
 
     public Request(RequestType type, UUID sender, UUID getter) {
         this.type = type;
