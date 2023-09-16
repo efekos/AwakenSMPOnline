@@ -12,6 +12,7 @@ If you find any bugs, report to [my discord server](https://discord.gg/8PPgcmYNf
 * Friend system to be officially friends with your best pal!
 * Team system to manage your teams, and get a team chat!
 * Craftable head!
+* PlaceholderAPI Integration.
 
 ![](./images/commands-export.png)
 
