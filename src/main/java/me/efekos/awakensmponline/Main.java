@@ -7,6 +7,7 @@ import me.efekos.awakensmponline.commands.Team;
 import me.efekos.awakensmponline.data.*;
 import me.efekos.awakensmponline.events.OnPlayer;
 import me.efekos.awakensmponline.exceptions.InvalidRecipeException;
+import me.efekos.awakensmponline.placeholders.Awaken;
 import me.efekos.awakensmponline.utils.Logger;
 import me.efekos.awakensmponline.utils.RecipeManager;
 import me.efekos.simpler.Metrics;
@@ -105,7 +106,9 @@ public final class Main extends JavaPlugin {
             MenuManager.setPlugin(this); // setup menu manager
             ItemManager.setPlugin(this);
 
-            //done!!1!1!
+            //placeholder
+            if(getServer().getPluginManager().isPluginEnabled("PlaceHolderAPI")) new Awaken().register();
+
 
             //updates
 

@@ -4,8 +4,6 @@ import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.Team;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.data.TeamData;
-import me.efekos.awakensmponline.files.PlayerDataManager;
-import me.efekos.awakensmponline.files.TeamDataManager;
 import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
@@ -40,12 +38,12 @@ public class My extends SubCommand {
 
     @Override
     public void onPlayerUse(Player player, String[] args) {
-        PlayerData data = PlayerDataManager.fetch(player.getUniqueId());
+        PlayerData data = Main.fetchPlayer(player.getUniqueId());
         if(data.getCurrentTeam()==null){
             player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.not-in-team","&cYou are not in a team.")));
             return;
         }
-        TeamData team = TeamDataManager.get(data.getCurrentTeam());
+        TeamData team = Main.TEAM_DATA.get(data.getCurrentTeam());
 
         player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.my.header","&5----------&dTeam Information&5----------")));
 

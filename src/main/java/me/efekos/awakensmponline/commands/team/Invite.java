@@ -6,9 +6,6 @@ import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.data.Request;
 import me.efekos.awakensmponline.data.RequestType;
 import me.efekos.awakensmponline.data.TeamData;
-import me.efekos.awakensmponline.files.PlayerDataManager;
-import me.efekos.awakensmponline.files.RequestDataManager;
-import me.efekos.awakensmponline.files.TeamDataManager;
 import me.efekos.awakensmponline.utils.ButtonManager;
 import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
@@ -25,6 +22,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.UUID;
 
 @Command(name = "invite",description = "Invite someone to your team!",permission = "awakensmp.team.invite")
 public class Invite extends SubCommand {
@@ -49,7 +47,7 @@ public class Invite extends SubCommand {
 
     @Override
     public void onPlayerUse(Player player, String[] args) {
-        PlayerData ptiData = PlayerDataManager.get(args[0]);
+        PlayerData ptiData = Main.fetchPlayer(UUID.fromString(args[0]));
         if(ptiData==null){
             player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.invite.not-player","&cThere is no one called &b%player%&c.").replace("%player%",args[0])));
             return;
@@ -65,19 +63,19 @@ public class Invite extends SubCommand {
         // there is a player online rn and we wanna send team req to him.
         Player pti = offlinePti.getPlayer();
 
-        PlayerData data = PlayerDataManager.fetch(player.getUniqueId());
+        PlayerData data = Main.fetchPlayer(player.getUniqueId());
         if(data.getCurrentTeam()==null){
             player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.not-in-team","&cYou are not in a team.")));
             return;
         }
-        TeamData team = TeamDataManager.get(data.getCurrentTeam());
+        TeamData team = Main.TEAM_DATA.get(data.getCurrentTeam());
         if(!team.getOwner().equals(player.getUniqueId())){
             player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.invite.not-owner","&cYou are not the owner of this team. Only team owners can invite people to their team.")));
             return;
         }
 
         Request req = new Request(RequestType.TEAMMATE,team.getId(),pti.getUniqueId());
-        RequestDataManager.create(req);
+        Main.REQUEST_DATA.add(req);
 
         pti.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.invite.hey","&eTeam called &b%team% &esent you an invite to join their team!").replace("%team%",team.getDisplayName())));
         pti.spigot().sendMessage(ButtonManager.generateJoinTeamButton(req.getId()+""),new TextComponent(" "),ButtonManager.generateRejectTeamInviteButton(req.getId()+""));
