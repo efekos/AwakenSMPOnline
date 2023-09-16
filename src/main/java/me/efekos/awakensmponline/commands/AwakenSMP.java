@@ -36,12 +36,10 @@ public class AwakenSMP extends CoreCommand {
     @Override
     public void renderHelpList(CommandSender sender, List<SubCommand> subInstances) {
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.awakensmp.help.header","&2----------&aHelp Menu&2----------")));
-        subInstances.forEach(subCommand -> {
-            sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.awakensmp.help.format","&b%syntax% &6- &e%description%")
-                    .replace("%syntax%",subCommand.getUsage())
-                    .replace("%description%",subCommand.getDescription())
-            ));
-        });
+        subInstances.forEach(subCommand -> sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.awakensmp.help.format","&b%syntax% &6- &e%description%")
+                .replace("%syntax%",subCommand.getUsage())
+                .replace("%description%",subCommand.getDescription())
+        )));
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.awakensmp.help.footer","&2-----------------------------")));
     }
 }
