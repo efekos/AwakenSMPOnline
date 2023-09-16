@@ -102,6 +102,7 @@
             <groupId>me.clip</groupId>
             <artifactId>placeholderapi</artifactId>
             <version>2.11.3</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
