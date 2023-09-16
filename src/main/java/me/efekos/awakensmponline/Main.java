@@ -107,7 +107,7 @@ public final class Main extends JavaPlugin {
             ItemManager.setPlugin(this);
 
             //placeholder
-            if(getServer().getPluginManager().isPluginEnabled("PlaceHolderAPI")) {
+            if(getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
                 if(GAME.getBoolean("papi",true))new Awaken().register();
             };
 
