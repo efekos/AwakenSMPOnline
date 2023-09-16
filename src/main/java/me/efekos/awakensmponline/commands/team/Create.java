@@ -5,7 +5,6 @@ import me.efekos.awakensmponline.commands.Team;
 import me.efekos.awakensmponline.commands.args.TeamNameArgument;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.data.TeamData;
-
 import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
@@ -18,7 +17,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 @Command(name = "create", description = "Create a new team!", permission = "awakensmp.team.create")
 public class Create extends SubCommand {
@@ -62,7 +60,7 @@ public class Create extends SubCommand {
                     Main.LANG.getString("commands.team.already-in-team", "&cYou are in a team already.")));
             return;
         }
-        if (Main.TEAM_DATA.get(UUID.fromString(args[0])) != null) {
+        if (Main.TEAM_DATA.getAll().stream().anyMatch(teamData -> teamData.getName().equals(args[0]))) {
             player.sendMessage(TranslateManager.translateColors(
                     Main.LANG.getString("commands.team.create.same-name", "&b%name% &cis taken by another team.")
                             .replace("%name%", args[0])));
