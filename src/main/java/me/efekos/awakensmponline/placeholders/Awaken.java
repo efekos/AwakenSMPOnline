@@ -52,13 +52,34 @@ public class Awaken extends PlaceholderExpansion {
                 TeamData teamData = Main.TEAM_DATA.get(data.getCurrentTeam());
                 return teamData.getName();
             }
+            default:return "";
         }
-
-        return super.onRequest(player, params);
     }
 
     @Override
     public @Nullable String onPlaceholderRequest(Player player, @NotNull String params) {
-        return super.onPlaceholderRequest(player, params);
+        List<String> splitParams = Arrays.stream(params.split("_")).toList();
+
+        PlayerData data = Main.fetchPlayer(player.getUniqueId());
+
+        switch (splitParams.get(0)){
+            case "state": {
+                String start = "";
+                if(data.isAlive()){
+                    if(splitParams.contains("colored")) start = ChatColor.GREEN+start;
+
+                    return splitParams.contains("tick") ? start+"✔" : start+"Alive";
+                } else {
+                    if(splitParams.contains("colored")) start = ChatColor.RED+start;
+
+                    return splitParams.contains("tick") ? start+"✖" : start+"Dead";
+                }
+            }
+            case "team":{
+                TeamData teamData = Main.TEAM_DATA.get(data.getCurrentTeam());
+                return teamData.getName();
+            }
+            default: return "";
+        }
     }
 }
