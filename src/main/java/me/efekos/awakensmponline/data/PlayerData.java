@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class PlayerData extends Storable {
-    private final UUID id = UUID.randomUUID();
     private final UUID uuid;
     private String name;
     private boolean alive;
