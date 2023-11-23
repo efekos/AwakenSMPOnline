@@ -66,7 +66,7 @@ public class Deadplayers extends SubCommand {
             }
         }
 
-        Config lang = Main.LANG;
+        YamlConfig lang = Main.LANG;
 
         sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.header","&4-----&cDead &fPlayers&4-----")));
         if(names.isEmpty()){
