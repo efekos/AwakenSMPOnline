@@ -9,7 +9,7 @@ import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
 import me.efekos.simpler.commands.syntax.Syntax;
-import me.efekos.simpler.config.Config;
+import me.efekos.simpler.config.YamlConfig;
 import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
@@ -41,7 +41,7 @@ public class Cancel extends SubCommand {
 
     @Override
     public void onPlayerUse(Player player, String[] args) {
-        Config lang = Main.LANG;
+        YamlConfig lang = Main.LANG;
         try {
             UUID.fromString(args[0]);
         } catch (IllegalArgumentException e){

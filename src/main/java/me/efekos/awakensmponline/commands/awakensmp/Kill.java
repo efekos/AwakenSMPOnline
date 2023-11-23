@@ -83,7 +83,7 @@ public class Kill extends SubCommand {
     public void onConsoleUse(ConsoleCommandSender sender, String[] args) {
         PlayerData data = Main.getPlayerFromName(args[0]);
 
-        Config lang = Main.LANG;
+        YamlConfig lang = Main.LANG;
 
         if(data==null){
             sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.not-player","&cThere is no one called &b%player%&c.").replace("%player%",args[0])));

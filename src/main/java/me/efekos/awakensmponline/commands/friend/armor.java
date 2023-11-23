@@ -9,7 +9,7 @@ import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
 import me.efekos.simpler.commands.syntax.Syntax;
-import me.efekos.simpler.config.Config;
+import me.efekos.simpler.config.YamlConfig;
 import me.efekos.simpler.menu.MenuData;
 import me.efekos.simpler.menu.MenuManager;
 import me.efekos.simpler.translation.TranslateManager;
@@ -45,7 +45,7 @@ public class Armor extends SubCommand {
     @Override
     public void onPlayerUse(Player player, String[] args) {
         PlayerData data = Main.fetchPlayer(player.getUniqueId());
-        Config lang = Main.LANG;
+        YamlConfig lang = Main.LANG;
         if(!data.friendsWith(args[0])){
             player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.not-friend","&b%player% &cis not your friend.").replace("%player%",args[0])));
             return;

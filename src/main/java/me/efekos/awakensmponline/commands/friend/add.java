@@ -10,7 +10,7 @@ import me.efekos.simpler.commands.SubCommand;
 import me.efekos.simpler.commands.syntax.ArgumentPriority;
 import me.efekos.simpler.commands.syntax.Syntax;
 import me.efekos.simpler.commands.syntax.impl.PlayerArgument;
-import me.efekos.simpler.config.Config;
+import me.efekos.simpler.config.YamlConfig;
 import me.efekos.simpler.translation.TranslateManager;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -46,7 +46,7 @@ public class Add extends SubCommand {
     public void onPlayerUse(Player player, String[] args) {
         PlayerData data = Main.fetchPlayer(player.getUniqueId());
         PlayerData otherData = Main.getPlayerFromName(args[0]);
-        Config lang = Main.LANG;
+        YamlConfig lang = Main.LANG;
         if(otherData==null){
             player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.add.not-player","&cThere is no one called &b%player%&c.").replace("%player%",args[0])));
             return;
