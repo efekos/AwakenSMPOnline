@@ -7,7 +7,7 @@ import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
 import me.efekos.simpler.commands.syntax.Syntax;
-import me.efekos.simpler.config.Config;
+import me.efekos.simpler.config.YamlConfig;
 import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -37,7 +37,7 @@ public class Kill extends SubCommand {
     @Override
     public void onPlayerUse(Player player, String[] args) {
         PlayerData data = Main.getPlayerFromName(args[0]);
-        Config lang = Main.LANG;
+        YamlConfig lang = Main.LANG;
 
 
         if(data==null){

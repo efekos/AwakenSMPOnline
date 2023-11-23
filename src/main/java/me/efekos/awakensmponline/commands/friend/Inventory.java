@@ -9,7 +9,7 @@ import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
 import me.efekos.simpler.commands.syntax.Syntax;
-import me.efekos.simpler.config.Config;
+import me.efekos.simpler.config.YamlConfig;
 import me.efekos.simpler.menu.MenuData;
 import me.efekos.simpler.menu.MenuManager;
 import me.efekos.simpler.translation.TranslateManager;
@@ -47,7 +47,7 @@ public class Inventory extends SubCommand {
     public void onPlayerUse(Player player, String[] args) {
         PlayerData data = Main.fetchPlayer(player.getUniqueId());
         me.efekos.awakensmponline.data.Friend dataFriend = data.getFriend(args[0]);
-        Config lang = Main.LANG;
+        YamlConfig lang = Main.LANG;
         if(dataFriend==null){
             player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.not-friend","&b%player% &cis not your friend.").replace("%player%",args[0])));
             return;

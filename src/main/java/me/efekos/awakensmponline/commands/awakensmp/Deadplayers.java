@@ -7,7 +7,7 @@ import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
 import me.efekos.simpler.commands.syntax.Syntax;
-import me.efekos.simpler.config.Config;
+import me.efekos.simpler.config.YamlConfig;
 import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
@@ -46,7 +46,7 @@ public class Deadplayers extends SubCommand {
             }
         }
 
-        Config lang = Main.LANG;
+        YamlConfig lang = Main.LANG;
 
         player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.header","&4-----&cDead &fPlayers&4-----")));
         if(names.isEmpty()){

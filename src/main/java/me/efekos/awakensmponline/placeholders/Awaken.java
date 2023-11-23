@@ -12,6 +12,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Awaken extends PlaceholderExpansion {
     @Override
@@ -31,7 +32,7 @@ public class Awaken extends PlaceholderExpansion {
 
     @Override
     public @Nullable String onRequest(OfflinePlayer player, @NotNull String params) {
-        List<String> splitParams = Arrays.stream(params.split("_")).toList();
+        List<String> splitParams = Arrays.stream(params.split("_")).collect(Collectors.toList());
 
         PlayerData data = Main.fetchPlayer(player.getUniqueId());
 
@@ -60,7 +61,7 @@ public class Awaken extends PlaceholderExpansion {
 
     @Override
     public @Nullable String onPlaceholderRequest(Player player, @NotNull String params) {
-        List<String> splitParams = Arrays.stream(params.split("_")).toList();
+        List<String> splitParams = Arrays.stream(params.split("_")).collect(Collectors.toList());
 
         PlayerData data = Main.fetchPlayer(player.getUniqueId());
 

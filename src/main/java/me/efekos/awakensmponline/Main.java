@@ -13,8 +13,8 @@ import me.efekos.awakensmponline.utils.RecipeManager;
 import me.efekos.simpler.Metrics;
 import me.efekos.simpler.Utilities;
 import me.efekos.simpler.commands.CommandManager;
-import me.efekos.simpler.config.Config;
 import me.efekos.simpler.config.ListDataManager;
+import me.efekos.simpler.config.YamlConfig;
 import me.efekos.simpler.items.ItemManager;
 import me.efekos.simpler.menu.MenuManager;
 import org.bukkit.Bukkit;
@@ -32,8 +32,8 @@ public final class Main extends JavaPlugin {
         return plugin;
     }
 
-    public static Config GAME;
-    public static Config LANG;
+    public static YamlConfig GAME;
+    public static YamlConfig LANG;
 
     public static ListDataManager<PlayerData> PLAYER_DATA;
     public static ListDataManager<TeamData> TEAM_DATA;
@@ -42,8 +42,8 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         plugin = this;
-        GAME = new Config("config.yml",this);
-        LANG = new Config("lang.yml",this);
+        GAME = new YamlConfig("config.yml",this);
+        LANG = new YamlConfig("lang.yml",this);
         PLAYER_DATA = new ListDataManager<>("\\data\\PlayerData.json",this);
         TEAM_DATA = new ListDataManager<>("\\data\\TeamData.json",this);
         REQUEST_DATA = new ListDataManager<>("\\data\\RequestData.json",this);
