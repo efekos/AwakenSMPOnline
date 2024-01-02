@@ -1,7 +1,7 @@
 package me.efekos.awakensmponline.commands.awakensmp;
 
 import me.efekos.awakensmponline.Main;
-import me.efekos.awakensmponline.commands.AwakenSMP;
+import me.efekos.awakensmponline.commands.AwakenSMPCommand;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.data.Request;
 import me.efekos.awakensmponline.data.TeamData;
@@ -17,10 +17,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 @Command(name = "reloadconfig",permission = "awakensmp.reloadconfig",description = "Reloads the config")
-public class Reloadconfig extends SubCommand {
+public class AwakenReloadConfigCommand extends SubCommand {
     @Override
     public Class<? extends CoreCommand> getParent() {
-        return AwakenSMP.class;
+        return AwakenSMPCommand.class;
     }
 
     @Override
@@ -48,11 +48,11 @@ public class Reloadconfig extends SubCommand {
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.awakensmp.reloadconfig.success","&aSuccessfully reloaded the config!")));
     }
 
-    public Reloadconfig(@NotNull String name) {
+    public AwakenReloadConfigCommand(@NotNull String name) {
         super(name);
     }
 
-    public Reloadconfig(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+    public AwakenReloadConfigCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
         super(name, description, usageMessage, aliases);
     }
 }

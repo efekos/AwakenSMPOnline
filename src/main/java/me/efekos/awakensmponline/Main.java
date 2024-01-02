@@ -1,9 +1,9 @@
 package me.efekos.awakensmponline;
 
-import me.efekos.awakensmponline.commands.AwakenSMP;
-import me.efekos.awakensmponline.commands.Friend;
-import me.efekos.awakensmponline.commands.Options;
-import me.efekos.awakensmponline.commands.Team;
+import me.efekos.awakensmponline.commands.AwakenSMPCommand;
+import me.efekos.awakensmponline.commands.FriendCommand;
+import me.efekos.awakensmponline.commands.OptionsCommand;
+import me.efekos.awakensmponline.commands.TeamCommand;
 import me.efekos.awakensmponline.data.*;
 import me.efekos.awakensmponline.events.OnPlayer;
 import me.efekos.awakensmponline.exceptions.InvalidRecipeException;
@@ -82,16 +82,16 @@ public final class Main extends JavaPlugin {
             // commands
 
             try {
-                CommandManager.registerCoreCommand(this, AwakenSMP.class); // /awakensmp
+                CommandManager.registerCoreCommand(this, AwakenSMPCommand.class); // /awakensmp
 
                 if(GAME.getBoolean("features.friend",true)) // checking friend system
-                    CommandManager.registerCoreCommand(this, Friend.class); // /friend
+                    CommandManager.registerCoreCommand(this, FriendCommand.class); // /friend
 
                 if (GAME.getBoolean("features.team",true)) // checking team system
-                    CommandManager.registerCoreCommand(this, Team.class); // /team
+                    CommandManager.registerCoreCommand(this, TeamCommand.class); // /team
 
                 if(GAME.getBoolean("revive-particles",true) || GAME.getBoolean("revive-animations",false))
-                    CommandManager.registerBaseCommand(this, Options.class);
+                    CommandManager.registerBaseCommand(this, OptionsCommand.class);
 
             }catch (Exception e){
                 e.printStackTrace();

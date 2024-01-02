@@ -1,7 +1,7 @@
 package me.efekos.awakensmponline.commands.team;
 
 import me.efekos.awakensmponline.Main;
-import me.efekos.awakensmponline.commands.Team;
+import me.efekos.awakensmponline.commands.TeamCommand;
 import me.efekos.awakensmponline.commands.args.GotRequestUUIDArgument;
 import me.efekos.awakensmponline.data.*;
 import me.efekos.simpler.annotations.Command;
@@ -19,18 +19,18 @@ import java.util.List;
 import java.util.UUID;
 
 @Command(name = "join",description = "Join to a team that sent a friend request to you!",permission = "awakensmp.team.join")
-public class Join extends SubCommand {
-    public Join(@NotNull String name) {
+public class TeamJoinCommand extends SubCommand {
+    public TeamJoinCommand(@NotNull String name) {
         super(name);
     }
 
-    public Join(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+    public TeamJoinCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
         super(name, description, usageMessage, aliases);
     }
 
     @Override
     public Class<? extends CoreCommand> getParent() {
-        return Team.class;
+        return TeamCommand.class;
     }
 
     @Override

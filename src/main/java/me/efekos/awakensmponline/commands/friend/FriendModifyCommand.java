@@ -1,7 +1,7 @@
 package me.efekos.awakensmponline.commands.friend;
 
 import me.efekos.awakensmponline.Main;
-import me.efekos.awakensmponline.commands.Friend;
+import me.efekos.awakensmponline.commands.FriendCommand;
 import me.efekos.awakensmponline.data.FriendModifications;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.utils.ButtonManager;
@@ -20,18 +20,18 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 @Command(name = "modify",description = "Modify what your friends can see",permission = "awakensmp.friend.modify")
-public class Modify extends SubCommand {
-    public Modify(@NotNull String name) {
+public class FriendModifyCommand extends SubCommand {
+    public FriendModifyCommand(@NotNull String name) {
         super(name);
     }
 
-    public Modify(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+    public FriendModifyCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
         super(name, description, usageMessage, aliases);
     }
 
     @Override
     public Class<? extends CoreCommand> getParent() {
-        return Friend.class;
+        return FriendCommand.class;
     }
 
     @Override

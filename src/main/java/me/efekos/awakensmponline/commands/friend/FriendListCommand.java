@@ -1,7 +1,7 @@
 package me.efekos.awakensmponline.commands.friend;
 
 import me.efekos.awakensmponline.Main;
-import me.efekos.awakensmponline.commands.Friend;
+import me.efekos.awakensmponline.commands.FriendCommand;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.utils.ButtonManager;
 import me.efekos.simpler.annotations.Command;
@@ -15,10 +15,10 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 @Command(name = "list",description = "See a list of your friends!",permission = "awakensmp.friend.list")
-public class List extends SubCommand {
+public class FriendListCommand extends SubCommand {
     @Override
     public Class<? extends CoreCommand> getParent() {
-        return Friend.class;
+        return FriendCommand.class;
     }
 
     @Override
@@ -48,11 +48,11 @@ public class List extends SubCommand {
 
     }
 
-    public List(@NotNull String name) {
+    public FriendListCommand(@NotNull String name) {
         super(name);
     }
 
-    public List(@NotNull String name, @NotNull String description, @NotNull String usageMessage, java.util.@NotNull List<String> aliases) {
+    public FriendListCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, java.util.@NotNull List<String> aliases) {
         super(name, description, usageMessage, aliases);
     }
 }

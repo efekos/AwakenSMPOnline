@@ -1,7 +1,7 @@
 package me.efekos.awakensmponline.commands.team;
 
 import me.efekos.awakensmponline.Main;
-import me.efekos.awakensmponline.commands.Team;
+import me.efekos.awakensmponline.commands.TeamCommand;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.data.TeamData;
 
@@ -19,19 +19,19 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 @Command(name = "leave", description = "Leave your team!", permission = "awakensmp.team.leave")
-public class Leave extends SubCommand {
-    public Leave(@NotNull String name) {
+public class TeamLeaveCommand extends SubCommand {
+    public TeamLeaveCommand(@NotNull String name) {
         super(name);
     }
 
-    public Leave(@NotNull String name, @NotNull String description, @NotNull String usageMessage,
-            @NotNull List<String> aliases) {
+    public TeamLeaveCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage,
+                            @NotNull List<String> aliases) {
         super(name, description, usageMessage, aliases);
     }
 
     @Override
     public Class<? extends CoreCommand> getParent() {
-        return Team.class;
+        return TeamCommand.class;
     }
 
     @Override

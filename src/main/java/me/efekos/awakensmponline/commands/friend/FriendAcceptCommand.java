@@ -1,7 +1,7 @@
 package me.efekos.awakensmponline.commands.friend;
 
 import me.efekos.awakensmponline.Main;
-import me.efekos.awakensmponline.commands.Friend;
+import me.efekos.awakensmponline.commands.FriendCommand;
 import me.efekos.awakensmponline.commands.args.GotRequestUUIDArgument;
 import me.efekos.awakensmponline.data.*;
 import me.efekos.simpler.annotations.Command;
@@ -20,10 +20,10 @@ import java.util.List;
 import java.util.UUID;
 
 @Command(name = "accept",description = "Accept a friend request!",permission = "awakensmp.friend.accept")
-public class Accept extends SubCommand {
+public class FriendAcceptCommand extends SubCommand {
     @Override
     public Class<? extends CoreCommand> getParent() {
-        return Friend.class;
+        return FriendCommand.class;
     }
 
     @Override
@@ -80,11 +80,11 @@ public class Accept extends SubCommand {
 
     }
 
-    public Accept(@NotNull String name) {
+    public FriendAcceptCommand(@NotNull String name) {
         super(name);
     }
 
-    public Accept(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+    public FriendAcceptCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
         super(name, description, usageMessage, aliases);
     }
 }

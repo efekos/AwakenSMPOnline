@@ -1,7 +1,7 @@
 package me.efekos.awakensmponline.commands.team;
 
 import me.efekos.awakensmponline.Main;
-import me.efekos.awakensmponline.commands.Team;
+import me.efekos.awakensmponline.commands.TeamCommand;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.data.Request;
 import me.efekos.awakensmponline.data.RequestType;
@@ -25,17 +25,17 @@ import java.util.List;
 import java.util.UUID;
 
 @Command(name = "invite",description = "Invite someone to your team!",permission = "awakensmp.team.invite")
-public class Invite extends SubCommand {
+public class TeamInviteCommand extends SubCommand {
     @Override
     public Class<? extends CoreCommand> getParent() {
-        return Team.class;
+        return TeamCommand.class;
     }
 
-    public Invite(@NotNull String name) {
+    public TeamInviteCommand(@NotNull String name) {
         super(name);
     }
 
-    public Invite(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+    public TeamInviteCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
         super(name, description, usageMessage, aliases);
     }
 

@@ -1,7 +1,7 @@
 package me.efekos.awakensmponline.commands.friend;
 
 import me.efekos.awakensmponline.Main;
-import me.efekos.awakensmponline.commands.Friend;
+import me.efekos.awakensmponline.commands.FriendCommand;
 import me.efekos.awakensmponline.commands.args.FriendArgument;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.simpler.annotations.Command;
@@ -16,18 +16,18 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 @Command(name = "remove",description = "Remove one of your friends",permission = "awakensmp.friend.remove")
-public class Remove extends SubCommand {
-    public Remove(@NotNull String name) {
+public class FriendRemoveCommand extends SubCommand {
+    public FriendRemoveCommand(@NotNull String name) {
         super(name);
     }
 
-    public Remove(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+    public FriendRemoveCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
         super(name, description, usageMessage, aliases);
     }
 
     @Override
     public Class<? extends CoreCommand> getParent() {
-        return Friend.class;
+        return FriendCommand.class;
     }
 
     @Override

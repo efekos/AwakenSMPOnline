@@ -13,12 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Command(name = "team",description = "All team commands",playerOnly = true)
-public class Team extends CoreCommand {
+public class TeamCommand extends CoreCommand {
     @Override
     public @NotNull ArrayList<Class<? extends SubCommand>> getSubs() {
         ArrayList<Class<? extends SubCommand>> classes = new ArrayList<>();
-        classes.add(Create.class);classes.add(Delete.class);classes.add(Members.class);classes.add(My.class);classes.add(Join.class);classes.add(Reject.class);classes.add(Chat.class);
-        classes.add(ToggleChat.class);classes.add(Leave.class);classes.add(Invite.class);classes.add(Leave.class);
+        classes.add(TeamCreateCommand.class);classes.add(TeamDeleteCommand.class);classes.add(TeamMembersCommand.class);classes.add(TeamMyCommand.class);classes.add(TeamJoinCommand.class);classes.add(TeamRejectCommand.class);classes.add(TeamChatCommand.class);
+        classes.add(TeamToggleCommand.class);classes.add(TeamLeaveCommand.class);classes.add(TeamInviteCommand.class);classes.add(TeamLeaveCommand.class);
         return classes;
     }
 
@@ -33,11 +33,11 @@ public class Team extends CoreCommand {
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.awakensmp.help.footer","&2-----------------------------")));
     }
 
-    public Team(@NotNull String name) {
+    public TeamCommand(@NotNull String name) {
         super(name);
     }
 
-    public Team(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+    public TeamCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
         super(name, description, usageMessage, aliases);
     }
 }

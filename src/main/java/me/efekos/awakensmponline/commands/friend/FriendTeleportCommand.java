@@ -1,7 +1,7 @@
 package me.efekos.awakensmponline.commands.friend;
 
 import me.efekos.awakensmponline.Main;
-import me.efekos.awakensmponline.commands.AwakenSMP;
+import me.efekos.awakensmponline.commands.AwakenSMPCommand;
 import me.efekos.awakensmponline.commands.args.FriendArgument;
 import me.efekos.awakensmponline.data.Friend;
 import me.efekos.awakensmponline.data.PlayerData;
@@ -19,18 +19,18 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 @Command(name = "teleport",description = "Teleport to your friends!",permission = "awakensmp.friend.teleport")
-public class Teleport extends SubCommand {
-    public Teleport(@NotNull String name) {
+public class FriendTeleportCommand extends SubCommand {
+    public FriendTeleportCommand(@NotNull String name) {
         super(name);
     }
 
-    public Teleport(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+    public FriendTeleportCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
         super(name, description, usageMessage, aliases);
     }
 
     @Override
     public Class<? extends CoreCommand> getParent() {
-        return AwakenSMP.class;
+        return AwakenSMPCommand.class;
     }
 
     @Override

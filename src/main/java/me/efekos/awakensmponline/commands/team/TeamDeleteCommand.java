@@ -1,7 +1,7 @@
 package me.efekos.awakensmponline.commands.team;
 
 import me.efekos.awakensmponline.Main;
-import me.efekos.awakensmponline.commands.Team;
+import me.efekos.awakensmponline.commands.TeamCommand;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.data.TeamData;
 import me.efekos.simpler.annotations.Command;
@@ -16,10 +16,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 @Command(name = "delete",description = "Delete a team",permission = "awakensmp.team.delete")
-public class Delete extends SubCommand {
+public class TeamDeleteCommand extends SubCommand {
     @Override
     public Class<? extends CoreCommand> getParent() {
-        return Team.class;
+        return TeamCommand.class;
     }
 
     @Override
@@ -27,11 +27,11 @@ public class Delete extends SubCommand {
         return new Syntax();
     }
 
-    public Delete(@NotNull String name) {
+    public TeamDeleteCommand(@NotNull String name) {
         super(name);
     }
 
-    public Delete(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+    public TeamDeleteCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
         super(name, description, usageMessage, aliases);
     }
 

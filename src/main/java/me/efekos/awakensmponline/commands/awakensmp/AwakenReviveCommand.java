@@ -1,7 +1,7 @@
 package me.efekos.awakensmponline.commands.awakensmp;
 
 import me.efekos.awakensmponline.Main;
-import me.efekos.awakensmponline.commands.AwakenSMP;
+import me.efekos.awakensmponline.commands.AwakenSMPCommand;
 import me.efekos.awakensmponline.commands.args.DeadPlayerArgument;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.utils.ParticleManager;
@@ -19,10 +19,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 @Command(name = "revive",description = "Revives a player",permission = "awakensmp.revive")
-public class Revive extends SubCommand {
+public class AwakenReviveCommand extends SubCommand {
     @Override
     public Class<? extends CoreCommand> getParent() {
-        return AwakenSMP.class;
+        return AwakenSMPCommand.class;
     }
 
     @Override
@@ -108,11 +108,11 @@ public class Revive extends SubCommand {
                 .replace("%player%",args[0])));
     }
 
-    public Revive(@NotNull String name) {
+    public AwakenReviveCommand(@NotNull String name) {
         super(name);
     }
 
-    public Revive(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+    public AwakenReviveCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
         super(name, description, usageMessage, aliases);
     }
 }

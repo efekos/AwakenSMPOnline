@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 @Command(name = "kill",description = "Kill someone permanently",permission = "awakensmp.kill-command")
-public class Kill extends SubCommand {
+public class AwakenKillCommand extends SubCommand {
     @Override
     public Class<? extends CoreCommand> getParent() {
         return null;
@@ -124,11 +124,11 @@ public class Kill extends SubCommand {
         sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.done","&aSuccessfully killed &b%player%!").replace("%player%",victim.getName())));
     }
 
-    public Kill(@NotNull String name) {
+    public AwakenKillCommand(@NotNull String name) {
         super(name);
     }
 
-    public Kill(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+    public AwakenKillCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
         super(name, description, usageMessage, aliases);
     }
 }

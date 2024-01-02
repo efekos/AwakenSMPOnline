@@ -1,7 +1,7 @@
 package me.efekos.awakensmponline.commands.team;
 
 import me.efekos.awakensmponline.Main;
-import me.efekos.awakensmponline.commands.Team;
+import me.efekos.awakensmponline.commands.TeamCommand;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.data.TeamData;
 import me.efekos.simpler.annotations.Command;
@@ -19,19 +19,19 @@ import java.util.List;
 import java.util.UUID;
 
 @Command(name = "members", description = "See the members on your team!", permission = "awakensmp.team.members")
-public class Members extends SubCommand {
-    public Members(@NotNull String name) {
+public class TeamMembersCommand extends SubCommand {
+    public TeamMembersCommand(@NotNull String name) {
         super(name);
     }
 
-    public Members(@NotNull String name, @NotNull String description, @NotNull String usageMessage,
-            @NotNull List<String> aliases) {
+    public TeamMembersCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage,
+                              @NotNull List<String> aliases) {
         super(name, description, usageMessage, aliases);
     }
 
     @Override
     public Class<? extends CoreCommand> getParent() {
-        return Team.class;
+        return TeamCommand.class;
     }
 
     @Override

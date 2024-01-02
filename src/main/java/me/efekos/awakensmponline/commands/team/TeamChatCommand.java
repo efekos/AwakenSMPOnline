@@ -1,7 +1,7 @@
 package me.efekos.awakensmponline.commands.team;
 
 import me.efekos.awakensmponline.Main;
-import me.efekos.awakensmponline.commands.Team;
+import me.efekos.awakensmponline.commands.TeamCommand;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.data.TeamData;
 
@@ -23,19 +23,19 @@ import java.util.List;
 ;
 
 @Command(name = "chat", description = "Use your team's chat!", permission = "awakensmp.team.chat")
-public class Chat extends SubCommand {
-    public Chat(@NotNull String name) {
+public class TeamChatCommand extends SubCommand {
+    public TeamChatCommand(@NotNull String name) {
         super(name);
     }
 
-    public Chat(@NotNull String name, @NotNull String description, @NotNull String usageMessage,
-            @NotNull List<String> aliases) {
+    public TeamChatCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage,
+                           @NotNull List<String> aliases) {
         super(name, description, usageMessage, aliases);
     }
 
     @Override
     public Class<? extends CoreCommand> getParent() {
-        return Team.class;
+        return TeamCommand.class;
     }
 
     @Override

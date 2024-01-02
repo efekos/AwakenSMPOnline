@@ -1,7 +1,7 @@
 package me.efekos.awakensmponline.commands.team;
 
 import me.efekos.awakensmponline.Main;
-import me.efekos.awakensmponline.commands.Team;
+import me.efekos.awakensmponline.commands.TeamCommand;
 import me.efekos.awakensmponline.data.TempData;
 import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
@@ -15,19 +15,19 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 @Command(name = "togglechat",description = "Switch to team chat channel!",permission = "awakensmp.team.togglechat")
-public class ToggleChat extends SubCommand {
+public class TeamToggleCommand extends SubCommand {
 
-    public ToggleChat(@NotNull String name) {
+    public TeamToggleCommand(@NotNull String name) {
         super(name);
     }
 
-    public ToggleChat(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+    public TeamToggleCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
         super(name, description, usageMessage, aliases);
     }
 
     @Override
     public Class<? extends CoreCommand> getParent() {
-        return Team.class;
+        return TeamCommand.class;
     }
 
     @Override

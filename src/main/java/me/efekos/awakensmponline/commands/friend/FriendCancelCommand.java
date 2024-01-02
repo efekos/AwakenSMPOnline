@@ -1,7 +1,7 @@
 package me.efekos.awakensmponline.commands.friend;
 
 import me.efekos.awakensmponline.Main;
-import me.efekos.awakensmponline.commands.Friend;
+import me.efekos.awakensmponline.commands.FriendCommand;
 import me.efekos.awakensmponline.commands.args.SentRequestUUIDArgument;
 import me.efekos.awakensmponline.data.Request;
 import me.efekos.awakensmponline.data.RequestType;
@@ -19,17 +19,17 @@ import java.util.List;
 import java.util.UUID;
 
 @Command(name = "cancel",description = "Cancel a friend requet.",permission = "awakensmp.friend.cancel")
-public class Cancel extends SubCommand {
+public class FriendCancelCommand extends SubCommand {
     @Override
     public Class<? extends CoreCommand> getParent() {
-        return Friend.class;
+        return FriendCommand.class;
     }
 
-    public Cancel(@NotNull String name) {
+    public FriendCancelCommand(@NotNull String name) {
         super(name);
     }
 
-    public Cancel(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+    public FriendCancelCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
         super(name, description, usageMessage, aliases);
     }
 

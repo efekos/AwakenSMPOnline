@@ -1,7 +1,7 @@
 package me.efekos.awakensmponline.commands.awakensmp;
 
 import me.efekos.awakensmponline.Main;
-import me.efekos.awakensmponline.commands.AwakenSMP;
+import me.efekos.awakensmponline.commands.AwakenSMPCommand;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
@@ -17,18 +17,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Command(name = "deadplayers",description = "A list of dead players.",permission = "awakensmp.deadplayers")
-public class Deadplayers extends SubCommand {
-    public Deadplayers(@NotNull String name) {
+public class AwakenDeadPlayersCommand extends SubCommand {
+    public AwakenDeadPlayersCommand(@NotNull String name) {
         super(name);
     }
 
-    public Deadplayers(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+    public AwakenDeadPlayersCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
         super(name, description, usageMessage, aliases);
     }
 
     @Override
     public Class<? extends CoreCommand> getParent() {
-        return AwakenSMP.class;
+        return AwakenSMPCommand.class;
     }
 
     @Override

@@ -1,7 +1,7 @@
 package me.efekos.awakensmponline.commands.friend;
 
 import me.efekos.awakensmponline.Main;
-import me.efekos.awakensmponline.commands.Friend;
+import me.efekos.awakensmponline.commands.FriendCommand;
 import me.efekos.awakensmponline.data.*;
 import me.efekos.awakensmponline.utils.ButtonManager;
 import me.efekos.simpler.annotations.Command;
@@ -22,18 +22,18 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 @Command(name = "add",description = "add someone as your friend!",permission = "awakensmp.friend.add")
-public class Add extends SubCommand {
-    public Add(@NotNull String name) {
+public class FriendAddCommand extends SubCommand {
+    public FriendAddCommand(@NotNull String name) {
         super(name);
     }
 
-    public Add(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+    public FriendAddCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
         super(name, description, usageMessage, aliases);
     }
 
     @Override
     public Class<? extends CoreCommand> getParent() {
-        return Friend.class;
+        return FriendCommand.class;
     }
 
     @Override

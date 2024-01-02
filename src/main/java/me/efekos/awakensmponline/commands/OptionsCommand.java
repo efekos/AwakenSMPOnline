@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 @Command(name = "options",description = "Customize your reviving decorations!",playerOnly = true,permission = "awakensmp.options")
-public class Options extends BaseCommand {
+public class OptionsCommand extends BaseCommand {
     @Override
     public @NotNull Syntax getSyntax() {
         return new Syntax();
@@ -28,11 +28,11 @@ public class Options extends BaseCommand {
 
     }
 
-    public Options(@NotNull String name) {
+    public OptionsCommand(@NotNull String name) {
         super(name);
     }
 
-    public Options(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+    public OptionsCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
         super(name, description, usageMessage, aliases);
     }
 }
