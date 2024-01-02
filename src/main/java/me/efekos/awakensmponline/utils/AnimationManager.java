@@ -19,11 +19,8 @@ public class AnimationManager {
             World world = player.getWorld();
 
             switch (animationType){
-                case NONE:
-                    spawnPlayer.accept(player);
-                    break;
-                case BLOCK:
-                    block: {
+                case NONE -> spawnPlayer.accept(player);
+                case BLOCK -> {
                         Location location1 = player.getLocation();
                         Location location2 = player.getLocation().add(0,1,0);
                         Block underneath = player.getLocation().add(0,-1,0).getBlock();
@@ -59,33 +56,29 @@ public class AnimationManager {
                             }
                         }.runTaskLater(Main.getInstance(),400/50);
                     }
-                    break;
-                case THUNDER:
-                    thunder: {
+                case THUNDER -> {
                         BukkitRunnable runnable = new BukkitRunnable() {
                             @Override
                             public void run() {
                                 world.strikeLightningEffect(location);
                             }
                         };
-                        run(o -> runnable.run(),200/50);
-                        run(o -> runnable.run(),600/50);
-                        run(o -> runnable.run(),800/50);
-                        run(o -> runnable.run(),900/50);
-                        run(o -> runnable.run(),1100/50);
-                        new BukkitRunnable(){
+                        run(o -> runnable.run(), 200 / 50);
+                        run(o -> runnable.run(), 600 / 50);
+                        run(o -> runnable.run(), 800 / 50);
+                        run(o -> runnable.run(), 900 / 50);
+                        run(o -> runnable.run(), 1100 / 50);
+                        new BukkitRunnable() {
                             @Override
                             public void run() {
                                 runnable.run();
                                 spawnPlayer.accept(player);
 
                             }
-                        }.runTaskLater(Main.getInstance(),1400/50);
+                        }.runTaskLater(Main.getInstance(), 1400 / 50);
 
                     }
-                    break;
-                case BEAM:
-                    fkinbeam: {
+                case BEAM -> {
                         Location loc1 = player.getLocation().add(1,0,0);
                         Location loc2 = player.getLocation().add(0,0,1);
                         Location loc3 = player.getLocation().add(1,0,1);
@@ -97,7 +90,7 @@ public class AnimationManager {
                         AtomicReference<Location> loc9 = new AtomicReference<>(player.getLocation());
                         AtomicReference<Location> loc10 = new AtomicReference<>(player.getLocation().add(0,1,0));
 
-                        // thing to check that around is clear so player wont be able to use this anims blocky thing for removing chests or somethin
+                        // thing to check that around is clear so player won't be able to use this anims blocky thing for removing chests or somethin
                         if(
                                 loc1.getBlock().getType()!=Material.AIR ||
                                         loc2.getBlock().getType()!=Material.AIR ||
@@ -167,7 +160,6 @@ public class AnimationManager {
                             spawnPlayer.accept(player);
                         },1000/20);
                     }
-                    break;
             }
         }catch (Exception e){
             e.printStackTrace();
