@@ -65,14 +65,14 @@ public final class Main extends JavaPlugin {
             //recipe
 
             if(GAME.getBoolean("recipe.use-default",true)){
-                // Default açıksa direk default yükle
+                // load default if use-default is enabled
                 Bukkit.addRecipe(RecipeManager.loadDefaultRecipe(this));
             } else {
                 try {
                     ShapedRecipe recipe = RecipeManager.loadConfigRecipe(this);
                     Bukkit.addRecipe(recipe);
                 } catch (InvalidRecipeException e){
-                    // adam mal gibi recipe verince.
+                    // when user provides a trash recipe.
                     Logger.error("An error occurred while loading the revive head recipe from config: "+e.getMessage());
                     Logger.error("Loading default recipe.");
                     Bukkit.addRecipe(RecipeManager.loadDefaultRecipe(this));
@@ -84,10 +84,10 @@ public final class Main extends JavaPlugin {
             try {
                 CommandManager.registerCoreCommand(this, AwakenSMP.class); // /awakensmp
 
-                if(GAME.getBoolean("features.friend",true)) // arkadaş şeyleri açıkmı diye kontrol
+                if(GAME.getBoolean("features.friend",true)) // checking friend system
                     CommandManager.registerCoreCommand(this, Friend.class); // /friend
 
-                if (GAME.getBoolean("features.team",true)) // takım şeyleri açıkmı diye kontrol
+                if (GAME.getBoolean("features.team",true)) // checking team system
                     CommandManager.registerCoreCommand(this, Team.class); // /team
 
                 if(GAME.getBoolean("revive-particles",true) || GAME.getBoolean("revive-animations",false))
@@ -97,7 +97,7 @@ public final class Main extends JavaPlugin {
                 e.printStackTrace();
                 Logger.error("Experienced an error while trying to load commands.");
                 Logger.error("Stopping plugin.");
-                Bukkit.getPluginManager().disablePlugin(this); // hata varsa direk duruyo
+                Bukkit.getPluginManager().disablePlugin(this); // stop if there is an error
             }
 
             // event
@@ -109,7 +109,7 @@ public final class Main extends JavaPlugin {
             //placeholder
             if(getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
                 if(GAME.getBoolean("papi",true))new Awaken().register();
-            };
+            }
 
 
             //updates
@@ -119,7 +119,7 @@ public final class Main extends JavaPlugin {
             if(upToDate) Logger.info("There are no updates avaliable.");
             else Logger.warn("There is a new update avaliable!");
 
-        } catch (Exception e){ // random bişeyler olursa
+        } catch (Exception e){ // if something randomly goes wrong
             e.printStackTrace();
             Logger.error("Experienced an unexpected error while enabling plugin.");
             Logger.error("Stopping plugin.");
