@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@Command(name = "inventory",description = "See the inventory of your player",permission = "awakensmp.friend.inventory")
+@Command(name = "inventory", description = "See the inventory of your player", permission = "awakensmp.friend.inventory")
 public class FriendInventoryCommand extends SubCommand {
     public FriendInventoryCommand(@NotNull String name) {
         super(name);
@@ -48,25 +48,25 @@ public class FriendInventoryCommand extends SubCommand {
         PlayerData data = Main.fetchPlayer(player.getUniqueId());
         me.efekos.awakensmponline.data.Friend dataFriend = data.getFriend(args[0]);
         YamlConfig lang = Main.LANG;
-        if(dataFriend==null){
-            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.not-friend","&b%player% &cis not your friend.").replace("%player%",args[0])));
+        if (dataFriend == null) {
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.not-friend", "&b%player% &cis not your friend.").replace("%player%", args[0])));
             return;
         }
         OfflinePlayer offlineFriend = Bukkit.getOfflinePlayer(dataFriend.getPlayerId());
-        if(!offlineFriend.isOnline()){
-            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.not-online","&b%player% &cis not online.").replace("%player%", offlineFriend.getName())));
+        if (!offlineFriend.isOnline()) {
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.not-online", "&b%player% &cis not online.").replace("%player%", offlineFriend.getName())));
             return;
         }
-        if(!dataFriend.getModifications().isInventoryAllowed()){
-            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.not-allowed","&b%player% &cdid not allow you to do that.").replace("%player%",offlineFriend.getName())));
+        if (!dataFriend.getModifications().isInventoryAllowed()) {
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.not-allowed", "&b%player% &cdid not allow you to do that.").replace("%player%", offlineFriend.getName())));
             return;
         }
         // we are allowed to and can see offlineFriend's inventory.
         Player friend = offlineFriend.getPlayer();
         PlayerInventory friendInventory = friend.getInventory();
         MenuData menuData = MenuManager.getMenuData(player);
-        menuData.set("invToOpen",friendInventory);
-        MenuManager.updateMenuData(player,menuData);
+        menuData.set("invToOpen", friendInventory);
+        MenuManager.updateMenuData(player, menuData);
 
         MenuManager.Open(player, FriendInventoryMenu.class);
     }

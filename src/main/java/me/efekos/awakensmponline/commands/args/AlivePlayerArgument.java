@@ -30,10 +30,10 @@ public class AlivePlayerArgument extends Argument {
     @Override
     public ArgumentHandleResult handleCorrection(String given) {
         Player player = Bukkit.getPlayer(given);
-        if(player==null) return ArgumentHandleResult.fail(given + " is not a player, or not online");
+        if (player == null) return ArgumentHandleResult.fail(given + " is not a player, or not online");
         PlayerData data = Main.PLAYER_DATA.get(player.getUniqueId());
-        if(data==null) return ArgumentHandleResult.fail(given + " is not a player, or an unknown player");
-        if(!data.isAlive()) return ArgumentHandleResult.fail(given + " is not alive");
+        if (data == null) return ArgumentHandleResult.fail(given + " is not a player, or an unknown player");
+        if (!data.isAlive()) return ArgumentHandleResult.fail(given + " is not alive");
         return ArgumentHandleResult.success();
     }
 }

@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@Command(name = "reloadconfig",permission = "awakensmp.reloadconfig",description = "Reloads the config")
+@Command(name = "reloadconfig", permission = "awakensmp.reloadconfig", description = "Reloads the config")
 public class AwakenReloadConfigCommand extends SubCommand {
     @Override
     public Class<? extends CoreCommand> getParent() {
@@ -35,7 +35,7 @@ public class AwakenReloadConfigCommand extends SubCommand {
         Main.PLAYER_DATA.load(PlayerData[].class);
         Main.TEAM_DATA.load(TeamData[].class);
         Main.REQUEST_DATA.load(Request[].class);
-        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.awakensmp.reloadconfig.success","&aSuccessfully reloaded the config!")));
+        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.awakensmp.reloadconfig.success", "&aSuccessfully reloaded the config!")));
     }
 
     @Override
@@ -45,7 +45,7 @@ public class AwakenReloadConfigCommand extends SubCommand {
         Main.PLAYER_DATA.load(PlayerData[].class);
         Main.TEAM_DATA.load(TeamData[].class);
         Main.REQUEST_DATA.load(Request[].class);
-        sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.awakensmp.reloadconfig.success","&aSuccessfully reloaded the config!")));
+        sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.awakensmp.reloadconfig.success", "&aSuccessfully reloaded the config!")));
     }
 
     public AwakenReloadConfigCommand(@NotNull String name) {

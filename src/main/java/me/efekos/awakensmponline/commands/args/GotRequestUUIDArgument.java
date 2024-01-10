@@ -23,7 +23,7 @@ public class GotRequestUUIDArgument extends Argument {
         Stream<Request> xrequests = Main.REQUEST_DATA.getAll().stream().filter(request -> request.getGetter().equals(player.getUniqueId()));
         List<String> results = new ArrayList<>();
 
-        for (Request req:xrequests.collect(Collectors.toList())){
+        for (Request req : xrequests.collect(Collectors.toList())) {
             results.add(req.getId().toString());
         }
 

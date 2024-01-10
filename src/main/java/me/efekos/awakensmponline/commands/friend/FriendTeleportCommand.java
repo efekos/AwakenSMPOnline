@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@Command(name = "teleport",description = "Teleport to your friends!",permission = "awakensmp.friend.teleport")
+@Command(name = "teleport", description = "Teleport to your friends!", permission = "awakensmp.friend.teleport")
 public class FriendTeleportCommand extends SubCommand {
     public FriendTeleportCommand(@NotNull String name) {
         super(name);
@@ -44,24 +44,24 @@ public class FriendTeleportCommand extends SubCommand {
         PlayerData data = Main.fetchPlayer(player.getUniqueId());
         Friend friend = data.getFriend(args[0]);
 
-        if(friend==null){
-            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.not-friend","&b%player% &cis not your friend.").replace("%player%",args[0])));
+        if (friend == null) {
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.not-friend", "&b%player% &cis not your friend.").replace("%player%", args[0])));
             return;
         }
-        if(!friend.getModifications().isTeleportAllowed()){
-            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.not-allowed","&b%player% &cdid not allow you to do that.").replace("%player%",friend.getLastName())));
+        if (!friend.getModifications().isTeleportAllowed()) {
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.not-allowed", "&b%player% &cdid not allow you to do that.").replace("%player%", friend.getLastName())));
             return;
         }
         OfflinePlayer offlineFriendP = Bukkit.getOfflinePlayer(friend.getPlayerId());
-        if(!offlineFriendP.isOnline()){
-            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.not-online","&b%player% &cis not online.").replace("%player%", friend.getLastName())));
+        if (!offlineFriendP.isOnline()) {
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.not-online", "&b%player% &cis not online.").replace("%player%", friend.getLastName())));
             return;
         }
         Player friendP = offlineFriendP.getPlayer();
 
         player.teleport(friendP.getLocation());
-        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.teleport.success","&aSuccessfully teleported to &b%player%&a!").replace("%player%", friendP.getName())));
-        friendP.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.teleport.hey","&b%player% &eteleported to you.").replace("%player%",friendP.getName())));
+        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.teleport.success", "&aSuccessfully teleported to &b%player%&a!").replace("%player%", friendP.getName())));
+        friendP.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.teleport.hey", "&b%player% &eteleported to you.").replace("%player%", friendP.getName())));
     }
 
     @Override

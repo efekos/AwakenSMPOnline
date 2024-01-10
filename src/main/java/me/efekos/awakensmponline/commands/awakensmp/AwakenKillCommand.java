@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@Command(name = "kill",description = "Kill someone permanently",permission = "awakensmp.kill-command")
+@Command(name = "kill", description = "Kill someone permanently", permission = "awakensmp.kill-command")
 public class AwakenKillCommand extends SubCommand {
     @Override
     public Class<? extends CoreCommand> getParent() {
@@ -40,22 +40,22 @@ public class AwakenKillCommand extends SubCommand {
         YamlConfig lang = Main.LANG;
 
 
-        if(data==null){
-            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.not-player","&cThere is no one called &b%player%&c.").replace("%player%",args[0])));
+        if (data == null) {
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.not-player", "&cThere is no one called &b%player%&c.").replace("%player%", args[0])));
             return;
         }
         OfflinePlayer offlineVictim = Bukkit.getOfflinePlayer(data.getUuid());
-        if(!offlineVictim.isOnline()){
-            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.not-online","&b%player% &cis not online.").replace("%player%",data.getName())));
+        if (!offlineVictim.isOnline()) {
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.not-online", "&b%player% &cis not online.").replace("%player%", data.getName())));
             return;
         }
-        if(!data.isAlive()){
-            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.not-alive","&b%player% &cis dead already.").replace("%player%",data.getName())));
+        if (!data.isAlive()) {
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.not-alive", "&b%player% &cis dead already.").replace("%player%", data.getName())));
             return;
         }
         Player victim = (Player) offlineVictim;
-        if(victim.hasPermission("awakensmp.god")){
-            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.god-player","&b%player% &cis a god, meaning there is no way to kill him.").replace("%player%",data.getName())));
+        if (victim.hasPermission("awakensmp.god")) {
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.god-player", "&b%player% &cis a god, meaning there is no way to kill him.").replace("%player%", data.getName())));
             return;
         }
         // data exists, belongs to an online player, and that player can be killed.
@@ -73,10 +73,10 @@ public class AwakenKillCommand extends SubCommand {
         victim.getInventory().addItem(skull);
 
         victim.setHealth(0);
-        victim.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.force","&b%killer% &cKilled you by force!").replace("%killer%",data.getName())));
+        victim.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.force", "&b%killer% &cKilled you by force!").replace("%killer%", data.getName())));
         victim.setGameMode(GameMode.SPECTATOR);
 
-        player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.done","&aSuccessfully killed &b%player%!").replace("%PLAYER%",victim.getName())));
+        player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.done", "&aSuccessfully killed &b%player%!").replace("%PLAYER%", victim.getName())));
     }
 
     @Override
@@ -85,22 +85,22 @@ public class AwakenKillCommand extends SubCommand {
 
         YamlConfig lang = Main.LANG;
 
-        if(data==null){
-            sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.not-player","&cThere is no one called &b%player%&c.").replace("%player%",args[0])));
+        if (data == null) {
+            sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.not-player", "&cThere is no one called &b%player%&c.").replace("%player%", args[0])));
             return;
         }
         OfflinePlayer offlineVictim = Bukkit.getOfflinePlayer(data.getUuid());
-        if(!offlineVictim.isOnline()){
-            sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.not-online","&b%player% &cis not online.").replace("%player%",data.getName())));
+        if (!offlineVictim.isOnline()) {
+            sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.not-online", "&b%player% &cis not online.").replace("%player%", data.getName())));
             return;
         }
-        if(!data.isAlive()){
-            sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.not-alive","&b%player% &cis dead already.").replace("%player%",data.getName())));
+        if (!data.isAlive()) {
+            sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.not-alive", "&b%player% &cis dead already.").replace("%player%", data.getName())));
             return;
         }
         Player victim = (Player) offlineVictim;
-        if(victim.hasPermission("awakensmp.god")){
-            sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.god-player","&b%player% &cis a god, meaning there is no way to kill him.").replace("%player%",data.getName())));
+        if (victim.hasPermission("awakensmp.god")) {
+            sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.god-player", "&b%player% &cis a god, meaning there is no way to kill him.").replace("%player%", data.getName())));
             return;
         }
         // data exists, belongs to an online player, and that player can be killed.
@@ -118,10 +118,10 @@ public class AwakenKillCommand extends SubCommand {
         victim.getInventory().addItem(skull);
 
         victim.setHealth(0);
-        victim.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.force","&b%killer% &cKilled you by force!").replace("%killer%",data.getName())));
+        victim.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.force", "&b%killer% &cKilled you by force!").replace("%killer%", data.getName())));
         victim.setGameMode(GameMode.SPECTATOR);
 
-        sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.done","&aSuccessfully killed &b%player%!").replace("%player%",victim.getName())));
+        sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.done", "&aSuccessfully killed &b%player%!").replace("%player%", victim.getName())));
     }
 
     public AwakenKillCommand(@NotNull String name) {

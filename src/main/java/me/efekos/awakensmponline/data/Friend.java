@@ -11,7 +11,7 @@ public class Friend {
      */
     private FriendModifications modifications;
     /**
-     UUID of the {@link org.bukkit.entity.Player} whose this friend.
+     * UUID of the {@link org.bukkit.entity.Player} whose this friend.
      */
     private UUID playerId;
 
@@ -21,10 +21,9 @@ public class Friend {
     private String lastName;
 
     /**
-     *
      * @param modifications Modifications that will be applied to this friend by it's owner.
-     * @param playerId UUID of the {@link org.bukkit.entity.Player} whose this friend.
-     * @param lastName Name of the player.
+     * @param playerId      UUID of the {@link org.bukkit.entity.Player} whose this friend.
+     * @param lastName      Name of the player.
      */
     public Friend(FriendModifications modifications, UUID playerId, String lastName) {
         this.modifications = modifications;
@@ -41,6 +40,7 @@ public class Friend {
 
     /**
      * Changes the last name recorded from this friend's {@link org.bukkit.entity.Player} entity.
+     *
      * @param lastName New name of the {@link org.bukkit.entity.Player} entity.
      */
     public void setLastName(String lastName) {
@@ -56,6 +56,7 @@ public class Friend {
 
     /**
      * Changes the modifications applied to this friend.
+     *
      * @param modifications New modifications
      */
     public void setModifications(FriendModifications modifications) {
@@ -71,6 +72,7 @@ public class Friend {
 
     /**
      * Changes the player id
+     *
      * @param playerId New player's UniqueId
      */
     public void setPlayerId(UUID playerId) {

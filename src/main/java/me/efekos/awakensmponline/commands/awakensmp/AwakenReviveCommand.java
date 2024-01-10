@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@Command(name = "revive",description = "Revives a player",permission = "awakensmp.revive")
+@Command(name = "revive", description = "Revives a player", permission = "awakensmp.revive")
 public class AwakenReviveCommand extends SubCommand {
     @Override
     public Class<? extends CoreCommand> getParent() {
@@ -34,78 +34,78 @@ public class AwakenReviveCommand extends SubCommand {
     @Override
     public void onPlayerUse(Player player, String[] args) {
         PlayerData data = Main.getPlayerFromName(args[0]);
-        if(data==null) {
-            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.not-player","&cThere is no one called &b%player%&c.")
-                    .replace("%player%",args[0])
+        if (data == null) {
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.not-player", "&cThere is no one called &b%player%&c.")
+                    .replace("%player%", args[0])
             ));
             return;
         }
 
-        if(data.isAlive()){
-            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.not-dead","&b%player% &cis not dead.")
-                    .replace("%player%",args[0])));
+        if (data.isAlive()) {
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.not-dead", "&b%player% &cis not dead.")
+                    .replace("%player%", args[0])));
             return;
         }
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(data.getUuid());
-        if(!offlinePlayer.isOnline()){
-            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.not-online","&b%player% &cis not online.").replace("%player%", offlinePlayer.getName())));
+        if (!offlinePlayer.isOnline()) {
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.not-online", "&b%player% &cis not online.").replace("%player%", offlinePlayer.getName())));
             return;
         }
-        Player p = (Player )offlinePlayer;
+        Player p = (Player) offlinePlayer;
 
         p.setGameMode(GameMode.SURVIVAL);
         p.teleport(player.getLocation());
         p.removePotionEffect(PotionEffectType.BLINDNESS);
 
-        ParticleManager.spawnParticle(data.getParticleOptions(),p);
+        ParticleManager.spawnParticle(data.getParticleOptions(), p);
 
         data.setRevived(true);
         data.setAlive(true);
 
-        Main.PLAYER_DATA.update(data.getUuid(),data);
+        Main.PLAYER_DATA.update(data.getUuid(), data);
 
-        p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.hey","&b%player% &arevived you!").replace("%player%",player.getName())));
-        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.done","&aSuccessfully revived &b%player%&a!")
-                .replace("%player%",args[0])));
-        player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, SoundCategory.PLAYERS,100,1);
+        p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.hey", "&b%player% &arevived you!").replace("%player%", player.getName())));
+        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.done", "&aSuccessfully revived &b%player%&a!")
+                .replace("%player%", args[0])));
+        player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, SoundCategory.PLAYERS, 100, 1);
     }
 
     @Override
     public void onConsoleUse(ConsoleCommandSender sender, String[] args) {
         PlayerData data = Main.getPlayerFromName(args[0]);
-        if(data==null) {
-            sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.not-player","&cThere is no one called &b%player%&c.")
-                    .replace("%player%",args[0])
+        if (data == null) {
+            sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.not-player", "&cThere is no one called &b%player%&c.")
+                    .replace("%player%", args[0])
             ));
             return;
         }
 
-        if(data.isAlive()){
-            sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.not-dead","&b%player% &cis not dead.")
-                    .replace("%player%",args[0])));
+        if (data.isAlive()) {
+            sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.not-dead", "&b%player% &cis not dead.")
+                    .replace("%player%", args[0])));
             return;
         }
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(data.getUuid());
-        if(!offlinePlayer.isOnline()){
-            sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.not-online","&b%player% &cis not online.").replace("%player%", offlinePlayer.getName())));
+        if (!offlinePlayer.isOnline()) {
+            sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.not-online", "&b%player% &cis not online.").replace("%player%", offlinePlayer.getName())));
             return;
         }
-        Player p = (Player )offlinePlayer;
+        Player p = (Player) offlinePlayer;
 
         p.setGameMode(GameMode.SURVIVAL);
         p.teleport(p.getWorld().getSpawnLocation());
         p.removePotionEffect(PotionEffectType.BLINDNESS);
 
-        ParticleManager.spawnParticle(data.getParticleOptions(),p);
+        ParticleManager.spawnParticle(data.getParticleOptions(), p);
 
         data.setRevived(true);
         data.setAlive(true);
 
-        Main.PLAYER_DATA.update(data.getUuid(),data);
+        Main.PLAYER_DATA.update(data.getUuid(), data);
 
-        p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.hey-console","&bThe Server Console &arevived you!")));
-        sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.done","&aSuccessfully revived &b%player%&a!")
-                .replace("%player%",args[0])));
+        p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.hey-console", "&bThe Server Console &arevived you!")));
+        sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.done", "&aSuccessfully revived &b%player%&a!")
+                .replace("%player%", args[0])));
     }
 
     public AwakenReviveCommand(@NotNull String name) {

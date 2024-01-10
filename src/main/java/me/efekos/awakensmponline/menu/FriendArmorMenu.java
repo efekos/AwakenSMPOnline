@@ -1,9 +1,9 @@
 package me.efekos.awakensmponline.menu;
 
 import me.efekos.awakensmponline.Main;
-import me.efekos.simpler.translation.TranslateManager;
 import me.efekos.simpler.menu.Menu;
 import me.efekos.simpler.menu.MenuData;
+import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
@@ -26,8 +26,8 @@ public class FriendArmorMenu extends Menu {
 
     @Override
     public String getTitle() {
-        return TranslateManager.translateColors(Main.LANG.getString("menus.friend_armor.title","%player%'s Armor")
-                .replace("%player%",((PlayerInventory)data.get("invToOpen")).getHolder().getName())
+        return TranslateManager.translateColors(Main.LANG.getString("menus.friend_armor.title", "%player%'s Armor")
+                .replace("%player%", ((PlayerInventory) data.get("invToOpen")).getHolder().getName())
         );
     }
 
@@ -49,15 +49,15 @@ public class FriendArmorMenu extends Menu {
     @Override
     public void fill() {
         PlayerInventory inventory = (PlayerInventory) data.get("invToOpen");
-        if(inventory==null) return;
+        if (inventory == null) return;
 
-        if(inventory.getHelmet()!=null) getInventory().setItem(0,inventory.getHelmet());
-        if(inventory.getChestplate()!=null) getInventory().setItem(1,inventory.getChestplate());
-        if(inventory.getLeggings()!=null) getInventory().setItem(2,inventory.getLeggings());
-        if(inventory.getBoots()!=null) getInventory().setItem(3,inventory.getBoots());
-        getInventory().setItem(7,inventory.getItemInMainHand());
-        getInventory().setItem(8,inventory.getItemInOffHand());
+        if (inventory.getHelmet() != null) getInventory().setItem(0, inventory.getHelmet());
+        if (inventory.getChestplate() != null) getInventory().setItem(1, inventory.getChestplate());
+        if (inventory.getLeggings() != null) getInventory().setItem(2, inventory.getLeggings());
+        if (inventory.getBoots() != null) getInventory().setItem(3, inventory.getBoots());
+        getInventory().setItem(7, inventory.getItemInMainHand());
+        getInventory().setItem(8, inventory.getItemInOffHand());
 
-        data.set("invToOpen",null);
+        data.set("invToOpen", null);
     }
 }

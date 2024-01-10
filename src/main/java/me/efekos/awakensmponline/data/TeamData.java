@@ -20,19 +20,19 @@ public class TeamData implements Storable {
     }
 
     public TeamData(String name) {
-        this(name,name,"Another brand new team!",new ArrayList<>(),null);
+        this(name, name, "Another brand new team!", new ArrayList<>(), null);
     }
 
     public TeamData(String name, String displayName) {
-        this(name,displayName,"Another brand new team!",new ArrayList<>(),null);
+        this(name, displayName, "Another brand new team!", new ArrayList<>(), null);
     }
 
     public TeamData(String name, String displayName, String description) {
-        this(name,displayName,description,new ArrayList<>(),null);
+        this(name, displayName, description, new ArrayList<>(), null);
     }
 
     public TeamData(String name, String displayName, String description, List<UUID> members) {
-        this(name,displayName,description,members,null);
+        this(name, displayName, description, members, null);
     }
 
     public TeamData(String name, String displayName, String description, List<UUID> members, UUID owner) {

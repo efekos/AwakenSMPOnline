@@ -17,7 +17,7 @@ public class BooleanArgument extends Argument {
 
     @Override
     public List<String> getList(Player player, String current) {
-        return Arrays.asList("true","false");
+        return Arrays.asList("true", "false");
     }
 
     @Override
@@ -27,7 +27,8 @@ public class BooleanArgument extends Argument {
 
     @Override
     public ArgumentHandleResult handleCorrection(String given) {
-        if(!Objects.equals(given, "true") && !Objects.equals(given, "false")) return ArgumentHandleResult.fail(given + " is not a boolean");
+        if (!Objects.equals(given, "true") && !Objects.equals(given, "false"))
+            return ArgumentHandleResult.fail(given + " is not a boolean");
         return ArgumentHandleResult.success();
     }
 }

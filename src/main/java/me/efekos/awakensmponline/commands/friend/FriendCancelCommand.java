@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.UUID;
 
-@Command(name = "cancel",description = "Cancel a friend requet.",permission = "awakensmp.friend.cancel")
+@Command(name = "cancel", description = "Cancel a friend requet.", permission = "awakensmp.friend.cancel")
 public class FriendCancelCommand extends SubCommand {
     @Override
     public Class<? extends CoreCommand> getParent() {
@@ -44,28 +44,28 @@ public class FriendCancelCommand extends SubCommand {
         YamlConfig lang = Main.LANG;
         try {
             UUID.fromString(args[0]);
-        } catch (IllegalArgumentException e){
-            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.cancel.not-uuid","&b%uuid% &cis not a valid UUID.").replace("%uuid%",args[0])));
+        } catch (IllegalArgumentException e) {
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.cancel.not-uuid", "&b%uuid% &cis not a valid UUID.").replace("%uuid%", args[0])));
             return;
         }
         Request req = Main.REQUEST_DATA.get(UUID.fromString(args[0]));
-        if(req==null){
-            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.cancel.not-req","&cThere is no request with id &b%uuid%&c.").replace("%uuid%",args[0])));
+        if (req == null) {
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.cancel.not-req", "&cThere is no request with id &b%uuid%&c.").replace("%uuid%", args[0])));
             return;
         }
-        if(!req.getSender().equals(player.getUniqueId())){
-            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.cancel.not-urs","&cYou did not sent this request.")));
+        if (!req.getSender().equals(player.getUniqueId())) {
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.cancel.not-urs", "&cYou did not sent this request.")));
             return;
         }
-        if(!req.getType().equals(RequestType.FRIEND)){
-            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.cancel.not-friend","&cThis is not a friend request.")));
+        if (!req.getType().equals(RequestType.FRIEND)) {
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.cancel.not-friend", "&cThis is not a friend request.")));
             return;
         }
         // there is a friend request sent to us.
         req.setDone(true);
         Main.REQUEST_DATA.delete(req.getId());
 
-        player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.cancel.done","&aSuccessfully canceled friend request!")));
+        player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.cancel.done", "&aSuccessfully canceled friend request!")));
     }
 
     @Override

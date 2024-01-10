@@ -33,7 +33,7 @@ public class AnimationTypeMenu extends Menu {
 
     @Override
     public String getTitle() {
-        return TranslateManager.translateColors(Main.LANG.getString("menus.options_animation_type.title","Choose an Animation Type"));
+        return TranslateManager.translateColors(Main.LANG.getString("menus.options_animation_type.title", "Choose an Animation Type"));
     }
 
     @Override
@@ -50,7 +50,7 @@ public class AnimationTypeMenu extends Menu {
                 break;
             default:
                 data.setSelectedAnimation(translateMaterial(event.getCurrentItem().getType()));
-                Main.PLAYER_DATA.update(data.getUuid(),data);
+                Main.PLAYER_DATA.update(data.getUuid(), data);
 
                 p.playSound(p, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 100, 1);
                 refresh();
@@ -67,20 +67,20 @@ public class AnimationTypeMenu extends Menu {
 
     }
 
-    private AnimationType translateMaterial(Material material){
-        if(material == Material.BARRIER) return AnimationType.NONE;
-        if(material == Material.STONE) return AnimationType.BLOCK;
-        if(material == Material.BEACON) return AnimationType.BEAM;
-        if(material == Material.BLAZE_POWDER) return AnimationType.THUNDER;
+    private AnimationType translateMaterial(Material material) {
+        if (material == Material.BARRIER) return AnimationType.NONE;
+        if (material == Material.STONE) return AnimationType.BLOCK;
+        if (material == Material.BEACON) return AnimationType.BEAM;
+        if (material == Material.BLAZE_POWDER) return AnimationType.THUNDER;
         return AnimationType.NONE;
     }
 
     @Override
     public void fill() {
-        inventory.setItem(0,createItem(Material.BARRIER,TranslateManager.translateColors(Main.LANG.getString("menus.options_animation_type.types.none","&eNone"))));
-        inventory.setItem(1,createItem(Material.STONE,TranslateManager.translateColors(Main.LANG.getString("menus.options_animation_type.types.block","&eBlock"))));
-        inventory.setItem(2,createItem(Material.BLAZE_POWDER,TranslateManager.translateColors(Main.LANG.getString("menus.options_animation_type.types.thunder","&eThunder"))));
-        inventory.setItem(3,createItem(Material.BEACON,TranslateManager.translateColors(Main.LANG.getString("menus.options_animation_type.types.beam","&eBeam"))));
+        inventory.setItem(0, createItem(Material.BARRIER, TranslateManager.translateColors(Main.LANG.getString("menus.options_animation_type.types.none", "&eNone"))));
+        inventory.setItem(1, createItem(Material.STONE, TranslateManager.translateColors(Main.LANG.getString("menus.options_animation_type.types.block", "&eBlock"))));
+        inventory.setItem(2, createItem(Material.BLAZE_POWDER, TranslateManager.translateColors(Main.LANG.getString("menus.options_animation_type.types.thunder", "&eThunder"))));
+        inventory.setItem(3, createItem(Material.BEACON, TranslateManager.translateColors(Main.LANG.getString("menus.options_animation_type.types.beam", "&eBeam"))));
 
         PlayerData data = Main.fetchPlayer(owner.getUniqueId());
         AnimationType type = data.getSelectedAnimation();
@@ -91,15 +91,15 @@ public class AnimationTypeMenu extends Menu {
 
             boolean isThis = type == translateMaterial(item.getType());
 
-            meta.setLore(Arrays.asList(" ", TranslateManager.translateColors(isThis ? Main.LANG.getString("menus.options.selected","&6You currently selected this") : Main.LANG.getString("menus.options.unselected","&aClick to select this"))));
-            if(isThis) meta.addEnchant(Enchantment.MENDING,1,true);
+            meta.setLore(Arrays.asList(" ", TranslateManager.translateColors(isThis ? Main.LANG.getString("menus.options.selected", "&6You currently selected this") : Main.LANG.getString("menus.options.unselected", "&aClick to select this"))));
+            if (isThis) meta.addEnchant(Enchantment.MENDING, 1, true);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             item.setItemMeta(meta);
         }
 
-        inventory.setItem(26,createItem(Material.PAPER,TranslateManager.translateColors(Main.LANG.getString("menus.buttons.back","&eBack"))));
+        inventory.setItem(26, createItem(Material.PAPER, TranslateManager.translateColors(Main.LANG.getString("menus.buttons.back", "&eBack"))));
 
-        fillEmptyWith(createItem(Material.BLACK_STAINED_GLASS_PANE," "));
+        fillEmptyWith(createItem(Material.BLACK_STAINED_GLASS_PANE, " "));
     }
 
     public AnimationTypeMenu(MenuData data) {

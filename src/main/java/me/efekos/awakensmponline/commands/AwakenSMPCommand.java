@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@Command(name = "awakensmp",description = "All awakensmp commands")
+@Command(name = "awakensmp", description = "All awakensmp commands")
 public class AwakenSMPCommand extends CoreCommand {
     public AwakenSMPCommand(@NotNull String name) {
         super(name);
@@ -26,7 +26,7 @@ public class AwakenSMPCommand extends CoreCommand {
 
     @Override
     public @NotNull ArrayList<Class<? extends SubCommand>> getSubs() {
-        ArrayList<Class<?extends SubCommand>> classes = new ArrayList<>();
+        ArrayList<Class<? extends SubCommand>> classes = new ArrayList<>();
         classes.add(AwakenReviveCommand.class);
         classes.add(AwakenDeadPlayersCommand.class);
         classes.add(AwakenReloadConfigCommand.class);
@@ -35,11 +35,11 @@ public class AwakenSMPCommand extends CoreCommand {
 
     @Override
     public void renderHelpList(CommandSender sender, List<SubCommand> subInstances) {
-        sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.awakensmp.help.header","&2----------&aHelp Menu&2----------")));
-        subInstances.forEach(subCommand -> sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.awakensmp.help.format","&b%syntax% &6- &e%description%")
-                .replace("%syntax%",subCommand.getUsage())
-                .replace("%description%",subCommand.getDescription())
+        sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.awakensmp.help.header", "&2----------&aHelp Menu&2----------")));
+        subInstances.forEach(subCommand -> sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.awakensmp.help.format", "&b%syntax% &6- &e%description%")
+                .replace("%syntax%", subCommand.getUsage())
+                .replace("%description%", subCommand.getDescription())
         )));
-        sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.awakensmp.help.footer","&2-----------------------------")));
+        sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.awakensmp.help.footer", "&2-----------------------------")));
     }
 }

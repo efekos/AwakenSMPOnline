@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@Command(name = "remove",description = "Remove one of your friends",permission = "awakensmp.friend.remove")
+@Command(name = "remove", description = "Remove one of your friends", permission = "awakensmp.friend.remove")
 public class FriendRemoveCommand extends SubCommand {
     public FriendRemoveCommand(@NotNull String name) {
         super(name);
@@ -40,17 +40,17 @@ public class FriendRemoveCommand extends SubCommand {
     public void onPlayerUse(Player player, String[] args) {
         PlayerData data = Main.fetchPlayer(player.getUniqueId());
         me.efekos.awakensmponline.data.Friend friend = data.getFriend(args[0]);
-        if(friend==null){
-            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.not-friend","&b%player% &cis not your friend.").replace("%player%",args[0])));
+        if (friend == null) {
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.not-friend", "&b%player% &cis not your friend.").replace("%player%", args[0])));
         }
         data.getFriends().remove(friend);
         PlayerData friendsData = Main.fetchPlayer(friend.getPlayerId());
         friendsData.getFriends().remove(friendsData.getFriend(player.getUniqueId()));
 
-        Main.PLAYER_DATA.update(data.getUuid(),data);
-        Main.PLAYER_DATA.update(friendsData.getUuid(),friendsData);
+        Main.PLAYER_DATA.update(data.getUuid(), data);
+        Main.PLAYER_DATA.update(friendsData.getUuid(), friendsData);
 
-        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.remove.done","&aSuccessfully removed &b%player% &afrom friends!").replace("%player%",friendsData.getName())));
+        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.remove.done", "&aSuccessfully removed &b%player% &afrom friends!").replace("%player%", friendsData.getName())));
     }
 
     @Override

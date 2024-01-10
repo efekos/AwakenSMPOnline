@@ -14,7 +14,7 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-@Command(name = "list",description = "See a list of your friends!",permission = "awakensmp.friend.list")
+@Command(name = "list", description = "See a list of your friends!", permission = "awakensmp.friend.list")
 public class FriendListCommand extends SubCommand {
     @Override
     public Class<? extends CoreCommand> getParent() {
@@ -28,19 +28,19 @@ public class FriendListCommand extends SubCommand {
 
     @Override
     public void onPlayerUse(Player player, String[] args) {
-        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.list.header","&4--------&cYour Friends&4--------")));
+        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.list.header", "&4--------&cYour Friends&4--------")));
 
         PlayerData data = Main.fetchPlayer(player.getUniqueId());
         data.getFriends().forEach(friend -> {
             PlayerData friendData = Main.fetchPlayer(friend.getPlayerId());
 
-            player.spigot().sendMessage(new TextComponent(TranslateManager.translateColors(Main.LANG.getString("commands.friend.list.format","- &e%name%")
-                    .replace("%name%",friendData.getName())
-            )),new TextComponent(" "), ButtonManager.generateModifyButton(friendData.getName()),new TextComponent(" "),ButtonManager.generateInventoryButton(friendData.getName()),new TextComponent(" "),ButtonManager.generateArmorButton(friendData.getName()),new TextComponent(" "),ButtonManager.generateRemoveButton(friendData.getName()));
+            player.spigot().sendMessage(new TextComponent(TranslateManager.translateColors(Main.LANG.getString("commands.friend.list.format", "- &e%name%")
+                    .replace("%name%", friendData.getName())
+            )), new TextComponent(" "), ButtonManager.generateModifyButton(friendData.getName()), new TextComponent(" "), ButtonManager.generateInventoryButton(friendData.getName()), new TextComponent(" "), ButtonManager.generateArmorButton(friendData.getName()), new TextComponent(" "), ButtonManager.generateRemoveButton(friendData.getName()));
 
         });
 
-        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.list.footer","&4---------------------------")));
+        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.list.footer", "&4---------------------------")));
     }
 
     @Override

@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@Command(name = "deadplayers",description = "A list of dead players.",permission = "awakensmp.deadplayers")
+@Command(name = "deadplayers", description = "A list of dead players.", permission = "awakensmp.deadplayers")
 public class AwakenDeadPlayersCommand extends SubCommand {
     public AwakenDeadPlayersCommand(@NotNull String name) {
         super(name);
@@ -40,40 +40,41 @@ public class AwakenDeadPlayersCommand extends SubCommand {
     public void onPlayerUse(Player player, String[] args) {
         List<PlayerData> all = Main.PLAYER_DATA.getAll();
         List<String> names = new ArrayList<>();
-        for(PlayerData data:all){
-            if(!data.isAlive()){
+        for (PlayerData data : all) {
+            if (!data.isAlive()) {
                 names.add(data.getName());
             }
         }
 
         YamlConfig lang = Main.LANG;
 
-        player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.header","&4-----&cDead &fPlayers&4-----")));
-        if(names.isEmpty()){
-            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.no-one","- &a%player%")));
-        } else names.forEach(name-> player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.format","No one died, yet...")
-                .replace("%player%",name)
-        )));
+        player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.header", "&4-----&cDead &fPlayers&4-----")));
+        if (names.isEmpty()) {
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.no-one", "- &a%player%")));
+        } else
+            names.forEach(name -> player.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.format", "No one died, yet...")
+                    .replace("%player%", name)
+            )));
     }
 
     @Override
     public void onConsoleUse(ConsoleCommandSender sender, String[] args) {
         List<PlayerData> all = Main.PLAYER_DATA.getAll();
         List<String> names = new ArrayList<>();
-        for(PlayerData data:all){
-            if(!data.isAlive()){
+        for (PlayerData data : all) {
+            if (!data.isAlive()) {
                 names.add(data.getName());
             }
         }
 
         YamlConfig lang = Main.LANG;
 
-        sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.header","&4-----&cDead &fPlayers&4-----")));
-        if(names.isEmpty()){
-            sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.no-one","- &a%player%")));
+        sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.header", "&4-----&cDead &fPlayers&4-----")));
+        if (names.isEmpty()) {
+            sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.no-one", "- &a%player%")));
         } else
-            names.forEach(name-> sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.format","No one died, yet...")
-                    .replace("%player%",name)
+            names.forEach(name -> sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.deadplayers.format", "No one died, yet...")
+                    .replace("%player%", name)
             )));
     }
 }

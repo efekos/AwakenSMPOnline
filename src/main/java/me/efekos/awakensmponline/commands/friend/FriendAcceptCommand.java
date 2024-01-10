@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.UUID;
 
-@Command(name = "accept",description = "Accept a friend request!",permission = "awakensmp.friend.accept")
+@Command(name = "accept", description = "Accept a friend request!", permission = "awakensmp.friend.accept")
 public class FriendAcceptCommand extends SubCommand {
     @Override
     public Class<? extends CoreCommand> getParent() {
@@ -37,41 +37,41 @@ public class FriendAcceptCommand extends SubCommand {
         YamlConfig lang = Main.LANG;
         try {
             UUID.fromString(args[0]);
-        } catch (IllegalArgumentException e){
-            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.accept.not-uuid","&b%uuid% &cis not a valid UUID.").replace("%uuid%",args[0])));
+        } catch (IllegalArgumentException e) {
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.accept.not-uuid", "&b%uuid% &cis not a valid UUID.").replace("%uuid%", args[0])));
             return;
         }
         Request req = Main.REQUEST_DATA.get(UUID.fromString(args[0]));
-        if(req==null){
-            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.accept.not-req","&cThere is no request with id &b%uuid%&c.").replace("%uuid%",args[0])));
+        if (req == null) {
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.accept.not-req", "&cThere is no request with id &b%uuid%&c.").replace("%uuid%", args[0])));
             return;
         }
-        if(!req.getGetter().equals(player.getUniqueId())){
-            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.accept.not-urs","&cThis request was not sent to you.")));
+        if (!req.getGetter().equals(player.getUniqueId())) {
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.accept.not-urs", "&cThis request was not sent to you.")));
             return;
         }
-        if(!req.getType().equals(RequestType.FRIEND)){
-            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.accept.not-friend","&cThis is not a friend request.")));
+        if (!req.getType().equals(RequestType.FRIEND)) {
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.accept.not-friend", "&cThis is not a friend request.")));
             return;
         }
         // there is a friend request sent to us.
         OfflinePlayer offlineNewFriend = Bukkit.getOfflinePlayer(req.getSender());
 
-        Main.makeFriends(player.getUniqueId(),offlineNewFriend.getUniqueId());
+        Main.makeFriends(player.getUniqueId(), offlineNewFriend.getUniqueId());
         Main.REQUEST_DATA.delete(req.getId());
 
-        player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.accept.done","&aSuccessfully accepted &b%player%&a''s friend request!").replace("%player%",offlineNewFriend.getName())));
+        player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.accept.done", "&aSuccessfully accepted &b%player%&a''s friend request!").replace("%player%", offlineNewFriend.getName())));
 
-        if(offlineNewFriend.isOnline()){
-            offlineNewFriend.getPlayer().sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.accept.hey","&b%player% &aaccepted your friend request!").replace("%player%",player.getName())));
+        if (offlineNewFriend.isOnline()) {
+            offlineNewFriend.getPlayer().sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.accept.hey", "&b%player% &aaccepted your friend request!").replace("%player%", player.getName())));
         } else {
             WaitingNotification notification = new WaitingNotification(NotificationType.FRIEND_ACCEPTED);
-            notification.set("player",player.getUniqueId());
+            notification.set("player", player.getUniqueId());
 
             PlayerData newFriendData = Main.fetchPlayer(offlineNewFriend.getUniqueId());
             newFriendData.addNotification(notification);
 
-            Main.PLAYER_DATA.update(newFriendData.getUuid(),newFriendData);
+            Main.PLAYER_DATA.update(newFriendData.getUuid(), newFriendData);
         }
     }
 

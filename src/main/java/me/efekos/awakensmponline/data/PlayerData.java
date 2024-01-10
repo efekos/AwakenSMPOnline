@@ -19,13 +19,13 @@ public class PlayerData implements Storable {
     private ArrayList<WaitingNotification> notifications;
     private UUID currentTeam;
 
-    public PlayerData(UUID id,String name, boolean alive, boolean revived, ParticleOptions particleOptions) {
+    public PlayerData(UUID id, String name, boolean alive, boolean revived, ParticleOptions particleOptions) {
         this.uuid = id;
         this.name = name;
         this.alive = alive;
         this.revived = revived;
         this.particleOptions = particleOptions;
-        this.defaultFriendModifications = new FriendModifications(true,true,false,false,true,true,true,true,false);
+        this.defaultFriendModifications = new FriendModifications(true, true, false, false, true, true, true, true, false);
         this.friends = new ArrayList<>();
         this.particlesBought = new ArrayList<>();
         this.animationsBought = new ArrayList<>();
@@ -63,7 +63,7 @@ public class PlayerData implements Storable {
         this.notifications = notifications;
     }
 
-    public void addNotification(WaitingNotification notification){
+    public void addNotification(WaitingNotification notification) {
         this.notifications.add(notification);
     }
 
@@ -75,7 +75,7 @@ public class PlayerData implements Storable {
         this.animationsBought = animationsBought;
     }
 
-    public void addBoughtAnimation(AnimationType type){
+    public void addBoughtAnimation(AnimationType type) {
         this.animationsBought.add(type);
     }
 
@@ -87,7 +87,7 @@ public class PlayerData implements Storable {
         this.particlesBought = particlesBought;
     }
 
-    public void addBoughtParticle(ParticleType type){
+    public void addBoughtParticle(ParticleType type) {
         this.particlesBought.add(type);
     }
 
@@ -95,26 +95,26 @@ public class PlayerData implements Storable {
         return friends;
     }
 
-    public void updateFriend(UUID friendUuid,Friend newFriend){
-        for(Friend friend:getFriends()){
-            if(friend.getPlayerId().equals(friendUuid)){
+    public void updateFriend(UUID friendUuid, Friend newFriend) {
+        for (Friend friend : getFriends()) {
+            if (friend.getPlayerId().equals(friendUuid)) {
                 friend.setModifications(newFriend.getModifications());
                 friend.setLastName(newFriend.getLastName());
             }
         }
     }
 
-    public boolean friendsWith(UUID uuid){
-        return getFriend(uuid)!=null;
+    public boolean friendsWith(UUID uuid) {
+        return getFriend(uuid) != null;
     }
 
-    public boolean friendsWith(String name){
-        return getFriend(name)!=null;
+    public boolean friendsWith(String name) {
+        return getFriend(name) != null;
     }
 
-    public Friend getFriend(String name){
-        for (Friend friend:getFriends()){
-            if(friend.getLastName().equals(name)) return friend;
+    public Friend getFriend(String name) {
+        for (Friend friend : getFriends()) {
+            if (friend.getLastName().equals(name)) return friend;
         }
         return null;
     }
@@ -123,7 +123,7 @@ public class PlayerData implements Storable {
         this.friends = friends;
     }
 
-    public void addFriend(Friend friend){
+    public void addFriend(Friend friend) {
         this.friends.add(friend);
     }
 
@@ -135,9 +135,9 @@ public class PlayerData implements Storable {
         this.defaultFriendModifications = defaultFriendModifications;
     }
 
-    public Friend getFriend(UUID uuid){
-        for (Friend friend:getFriends()){
-            if(friend.getPlayerId().equals(uuid)) return friend;
+    public Friend getFriend(UUID uuid) {
+        for (Friend friend : getFriends()) {
+            if (friend.getPlayerId().equals(uuid)) return friend;
         }
         return null;
     }

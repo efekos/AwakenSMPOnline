@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Date;
 import java.util.List;
 
-@Command(name = "compass",description = "Get a compass leads to your friends",permission = "awakensmp.friend.compass")
+@Command(name = "compass", description = "Get a compass leads to your friends", permission = "awakensmp.friend.compass")
 public class FriendCompassCommand extends SubCommand {
     public FriendCompassCommand(@NotNull String name) {
         super(name);
@@ -45,27 +45,27 @@ public class FriendCompassCommand extends SubCommand {
     public void onPlayerUse(Player player, String[] args) {
         PlayerData data = Main.fetchPlayer(player.getUniqueId());
         YamlConfig lang = Main.LANG;
-        if(!data.friendsWith(args[0])){
-            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.not-friend","&b%player% &cis not your friend.").replace("%player%",args[0])));
+        if (!data.friendsWith(args[0])) {
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.not-friend", "&b%player% &cis not your friend.").replace("%player%", args[0])));
             return;
         }
         me.efekos.awakensmponline.data.Friend friendData = data.getFriend(args[0]);
-        if(!friendData.getModifications().isCompassAllowed()){
-            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.not-allowed","&b%player% &cdid not allow you to do that.").replace("%player%", friendData.getLastName())));
+        if (!friendData.getModifications().isCompassAllowed()) {
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.not-allowed", "&b%player% &cdid not allow you to do that.").replace("%player%", friendData.getLastName())));
             return;
         }
         OfflinePlayer offlineFriend = Bukkit.getOfflinePlayer(friendData.getPlayerId());
-        if(!offlineFriend.isOnline()){
-            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.not-online","&b%player% &cis not online.").replace("%player%", offlineFriend.getName())));
+        if (!offlineFriend.isOnline()) {
+            player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.not-online", "&b%player% &cis not online.").replace("%player%", offlineFriend.getName())));
             return;
         }
         Player friend = offlineFriend.getPlayer();
 
         Date date = new Date();
-        date.setTime(date.getTime()+(1000*60*60));
+        date.setTime(date.getTime() + (1000 * 60 * 60));
 
-        ItemManager.giveItem(player,new TrackingCompass(friend,player,date));
-        player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.compass.done","&aSuccessfully gave you a compass to track &b%player%a!").replace("%player%",friend.getName())));
+        ItemManager.giveItem(player, new TrackingCompass(friend, player, date));
+        player.sendMessage(TranslateManager.translateColors(lang.getString("commands.friend.compass.done", "&aSuccessfully gave you a compass to track &b%player%a!").replace("%player%", friend.getName())));
     }
 
     @Override

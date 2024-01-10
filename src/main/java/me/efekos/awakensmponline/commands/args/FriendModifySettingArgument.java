@@ -14,7 +14,7 @@ public class FriendModifySettingArgument extends Argument {
         return "setting";
     }
 
-    private static final List<String> avaliable = Arrays.asList("worldAllowed","locationAllowed","compassAllowed","inventoryAllowed","armorAllowed","healthAllowed","expAllowed","foodAllowed","teleportAllowed");
+    private static final List<String> avaliable = Arrays.asList("worldAllowed", "locationAllowed", "compassAllowed", "inventoryAllowed", "armorAllowed", "healthAllowed", "expAllowed", "foodAllowed", "teleportAllowed");
 
     @Override
     public List<String> getList(Player player, String current) {
@@ -28,7 +28,7 @@ public class FriendModifySettingArgument extends Argument {
 
     @Override
     public ArgumentHandleResult handleCorrection(String given) {
-        if(avaliable.contains(given)) return ArgumentHandleResult.fail(given + " is not a modify option");
+        if (avaliable.contains(given)) return ArgumentHandleResult.fail(given + " is not a modify option");
         return ArgumentHandleResult.success();
     }
 }
