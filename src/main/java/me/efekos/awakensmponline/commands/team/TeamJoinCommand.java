@@ -66,6 +66,8 @@ public class TeamJoinCommand extends SubCommand {
         Main.PLAYER_DATA.update(data.getUuid(),data);
         req.setDone(true);
         TeamData team = Main.TEAM_DATA.get(req.getSender());
+        Main.REQUEST_DATA.delete(req.getId());
+
 
         team.getMembers().forEach(uuid -> {
             OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);

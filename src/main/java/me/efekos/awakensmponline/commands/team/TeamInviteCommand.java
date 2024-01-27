@@ -22,7 +22,6 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.UUID;
 
 @Command(name = "invite",description = "Invite someone to your team!",permission = "awakensmp.team.invite")
 public class TeamInviteCommand extends SubCommand {
@@ -47,7 +46,7 @@ public class TeamInviteCommand extends SubCommand {
 
     @Override
     public void onPlayerUse(Player player, String[] args) {
-        PlayerData ptiData = Main.fetchPlayer(UUID.fromString(args[0]));
+        PlayerData ptiData = Main.getPlayerFromName(args[0]);
         if(ptiData==null){
             player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.invite.not-player","&cThere is no one called &b%player%&c.").replace("%player%",args[0])));
             return;
@@ -60,7 +59,7 @@ public class TeamInviteCommand extends SubCommand {
         if(!offlinePti.isOnline()){
             player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.invite.not-online","&b%player% &cis not online.").replace("%player%",offlinePti.getName())));
         }
-        // there is a player online rn and we wanna send team req to him.
+        // there is a player online rn, and we want to send team req to him.
         Player pti = offlinePti.getPlayer();
 
         PlayerData data = Main.fetchPlayer(player.getUniqueId());
@@ -72,6 +71,9 @@ public class TeamInviteCommand extends SubCommand {
         if(!team.getOwner().equals(player.getUniqueId())){
             player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.invite.not-owner","&cYou are not the owner of this team. Only team owners can invite people to their team.")));
             return;
+        }
+        if (Main.REQUEST_DATA.getAll().stream().anyMatch(request -> request.getGetter().equals(pti.getUniqueId()))) {
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.invite.already-sent","&cYou already sent a team invite to &b%player%&c.").replaceAll("%player%",pti.getName())));
         }
 
         Request req = new Request(RequestType.TEAMMATE,team.getId(),pti.getUniqueId());

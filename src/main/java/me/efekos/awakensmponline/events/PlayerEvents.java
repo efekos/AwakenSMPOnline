@@ -20,6 +20,7 @@ import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionEffect;
@@ -66,7 +67,7 @@ public class PlayerEvents implements Listener {
     @EventHandler
     public void onPlayerMove(@NotNull PlayerMoveEvent e) {
         Player p = e.getPlayer();
-        PlayerData playerData = Main.PLAYER_DATA.get(p.getUniqueId());
+        PlayerData playerData = Main.fetchPlayer(p.getUniqueId());
 
         if (playerData.isAlive()) return;
 
@@ -76,6 +77,15 @@ public class PlayerEvents implements Listener {
 
         if (Main.GAME.getBoolean("when-dead.blind", true))
             p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 999999, 255, false, false, false));
+    }
+
+    @EventHandler
+    public void onPlayerTeleport(PlayerTeleportEvent e){
+        Player player = e.getPlayer();
+        if(!e.getCause().equals(PlayerTeleportEvent.TeleportCause.SPECTATE))return;
+        PlayerData playerData = Main.fetchPlayer(player.getUniqueId());
+
+        if(!playerData.isAlive())e.setCancelled(true);
     }
 
     // making revive heads work

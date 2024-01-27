@@ -16,7 +16,7 @@ revive-particles: true
 # If enabled, players will play fancy animations when getting revived, they can also choose between a few animations with /options
 revive-animations: true
 
-# If enabled, dead players will be able to get revived, even while they are offline.
+# If enabled, dead players will be able to get revived while they are offline.
 # You can't revive someone offline yet. so don't mess with this.
 offline-revives: false
 
@@ -26,19 +26,19 @@ features:
   # Enables /friend command.
   friend: true
 
-  # Enabled /team command.
+  # Enables /team command.
   team: true
 
 # Announcement options
 announcements:
 
-  # If enabled, everyone will get announcements when someone gets revived.
+  # If enabled, everyone will get an announcement when someone is revived.
   revives: false
 
-  # If enabled, everyone will get announcements when someone crafts a revive head.
+  # If enabled, everyone will get an announcement when someone crafts a revive head.
   crafts: false
 
-  # If enabled, everyone will get announcements when someone gets killed and drops his head, even while showDeathMessages are off.
+  # If enabled, everyone will get an announcement when someone gets killed and drops his head, even if showDeathMessages are off.
   kills: false
 
 # Customize Revive Head's recipe
@@ -47,7 +47,7 @@ recipe:
   # If enabled, everything will be ignored and default recipe will be used.
   use-default: true
 
-  # Recipe's shape. Every letter is a symbol of a material. Customize these symbols and their materials in 'materials' to use them in this shape.
+  # Shape of the recipe. Every letter is a symbol of a material. Customize these symbols and their materials in 'materials' to use them in this shape.
   shape:
     - 'DND'
     - 'TWT'

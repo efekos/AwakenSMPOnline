@@ -216,19 +216,22 @@ commands:
     # /team invite messages.
     invite:
 
-      # If given player does not exist.
+      # If %player% doesn't exist.
       not-player: '&cThere is no one called &b%player%&c.'
 
-      # If given player is not online
+      # If %player% is not online
       not-online: '&b%player% &cis not online.'
 
-      # If player tried to use this command is not the owner of the team he is in.
+      # If player who tried to use this command is not the owner of the team he is in.
       not-owner: '&cYou are not the owner of this team. Only team owners can invite people to their team.'
 
-      # When a team invited you to join.
+      # When %team% invites you to join.
       hey: '&eTeam called &b%team% &esent you an invite to join their team!'
 
-      # When player successfully sends an invitation to someone.
+      # When there is a request sent to %player%, but team tries to send it again.
+      invite-already-sent: '&cYou already sent a team invite to %player%'
+
+      # When the team owner successfully sends an invitation to %player%.
       done: '&aSuccessfully sent an invite to &b%player%&a!'
 
     # /team join messages.
@@ -555,36 +558,48 @@ buttons:
 
   # 'Toggle' button. Used at /friend modify to toggle boolean values.
   toggle: '&6[&eToggle&6]'
+  toggle-desc: '&eClick to toggle this option.'
 
   # 'Accept' button. Used to accept friend/team requests.
   accept: '&2[&aAccept&2]'
+  accept-desc-friend: '&aClick to accept this friend request.'
+  accept-desc-team: '&aClick to accept this team invite.'
 
-  # 'Deny' button. Used to deny friend/team requests.
+  # 'Deny' button. Used to deny friend requests.
   deny: '&4[&cDeny&4]'
+  deny-desc: '&cClick to deny this friend request.'
 
   # 'Cancel' button. Used to cancel friend/team requests.
   cancel: '&6[&eCancel&6]'
+  cancel-desc: '&eClick to cancel this request.'
 
   # 'Modify' button. Used for an alias to /friend modify <player>
   modify: '&9[&bModify&9]'
+  modify-desc: '&bClick to modify this friend.'
 
   # 'Remove' button. Used to remove friends
   remove: '&4[&cRemove&4]'
+  remove-desc: '&cClick to remove this friend.'
 
   # 'Inventory' button. Used for an alias to /friend inventory
   inventory: '&6[&eInventory&6]'
+  inventory-desc: '&eClick to see inventory of this friend.'
 
   # 'Armor' button. Used for an alias to /friend armor
   armor: '&6[&eArmor&6]'
+  armor-desc: '&eClick to see armor of this friend'
 
   # 'Back' button. Used to go back to another menu using its corresponding command.
   back: '&6[&eBack&6]'
+  back-desc: '&eClick to go back'
 
   # 'Join' button. Used for an alias to /team join
   join: '&2[&aJoin&2]'
+  join-desc: '&aClick to join this team.'
 
-  # 'Reject' button. Used to reject friend/team requests.
+  # 'Reject' button. Used to reject team requests.
   reject: '&4[&cReject&4]'
+  reject-desc: '&cClick to reject this team invite'
 
 # Notification messages.
 notifications:

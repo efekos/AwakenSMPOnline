@@ -6,7 +6,7 @@ authors: [ efekos ]
 description: AwakenSMP System with advanced features
 website: https://www.spigotmc.org/resources/awakensmp-online.102573/
 author: efekos
-depend:
+softdepend:
   - PlaceholderAPI
 permissions:
   awakensmp.deadplayers:
@@ -26,28 +26,40 @@ permissions:
       - awakensmp.revive
   awakensmp.friend.accept:
     description: Allows you to use /friend accept
+    default: true
   awakensmp.friend.add:
     description: Allows you to use /friend add
+    default: true
   awakensmp.friend.armor:
     description: Allows you to use /friend armor
+    default: true
   awakensmp.friend.cancel:
     description: Allows you to use /friend cancel
+    default: true
   awakensmp.friend.compass:
     description: Allows you to use /friend compass
+    default: true
   awakensmp.friend.deny:
     description: Allows you to use /friend deny
+    default: true
   awakensmp.friend.info:
     description: Allows you to use /friend info
+    default: true
   awakensmp.friend.inventory:
     description: Allows you to use /friend inventory
+    default: true
   awakensmp.friend.list:
     description: Allows you to use /friend list
+    default: true
   awakensmp.friend.modify:
     description: Allows you to use /friend modify
+    default: true
   awakensmp.friend.remove:
     description: Allows you to use /friend remove
+    default: true
   awakensmp.friend.teleport:
     description: Allows you to use /friend teleport
+    default: true
   awakensmp.friend.*:
     description: Allows you to use every command under /friend
     default: true
@@ -66,22 +78,31 @@ permissions:
       - awakensmp.friend.teleport
   awakensmp.team.chat:
     description: Allows you to use /team chat
+    default: true
   awakensmp.team.create:
     description: Allows you to use /team create
+    default: true
   awakensmp.team.delete:
     description: Allows you to use /team delete
+    default: true
   awakensmp.team.join:
     description: Allows you to use /team join
+    default: true
   awakensmp.team.leave:
     description: Allows you to use /team leave
+    default: true
   awakensmp.team.members:
     description: Allows you to use /team members
+    default: true
   awakensmp.team.my:
     description: Allows you to use /team my
+    default: true
   awakensmp.team.reject:
     description: Allows you to use /team reject
+    default: true
   awakensmp.team.togglechat:
     description: Allows you to use /team togglechat
+    default: true
   awakensmp.team.*:
     default: true
     description: Allows you to use every command under /team

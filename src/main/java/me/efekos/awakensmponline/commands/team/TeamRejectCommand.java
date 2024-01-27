@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.UUID;
 
-@Command(name = "reject", description = "Reject a team that sent a friend request to you!", permission = "awakensmp.team.reject")
+@Command(name = "reject", description = "Reject a team that sent a friend request to you!", permission = "awakensmp.team.reject",playerOnly = true)
 public class TeamRejectCommand extends SubCommand {
     public TeamRejectCommand(@NotNull String name) {
         super(name);
@@ -59,20 +59,12 @@ public class TeamRejectCommand extends SubCommand {
             player.sendMessage(TranslateManager.translateColors(
                     Main.LANG.getString("commands.team.reject.not-got", "&cThis request was not sent to you.")));
         }
-        // we have a team req and wanna accept it.
+        // we have a team req and wanna reject it.
 
-        PlayerData data = Main.fetchPlayer(player.getUniqueId());
-
-        if (data.getCurrentTeam() != null) {
-            player.sendMessage(TranslateManager.translateColors(
-                    Main.LANG.getString("commands.team.already-in-team", "&cYou are in a team already.")));
-            return;
-        }
-
-        data.setCurrentTeam(req.getSender());
-        Main.PLAYER_DATA.update(data.getUuid(), data);
         req.setDone(true);
         TeamData team = Main.TEAM_DATA.get(req.getSender());
+        Main.REQUEST_DATA.delete(req.getId());
+
 
         player.sendMessage(TranslateManager.translateColors(Main.LANG
                 .getString("commands.team.reject.done", "&aSuccessfully rejected the team invite came from &b%team%&a!")

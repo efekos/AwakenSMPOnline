@@ -42,6 +42,7 @@ public class FriendRemoveCommand extends SubCommand {
         me.efekos.awakensmponline.data.Friend friend = data.getFriend(args[0]);
         if (friend == null) {
             player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.friend.not-friend", "&b%player% &cis not your friend.").replace("%player%", args[0])));
+            return;
         }
         data.getFriends().remove(friend);
         PlayerData friendsData = Main.fetchPlayer(friend.getPlayerId());
