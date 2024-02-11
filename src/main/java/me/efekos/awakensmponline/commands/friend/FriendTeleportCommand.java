@@ -5,7 +5,7 @@ import me.efekos.awakensmponline.commands.AwakenSMPCommand;
 import me.efekos.awakensmponline.commands.args.FriendArgument;
 import me.efekos.awakensmponline.data.Friend;
 import me.efekos.awakensmponline.data.PlayerData;
-import me.efekos.simpler.annotations.Command;
+import me.efekos.simpler.commands.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
 import me.efekos.simpler.commands.syntax.Syntax;

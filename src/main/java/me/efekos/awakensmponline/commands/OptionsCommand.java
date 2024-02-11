@@ -1,7 +1,7 @@
 package me.efekos.awakensmponline.commands;
 
 import me.efekos.awakensmponline.menu.OptionsMenu;
-import me.efekos.simpler.annotations.Command;
+import me.efekos.simpler.commands.Command;
 import me.efekos.simpler.commands.BaseCommand;
 import me.efekos.simpler.commands.syntax.Syntax;
 import me.efekos.simpler.menu.MenuManager;

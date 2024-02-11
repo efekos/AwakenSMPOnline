@@ -4,7 +4,7 @@ import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.awakensmp.AwakenDeadPlayersCommand;
 import me.efekos.awakensmponline.commands.awakensmp.AwakenReloadConfigCommand;
 import me.efekos.awakensmponline.commands.awakensmp.AwakenReviveCommand;
-import me.efekos.simpler.annotations.Command;
+import me.efekos.simpler.commands.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
 import me.efekos.simpler.translation.TranslateManager;

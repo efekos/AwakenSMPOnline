@@ -3,7 +3,7 @@ package me.efekos.awakensmponline.commands.awakensmp;
 import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.args.AlivePlayerArgument;
 import me.efekos.awakensmponline.data.PlayerData;
-import me.efekos.simpler.annotations.Command;
+import me.efekos.simpler.commands.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
 import me.efekos.simpler.commands.syntax.Syntax;

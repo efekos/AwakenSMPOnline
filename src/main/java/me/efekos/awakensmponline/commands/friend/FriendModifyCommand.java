@@ -5,7 +5,7 @@ import me.efekos.awakensmponline.commands.FriendCommand;
 import me.efekos.awakensmponline.data.FriendModifications;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.utils.ButtonManager;
-import me.efekos.simpler.annotations.Command;
+import me.efekos.simpler.commands.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
 import me.efekos.simpler.commands.syntax.ArgumentPriority;

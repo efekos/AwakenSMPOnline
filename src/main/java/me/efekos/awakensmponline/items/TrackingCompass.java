@@ -2,8 +2,6 @@ package me.efekos.awakensmponline.items;
 
 import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.utils.DateUtils;
-import me.efekos.simpler.annotations.Listen;
-import me.efekos.simpler.annotations.RightClick;
 import me.efekos.simpler.items.CustomItem;
 import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.Material;

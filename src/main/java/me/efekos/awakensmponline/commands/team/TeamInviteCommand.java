@@ -7,7 +7,7 @@ import me.efekos.awakensmponline.data.Request;
 import me.efekos.awakensmponline.data.RequestType;
 import me.efekos.awakensmponline.data.TeamData;
 import me.efekos.awakensmponline.utils.ButtonManager;
-import me.efekos.simpler.annotations.Command;
+import me.efekos.simpler.commands.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
 import me.efekos.simpler.commands.syntax.ArgumentPriority;
