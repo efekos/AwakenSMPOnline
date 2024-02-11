@@ -96,7 +96,7 @@
         <dependency>
             <groupId>com.github.efekos</groupId>
             <artifactId>Simpler</artifactId>
-            <version>1.6.3</version>
+            <version>1.7</version>
         </dependency>
         <dependency>
             <groupId>me.clip</groupId>
