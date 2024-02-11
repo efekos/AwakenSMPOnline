@@ -7,6 +7,7 @@ import me.efekos.awakensmponline.commands.TeamCommand;
 import me.efekos.awakensmponline.data.*;
 import me.efekos.awakensmponline.events.PlayerEvents;
 import me.efekos.awakensmponline.exceptions.InvalidRecipeException;
+import me.efekos.awakensmponline.items.TrackingCompass;
 import me.efekos.awakensmponline.placeholders.Awaken;
 import me.efekos.awakensmponline.utils.Logger;
 import me.efekos.awakensmponline.utils.RecipeManager;
@@ -18,6 +19,7 @@ import me.efekos.simpler.config.YamlConfig;
 import me.efekos.simpler.items.ItemManager;
 import me.efekos.simpler.menu.MenuManager;
 import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -104,6 +106,9 @@ public final class Main extends JavaPlugin {
 
             getServer().getPluginManager().registerEvents(new PlayerEvents(), this);
             MenuManager.setPlugin(this); // setup menu manager
+
+            ItemManager.registerItem(new NamespacedKey(this,"tracking_compass"), TrackingCompass.class);
+            ItemManager.loadCustomItems();
             ItemManager.setPlugin(this);
 
             //placeholder
@@ -113,7 +118,6 @@ public final class Main extends JavaPlugin {
 
 
             //updates
-
             Logger.info("Checking For Updates...");
             boolean upToDate = Utilities.checkUpdates(this, 102573);
             if (upToDate) Logger.info("There are no updates avaliable.");
@@ -135,6 +139,7 @@ public final class Main extends JavaPlugin {
         PLAYER_DATA.save();
         TEAM_DATA.save();
         REQUEST_DATA.save();
+        ItemManager.saveCustomItems();
     }
 
     public static PlayerData fetchPlayer(UUID id) {
