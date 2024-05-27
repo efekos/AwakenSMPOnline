@@ -4,7 +4,6 @@ import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.TeamCommand;
 import me.efekos.awakensmponline.data.PlayerData;
 import me.efekos.awakensmponline.data.TeamData;
-
 import me.efekos.simpler.commands.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
@@ -19,8 +18,6 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-
-;
 
 @Command(name = "chat", description = "Use your team's chat!", permission = "awakensmp.team.chat")
 public class TeamChatCommand extends SubCommand {

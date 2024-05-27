@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@Command(name = "my",description = "See the current team you are in!",permission = "awakensmp.team.my")
+@Command(name = "my", description = "See the current team you are in!", permission = "awakensmp.team.my")
 public class TeamMyCommand extends SubCommand {
     public TeamMyCommand(@NotNull String name) {
         super(name);
@@ -39,20 +39,21 @@ public class TeamMyCommand extends SubCommand {
     @Override
     public void onPlayerUse(Player player, String[] args) {
         PlayerData data = Main.fetchPlayer(player.getUniqueId());
-        if(data.getCurrentTeam()==null){
-            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.not-in-team","&cYou are not in a team.")));
+        if (data.getCurrentTeam() == null) {
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.not-in-team", "&cYou are not in a team.")));
             return;
         }
         TeamData team = Main.TEAM_DATA.get(data.getCurrentTeam());
 
-        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.my.header","&5----------&dTeam Information&5----------")));
+        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.my.header", "&5----------&dTeam Information&5----------")));
 
-        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.my.name","&dName: &b%name%").replace("%name%",team.getDisplayName())));
-        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.my.owner","&dOwner: &b%owner%").replace("%owner%", Bukkit.getOfflinePlayer(team.getOwner()).getName())));
-        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.my.members.header","&dMembers:")));
+        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.my.name", "&dName: &b%name%").replace("%name%", team.getDisplayName())));
+        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.my.owner", "&dOwner: &b%owner%").replace("%owner%", Bukkit.getOfflinePlayer(team.getOwner()).getName())));
+        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.my.members.header", "&dMembers:")));
 
         team.getMembers().forEach(uuid -> {
-            if(!uuid.equals(team.getOwner())) player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.my.members.format","&5- &d%player%").replace("%player%",Bukkit.getOfflinePlayer(uuid).getName())));
+            if (!uuid.equals(team.getOwner()))
+                player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.my.members.format", "&5- &d%player%").replace("%player%", Bukkit.getOfflinePlayer(uuid).getName())));
         });
     }
 

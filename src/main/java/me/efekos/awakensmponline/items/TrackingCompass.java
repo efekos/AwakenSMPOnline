@@ -22,7 +22,7 @@ public class TrackingCompass extends CustomItem {
     private String whoToTrack;
     @SaveField("belong")
     private String whoBelongs;
-    @SaveField(value = "expire",fieldType = FieldType.LONG)
+    @SaveField(value = "expire", fieldType = FieldType.LONG)
     private long expiresAt;
 
     public Player getWhoToTrack() {
@@ -65,7 +65,8 @@ public class TrackingCompass extends CustomItem {
     };
 
     public TrackingCompass() {
-        super(new NamespacedKey(Main.getInstance(),"tracking_compass"),stack -> {});
+        super(new NamespacedKey(Main.getInstance(), "tracking_compass"), stack -> {
+        });
     }
 
     public TrackingCompass(Player whoToTrack, Player whoBelongs, Date expiresAt) {

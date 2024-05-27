@@ -1,6 +1,6 @@
 package me.efekos.awakensmponline.exceptions;
 
-public class InvalidRecipeException extends Exception{
+public class InvalidRecipeException extends Exception {
     public InvalidRecipeException() {
     }
 

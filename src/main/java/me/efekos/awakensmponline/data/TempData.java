@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class TempData {
-    private static HashMap<UUID, HashMap<String, Object>> data = new HashMap<>();
+    private static final HashMap<UUID, HashMap<String, Object>> data = new HashMap<>();
 
     public static void set(UUID uuid, String key, Object value) {
         data.computeIfAbsent(uuid, k -> new HashMap<>());

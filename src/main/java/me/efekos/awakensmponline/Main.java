@@ -107,9 +107,9 @@ public final class Main extends JavaPlugin {
             getServer().getPluginManager().registerEvents(new PlayerEvents(), this);
             MenuManager.setPlugin(this); // setup menu manager
 
-            ItemManager.registerItem(new NamespacedKey(this,"tracking_compass"), TrackingCompass.class);
-            ItemManager.loadCustomItems();
+            ItemManager.registerItem(new NamespacedKey(this, "tracking_compass"), TrackingCompass.class);
             ItemManager.setPlugin(this);
+            ItemManager.loadCustomItems();
 
             //placeholder
             if (getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {

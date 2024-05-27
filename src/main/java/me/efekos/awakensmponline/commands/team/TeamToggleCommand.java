@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@Command(name = "togglechat",description = "Switch to team chat channel!",permission = "awakensmp.team.togglechat")
+@Command(name = "togglechat", description = "Switch to team chat channel!", permission = "awakensmp.team.togglechat")
 public class TeamToggleCommand extends SubCommand {
 
     public TeamToggleCommand(@NotNull String name) {
@@ -37,14 +37,14 @@ public class TeamToggleCommand extends SubCommand {
 
     @Override
     public void onPlayerUse(Player player, String[] args) {
-        if(TempData.get(player,"teamchat")==null) TempData.set(player,"teamchat",false);
+        if (TempData.get(player, "teamchat") == null) TempData.set(player, "teamchat", false);
 
-        if((Boolean) TempData.get(player,"teamchat")){
-            TempData.set(player.getUniqueId(),"teamchat",false);
-            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.togglechat.disabled","&eSwitched to general chat!")));
+        if ((Boolean) TempData.get(player, "teamchat")) {
+            TempData.set(player.getUniqueId(), "teamchat", false);
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.togglechat.disabled", "&eSwitched to general chat!")));
         } else {
-            TempData.set(player.getUniqueId(),"teamchat",true);
-            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.togglechat.enabled","&eSwitched to team chat!")));
+            TempData.set(player.getUniqueId(), "teamchat", true);
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.team.togglechat.enabled", "&eSwitched to team chat!")));
         }
     }
 

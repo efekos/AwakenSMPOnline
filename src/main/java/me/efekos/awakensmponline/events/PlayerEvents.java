@@ -80,12 +80,12 @@ public class PlayerEvents implements Listener {
     }
 
     @EventHandler
-    public void onPlayerTeleport(PlayerTeleportEvent e){
+    public void onPlayerTeleport(PlayerTeleportEvent e) {
         Player player = e.getPlayer();
-        if(!e.getCause().equals(PlayerTeleportEvent.TeleportCause.SPECTATE))return;
+        if (!e.getCause().equals(PlayerTeleportEvent.TeleportCause.SPECTATE)) return;
         PlayerData playerData = Main.fetchPlayer(player.getUniqueId());
 
-        if(!playerData.isAlive())e.setCancelled(true);
+        if (!playerData.isAlive()) e.setCancelled(true);
     }
 
     // making revive heads work

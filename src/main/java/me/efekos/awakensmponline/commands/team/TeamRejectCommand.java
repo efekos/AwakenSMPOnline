@@ -3,8 +3,9 @@ package me.efekos.awakensmponline.commands.team;
 import me.efekos.awakensmponline.Main;
 import me.efekos.awakensmponline.commands.TeamCommand;
 import me.efekos.awakensmponline.commands.args.GotRequestUUIDArgument;
-import me.efekos.awakensmponline.data.*;
-
+import me.efekos.awakensmponline.data.Request;
+import me.efekos.awakensmponline.data.RequestType;
+import me.efekos.awakensmponline.data.TeamData;
 import me.efekos.simpler.commands.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
@@ -19,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.UUID;
 
-@Command(name = "reject", description = "Reject a team that sent a friend request to you!", permission = "awakensmp.team.reject",playerOnly = true)
+@Command(name = "reject", description = "Reject a team that sent a friend request to you!", permission = "awakensmp.team.reject", playerOnly = true)
 public class TeamRejectCommand extends SubCommand {
     public TeamRejectCommand(@NotNull String name) {
         super(name);

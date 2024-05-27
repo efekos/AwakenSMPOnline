@@ -28,7 +28,7 @@ public class FriendInventoryMenu extends Menu {
     @Override
     public String getTitle() {
         return TranslateManager.translateColors(Main.LANG.getString("menus.friend_inventory.title", "%player%'s Inventory")
-                .replace("%player%", ((PlayerInventory) data.get("invToOpen")).getHolder().getName() + "")
+                .replace("%player%", ((PlayerInventory) data.get("invToOpen")).getHolder().getName())
         );
     }
 
