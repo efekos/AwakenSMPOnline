@@ -11,16 +11,16 @@ public class Request implements Storable {
     private UUID getter;
     private boolean done;
 
-    @Override
-    public UUID getUniqueId() {
-        return id;
-    }
-
     public Request(RequestType type, UUID sender, UUID getter) {
         this.type = type;
         this.sender = sender;
         this.getter = getter;
         this.done = false;
+    }
+
+    @Override
+    public UUID getUniqueId() {
+        return id;
     }
 
     public boolean isDone() {

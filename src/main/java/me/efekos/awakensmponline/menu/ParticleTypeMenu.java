@@ -22,6 +22,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.Arrays;
 
 public class ParticleTypeMenu extends Menu {
+    public ParticleTypeMenu(MenuData data) {
+        super(data);
+    }
+
     @Override
     public boolean cancelAllClicks() {
         return true;
@@ -110,9 +114,5 @@ public class ParticleTypeMenu extends Menu {
         inventory.setItem(26, createItem(Material.PAPER, TranslateManager.translateColors(Main.LANG.getString("menus.buttons.back", "&eBack"))));
 
         fillEmptyWith(createItem(Material.BLACK_STAINED_GLASS_PANE, " "));
-    }
-
-    public ParticleTypeMenu(MenuData data) {
-        super(data);
     }
 }

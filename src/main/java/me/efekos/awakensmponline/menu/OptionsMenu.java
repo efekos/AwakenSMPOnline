@@ -12,6 +12,10 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 
 public class OptionsMenu extends Menu {
+    public OptionsMenu(MenuData data) {
+        super(data);
+    }
+
     @Override
     public boolean cancelAllClicks() {
         return true;
@@ -20,10 +24,6 @@ public class OptionsMenu extends Menu {
     @Override
     public int getRows() {
         return 3;
-    }
-
-    public OptionsMenu(MenuData data) {
-        super(data);
     }
 
     @Override

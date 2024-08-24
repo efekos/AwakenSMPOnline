@@ -14,6 +14,14 @@ import java.util.List;
 
 @Command(name = "team", description = "All team commands", playerOnly = true)
 public class TeamCommand extends CoreCommand {
+    public TeamCommand(@NotNull String name) {
+        super(name);
+    }
+
+    public TeamCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+        super(name, description, usageMessage, aliases);
+    }
+
     @Override
     public @NotNull ArrayList<Class<? extends SubCommand>> getSubs() {
         ArrayList<Class<? extends SubCommand>> classes = new ArrayList<>();
@@ -40,13 +48,5 @@ public class TeamCommand extends CoreCommand {
         )));
 
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.awakensmp.help.footer", "&2-----------------------------")));
-    }
-
-    public TeamCommand(@NotNull String name) {
-        super(name);
-    }
-
-    public TeamCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
-        super(name, description, usageMessage, aliases);
     }
 }

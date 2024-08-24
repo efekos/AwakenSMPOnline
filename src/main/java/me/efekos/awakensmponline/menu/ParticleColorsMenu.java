@@ -23,6 +23,10 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class ParticleColorsMenu extends Menu {
+    public ParticleColorsMenu(MenuData data) {
+        super(data);
+    }
+
     @Override
     public boolean cancelAllClicks() {
         return true;
@@ -145,9 +149,5 @@ public class ParticleColorsMenu extends Menu {
         inventory.setItem(26, createItem(Material.PAPER, TranslateManager.translateColors(Main.LANG.getString("menus.buttons.back", "&eBack"))));
 
         fillEmptyWith(createItem(Material.BLACK_STAINED_GLASS_PANE, " "));
-    }
-
-    public ParticleColorsMenu(MenuData data) {
-        super(data);
     }
 }

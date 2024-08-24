@@ -14,11 +14,6 @@ public class TeamData implements Storable {
     private List<UUID> members;
     private UUID owner;
 
-    @Override
-    public UUID getUniqueId() {
-        return id;
-    }
-
     public TeamData(String name) {
         this(name, name, "Another brand new team!", new ArrayList<>(), null);
     }
@@ -41,6 +36,11 @@ public class TeamData implements Storable {
         this.description = description;
         this.members = members;
         this.owner = owner;
+    }
+
+    @Override
+    public UUID getUniqueId() {
+        return id;
     }
 
     public UUID getOwner() {

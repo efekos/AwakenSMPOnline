@@ -23,6 +23,14 @@ import java.util.List;
 
 @Command(name = "kill", description = "Kill someone permanently", permission = "awakensmp.kill-command")
 public class AwakenKillCommand extends SubCommand {
+    public AwakenKillCommand(@NotNull String name) {
+        super(name);
+    }
+
+    public AwakenKillCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+        super(name, description, usageMessage, aliases);
+    }
+
     @Override
     public Class<? extends CoreCommand> getParent() {
         return null;
@@ -122,13 +130,5 @@ public class AwakenKillCommand extends SubCommand {
         victim.setGameMode(GameMode.SPECTATOR);
 
         sender.sendMessage(TranslateManager.translateColors(lang.getString("commands.awakensmp.kill.done", "&aSuccessfully killed &b%player%!").replace("%player%", victim.getName())));
-    }
-
-    public AwakenKillCommand(@NotNull String name) {
-        super(name);
-    }
-
-    public AwakenKillCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
-        super(name, description, usageMessage, aliases);
     }
 }

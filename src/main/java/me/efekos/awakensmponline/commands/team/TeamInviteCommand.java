@@ -25,17 +25,17 @@ import java.util.List;
 
 @Command(name = "invite", description = "Invite someone to your team!", permission = "awakensmp.team.invite")
 public class TeamInviteCommand extends SubCommand {
-    @Override
-    public Class<? extends CoreCommand> getParent() {
-        return TeamCommand.class;
-    }
-
     public TeamInviteCommand(@NotNull String name) {
         super(name);
     }
 
     public TeamInviteCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
         super(name, description, usageMessage, aliases);
+    }
+
+    @Override
+    public Class<? extends CoreCommand> getParent() {
+        return TeamCommand.class;
     }
 
     @Override

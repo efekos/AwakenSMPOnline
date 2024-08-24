@@ -13,6 +13,14 @@ import java.util.List;
 
 @Command(name = "options", description = "Customize your reviving decorations!", playerOnly = true, permission = "awakensmp.options")
 public class OptionsCommand extends BaseCommand {
+    public OptionsCommand(@NotNull String name) {
+        super(name);
+    }
+
+    public OptionsCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+        super(name, description, usageMessage, aliases);
+    }
+
     @Override
     public @NotNull Syntax getSyntax() {
         return new Syntax();
@@ -26,13 +34,5 @@ public class OptionsCommand extends BaseCommand {
     @Override
     public void onConsoleUse(ConsoleCommandSender sender, String[] args) {
 
-    }
-
-    public OptionsCommand(@NotNull String name) {
-        super(name);
-    }
-
-    public OptionsCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
-        super(name, description, usageMessage, aliases);
     }
 }

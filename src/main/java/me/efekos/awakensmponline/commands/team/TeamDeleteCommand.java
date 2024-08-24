@@ -17,6 +17,14 @@ import java.util.List;
 
 @Command(name = "delete", description = "Delete a team", permission = "awakensmp.team.delete")
 public class TeamDeleteCommand extends SubCommand {
+    public TeamDeleteCommand(@NotNull String name) {
+        super(name);
+    }
+
+    public TeamDeleteCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+        super(name, description, usageMessage, aliases);
+    }
+
     @Override
     public Class<? extends CoreCommand> getParent() {
         return TeamCommand.class;
@@ -25,14 +33,6 @@ public class TeamDeleteCommand extends SubCommand {
     @Override
     public @NotNull Syntax getSyntax() {
         return new Syntax();
-    }
-
-    public TeamDeleteCommand(@NotNull String name) {
-        super(name);
-    }
-
-    public TeamDeleteCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
-        super(name, description, usageMessage, aliases);
     }
 
     @Override

@@ -95,6 +95,10 @@ public class PlayerData implements Storable {
         return friends;
     }
 
+    public void setFriends(ArrayList<Friend> friends) {
+        this.friends = friends;
+    }
+
     public void updateFriend(UUID friendUuid, Friend newFriend) {
         for (Friend friend : getFriends()) {
             if (friend.getPlayerId().equals(friendUuid)) {
@@ -117,10 +121,6 @@ public class PlayerData implements Storable {
             if (friend.getLastName().equals(name)) return friend;
         }
         return null;
-    }
-
-    public void setFriends(ArrayList<Friend> friends) {
-        this.friends = friends;
     }
 
     public void addFriend(Friend friend) {

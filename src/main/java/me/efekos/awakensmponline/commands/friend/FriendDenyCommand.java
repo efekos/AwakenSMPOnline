@@ -21,6 +21,14 @@ import java.util.UUID;
 
 @Command(name = "deny", description = "Accept a friend request!", permission = "awakensmp.friend.deny")
 public class FriendDenyCommand extends SubCommand {
+    public FriendDenyCommand(@NotNull String name) {
+        super(name);
+    }
+
+    public FriendDenyCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+        super(name, description, usageMessage, aliases);
+    }
+
     @Override
     public Class<? extends CoreCommand> getParent() {
         return FriendCommand.class;
@@ -78,13 +86,5 @@ public class FriendDenyCommand extends SubCommand {
     @Override
     public void onConsoleUse(ConsoleCommandSender sender, String[] args) {
 
-    }
-
-    public FriendDenyCommand(@NotNull String name) {
-        super(name);
-    }
-
-    public FriendDenyCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
-        super(name, description, usageMessage, aliases);
     }
 }

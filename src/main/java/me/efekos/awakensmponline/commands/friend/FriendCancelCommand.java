@@ -20,17 +20,17 @@ import java.util.UUID;
 
 @Command(name = "cancel", description = "Cancel a friend requet.", permission = "awakensmp.friend.cancel")
 public class FriendCancelCommand extends SubCommand {
-    @Override
-    public Class<? extends CoreCommand> getParent() {
-        return FriendCommand.class;
-    }
-
     public FriendCancelCommand(@NotNull String name) {
         super(name);
     }
 
     public FriendCancelCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
         super(name, description, usageMessage, aliases);
+    }
+
+    @Override
+    public Class<? extends CoreCommand> getParent() {
+        return FriendCommand.class;
     }
 
     @Override

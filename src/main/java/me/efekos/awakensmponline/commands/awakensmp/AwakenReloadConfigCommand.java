@@ -18,6 +18,14 @@ import java.util.List;
 
 @Command(name = "reloadconfig", permission = "awakensmp.reloadconfig", description = "Reloads the config")
 public class AwakenReloadConfigCommand extends SubCommand {
+    public AwakenReloadConfigCommand(@NotNull String name) {
+        super(name);
+    }
+
+    public AwakenReloadConfigCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+        super(name, description, usageMessage, aliases);
+    }
+
     @Override
     public Class<? extends CoreCommand> getParent() {
         return AwakenSMPCommand.class;
@@ -46,13 +54,5 @@ public class AwakenReloadConfigCommand extends SubCommand {
         Main.TEAM_DATA.load(TeamData[].class);
         Main.REQUEST_DATA.load(Request[].class);
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.awakensmp.reloadconfig.success", "&aSuccessfully reloaded the config!")));
-    }
-
-    public AwakenReloadConfigCommand(@NotNull String name) {
-        super(name);
-    }
-
-    public AwakenReloadConfigCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
-        super(name, description, usageMessage, aliases);
     }
 }

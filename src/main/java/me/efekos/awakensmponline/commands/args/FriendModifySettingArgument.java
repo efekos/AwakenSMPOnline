@@ -9,12 +9,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class FriendModifySettingArgument extends Argument {
+    private static final List<String> avaliable = Arrays.asList("worldAllowed", "locationAllowed", "compassAllowed", "inventoryAllowed", "armorAllowed", "healthAllowed", "expAllowed", "foodAllowed", "teleportAllowed");
+
     @Override
     public String getPlaceHolder() {
         return "setting";
     }
-
-    private static final List<String> avaliable = Arrays.asList("worldAllowed", "locationAllowed", "compassAllowed", "inventoryAllowed", "armorAllowed", "healthAllowed", "expAllowed", "foodAllowed", "teleportAllowed");
 
     @Override
     public List<String> getList(Player player, String current) {

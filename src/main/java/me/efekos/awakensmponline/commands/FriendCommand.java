@@ -14,6 +14,14 @@ import java.util.List;
 
 @Command(name = "friend", playerOnly = true, description = "Friend commands!")
 public class FriendCommand extends CoreCommand {
+    public FriendCommand(@NotNull String name) {
+        super(name);
+    }
+
+    public FriendCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+        super(name, description, usageMessage, aliases);
+    }
+
     @Override
     public @NotNull ArrayList<Class<? extends SubCommand>> getSubs() {
         ArrayList<Class<? extends SubCommand>> classes = new ArrayList<>();
@@ -41,13 +49,5 @@ public class FriendCommand extends CoreCommand {
         )));
 
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.awakensmp.help.footer", "&2-----------------------------")));
-    }
-
-    public FriendCommand(@NotNull String name) {
-        super(name);
-    }
-
-    public FriendCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
-        super(name, description, usageMessage, aliases);
     }
 }

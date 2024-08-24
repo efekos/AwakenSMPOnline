@@ -24,31 +24,6 @@ public class TrackingCompass extends CustomItem {
     private String whoBelongs;
     @SaveField(value = "expire", fieldType = FieldType.LONG)
     private long expiresAt;
-
-    public Player getWhoToTrack() {
-        return Bukkit.getPlayer(UUID.fromString(whoToTrack));
-    }
-
-    public void setWhoToTrack(Player whoToTrack) {
-        this.whoToTrack = whoToTrack.getUniqueId().toString();
-    }
-
-    public Player getWhoBelongs() {
-        return Bukkit.getPlayer(UUID.fromString(whoBelongs));
-    }
-
-    public void setWhoBelongs(Player whoBelongs) {
-        this.whoBelongs = whoBelongs.getUniqueId().toString();
-    }
-
-    public Date getExpiresAt() {
-        return new Date(expiresAt);
-    }
-
-    public void setExpiresAt(Date expiresAt) {
-        this.expiresAt = expiresAt.getTime();
-    }
-
     private final Consumer<ItemStack> appearance = stack -> {
         stack.setType(Material.COMPASS);
         CompassMeta meta = (CompassMeta) new ItemStack(Material.COMPASS).getItemMeta();
@@ -75,6 +50,30 @@ public class TrackingCompass extends CustomItem {
         setWhoBelongs(whoBelongs);
         setExpiresAt(expiresAt);
         //TODO wait for library to run #setAppearance
+    }
+
+    public Player getWhoToTrack() {
+        return Bukkit.getPlayer(UUID.fromString(whoToTrack));
+    }
+
+    public void setWhoToTrack(Player whoToTrack) {
+        this.whoToTrack = whoToTrack.getUniqueId().toString();
+    }
+
+    public Player getWhoBelongs() {
+        return Bukkit.getPlayer(UUID.fromString(whoBelongs));
+    }
+
+    public void setWhoBelongs(Player whoBelongs) {
+        this.whoBelongs = whoBelongs.getUniqueId().toString();
+    }
+
+    public Date getExpiresAt() {
+        return new Date(expiresAt);
+    }
+
+    public void setExpiresAt(Date expiresAt) {
+        this.expiresAt = expiresAt.getTime();
     }
 
     @HandleEvent(HandleType.PICKUP)

@@ -16,6 +16,14 @@ import org.jetbrains.annotations.NotNull;
 
 @Command(name = "list", description = "See a list of your friends!", permission = "awakensmp.friend.list")
 public class FriendListCommand extends SubCommand {
+    public FriendListCommand(@NotNull String name) {
+        super(name);
+    }
+
+    public FriendListCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, java.util.@NotNull List<String> aliases) {
+        super(name, description, usageMessage, aliases);
+    }
+
     @Override
     public Class<? extends CoreCommand> getParent() {
         return FriendCommand.class;
@@ -46,13 +54,5 @@ public class FriendListCommand extends SubCommand {
     @Override
     public void onConsoleUse(ConsoleCommandSender sender, String[] args) {
 
-    }
-
-    public FriendListCommand(@NotNull String name) {
-        super(name);
-    }
-
-    public FriendListCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, java.util.@NotNull List<String> aliases) {
-        super(name, description, usageMessage, aliases);
     }
 }

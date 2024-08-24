@@ -21,6 +21,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.Arrays;
 
 public class AnimationTypeMenu extends Menu {
+    public AnimationTypeMenu(MenuData data) {
+        super(data);
+    }
+
     @Override
     public boolean cancelAllClicks() {
         return true;
@@ -100,9 +104,5 @@ public class AnimationTypeMenu extends Menu {
         inventory.setItem(26, createItem(Material.PAPER, TranslateManager.translateColors(Main.LANG.getString("menus.buttons.back", "&eBack"))));
 
         fillEmptyWith(createItem(Material.BLACK_STAINED_GLASS_PANE, " "));
-    }
-
-    public AnimationTypeMenu(MenuData data) {
-        super(data);
     }
 }

@@ -20,6 +20,14 @@ import java.util.List;
 
 @Command(name = "revive", description = "Revives a player", permission = "awakensmp.revive")
 public class AwakenReviveCommand extends SubCommand {
+    public AwakenReviveCommand(@NotNull String name) {
+        super(name);
+    }
+
+    public AwakenReviveCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+        super(name, description, usageMessage, aliases);
+    }
+
     @Override
     public Class<? extends CoreCommand> getParent() {
         return AwakenSMPCommand.class;
@@ -106,13 +114,5 @@ public class AwakenReviveCommand extends SubCommand {
         p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.hey-console", "&bThe Server Console &arevived you!")));
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("reviving.done", "&aSuccessfully revived &b%player%&a!")
                 .replace("%player%", args[0])));
-    }
-
-    public AwakenReviveCommand(@NotNull String name) {
-        super(name);
-    }
-
-    public AwakenReviveCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
-        super(name, description, usageMessage, aliases);
     }
 }

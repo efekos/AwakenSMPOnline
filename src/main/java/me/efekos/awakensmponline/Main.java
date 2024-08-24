@@ -28,18 +28,44 @@ import java.util.UUID;
 
 public final class Main extends JavaPlugin {
 
+    public static YamlConfig GAME;
+    public static YamlConfig LANG;
+    public static ListDataManager<PlayerData> PLAYER_DATA;
+    public static ListDataManager<TeamData> TEAM_DATA;
+    public static ListDataManager<Request> REQUEST_DATA;
     private static Main plugin;
 
     public static Main getInstance() {
         return plugin;
     }
 
-    public static YamlConfig GAME;
-    public static YamlConfig LANG;
+    public static PlayerData fetchPlayer(UUID id) {
+        OfflinePlayer player = Bukkit.getOfflinePlayer(id);
+        if (PLAYER_DATA.get(id) == null)
+            PLAYER_DATA.update(id, new PlayerData(id, player.getName(), true, false, new ParticleOptions(ParticleType.POP, ParticleColor.WHITE)));
+        return PLAYER_DATA.get(id);
+    }
 
-    public static ListDataManager<PlayerData> PLAYER_DATA;
-    public static ListDataManager<TeamData> TEAM_DATA;
-    public static ListDataManager<Request> REQUEST_DATA;
+    public static PlayerData getPlayerFromName(String name) {
+        for (PlayerData data : PLAYER_DATA.getAll()) {
+            if (data.getName().equals(name)) return data;
+        }
+        return null;
+    }
+
+    public static void makeFriends(UUID p1u, UUID p2u) {
+        PlayerData p1Data = fetchPlayer(p1u);
+        PlayerData p2Data = fetchPlayer(p2u);
+
+        me.efekos.awakensmponline.data.Friend p1tp2Friend = new me.efekos.awakensmponline.data.Friend(p1Data.getDefaultFriendModifications(), p2u, p2Data.getName());
+        me.efekos.awakensmponline.data.Friend p2tp1Friend = new me.efekos.awakensmponline.data.Friend(p2Data.getDefaultFriendModifications(), p1u, p1Data.getName());
+
+        p1Data.addFriend(p1tp2Friend);
+        p2Data.addFriend(p2tp1Friend);
+
+        PLAYER_DATA.update(p1Data.getUuid(), p1Data);
+        PLAYER_DATA.update(p2Data.getUuid(), p2Data);
+    }
 
     @Override
     public void onEnable() {
@@ -140,33 +166,5 @@ public final class Main extends JavaPlugin {
         TEAM_DATA.save();
         REQUEST_DATA.save();
         ItemManager.saveCustomItems();
-    }
-
-    public static PlayerData fetchPlayer(UUID id) {
-        OfflinePlayer player = Bukkit.getOfflinePlayer(id);
-        if (PLAYER_DATA.get(id) == null)
-            PLAYER_DATA.update(id, new PlayerData(id, player.getName(), true, false, new ParticleOptions(ParticleType.POP, ParticleColor.WHITE)));
-        return PLAYER_DATA.get(id);
-    }
-
-    public static PlayerData getPlayerFromName(String name) {
-        for (PlayerData data : PLAYER_DATA.getAll()) {
-            if (data.getName().equals(name)) return data;
-        }
-        return null;
-    }
-
-    public static void makeFriends(UUID p1u, UUID p2u) {
-        PlayerData p1Data = fetchPlayer(p1u);
-        PlayerData p2Data = fetchPlayer(p2u);
-
-        me.efekos.awakensmponline.data.Friend p1tp2Friend = new me.efekos.awakensmponline.data.Friend(p1Data.getDefaultFriendModifications(), p2u, p2Data.getName());
-        me.efekos.awakensmponline.data.Friend p2tp1Friend = new me.efekos.awakensmponline.data.Friend(p2Data.getDefaultFriendModifications(), p1u, p1Data.getName());
-
-        p1Data.addFriend(p1tp2Friend);
-        p2Data.addFriend(p2tp1Friend);
-
-        PLAYER_DATA.update(p1Data.getUuid(), p1Data);
-        PLAYER_DATA.update(p2Data.getUuid(), p2Data);
     }
 }
